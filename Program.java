@@ -15,16 +15,28 @@ public class Program {
 	static Connection connection;
 
 	public static void main(String[] args) throws Exception {
-		Database db = new Database("jdbc:sqlite:library.db");
-		runConsole(db);
+		//Database db = new Database("jdbc:sqlite:library.db");
+		//runConsole(db);
+		//System.out.println("Exiting...");
 
-		System.out.println("Exiting...");
+		Debug.close(); // Required to be called at end of program
 	}
 
 	public static void runConsole(Database db) {
+		String input;
+
 		Scanner console = new Scanner(System.in);
 		
+
+
+		while((input = console.nextLine()) != null ) {
+			String[] args = input.split(" ");
+			String command = args[0];
+			
+			// Logic
+
+
+		}
 		console.close();
 	}
-
 }
