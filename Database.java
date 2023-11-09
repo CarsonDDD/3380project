@@ -39,7 +39,7 @@ class Database {
 		exectureQuery(statment, (resultSet) -> {PER RESULT OPERATION});
 	*/
 	// Execute statment and use the operation on each entry in the result
-	private boolean executeQuery(PreparedStatement statment, Consumer<ResultSet> operation){
+	public boolean executeQuery(PreparedStatement statment, Consumer<ResultSet> operation){
 		boolean success = false;
 		try{
 			ResultSet resultSet = statment.executeQuery();
@@ -60,6 +60,7 @@ class Database {
 		return success;
 	}
 
+	// Maybe pulbic? ResultSet being public is problematic
 	// Returns list of given columns with their values
 	private ColumnValue[] getColumnsValues(ResultSet rowSet, String[] columns, boolean showNullColumns){
 		ArrayList<ColumnValue> output = new ArrayList<>();
