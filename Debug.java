@@ -3,9 +3,9 @@ import java.io.FileWriter;
 import java.io.IOException;  // Import the IOException class to handle errors
 
 public class Debug {
-	public static Debug instance;
+	private static Debug instance;
 	
-	private final String fileName = "test.txt";
+	private final String fileName = "debug.txt";
 	private boolean enabled = true;
 	private FileWriter output;
 
@@ -30,13 +30,22 @@ public class Debug {
 
 	// log to file to seperate things
 	public static void log(String info){
-		if(instance.enabled){
+		if(instance().enabled){
 			try {
-				instance.output.write(info);
+				instance.output.write(info + "\n");
 			}
 			catch(IOException e) {
 				e.printStackTrace();
 			}
+		}
+	}
+
+	public static void close(){
+		try {
+			instance.output.close();
+		}
+		catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 }
