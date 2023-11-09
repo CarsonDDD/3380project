@@ -30,6 +30,14 @@ class Database {
 		}
 	}
 
+	
+	/*
+		PreparedStatement statment = connection.prepareStatement(STRING sql);
+		statment.setString(1, names[0].toLowerCase());
+		statment.setString(2, names[1].toLowerCase());
+
+		exectureQuery(statment, (resultSet) -> {PER RESULT OPERATION});
+	*/
 	// Execute statment and use the operation on each entry in the result
 	private boolean executeQuery(PreparedStatement statment, Consumer<ResultSet> operation){
 		boolean success = false;
