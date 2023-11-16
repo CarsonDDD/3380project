@@ -1,27 +1,18 @@
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.IOException;
-import java.io.FileReader;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
-
-import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.Scanner;
 import java.sql.PreparedStatement;
 
 public class Program {
-  
+
 	// Used as a reference to the database connection to run querys on it.
 	// Needed for prepared statment to avoid sql injection.
-	static Connection connection; 
+	static Connection connection;
 	static Database database;
 
 	public static void main(String[] args) throws Exception {
 		database = new Database();
 		connection = database.connect("jdbc:sqlite:library.db");
-
 		runConsole(database);
 		System.out.println("Exiting...");
 
@@ -38,10 +29,11 @@ public class Program {
 			String command = args[0];
 
 			// Logic
-	
+
 		}
 		console.close();
 	}
+
 	// Example
 	public void exampleQuery() throws SQLException{
 		String sql = "SELECT ? FROM table";
@@ -61,5 +53,5 @@ public class Program {
 			}
 		});
 	}
-  
+
 }

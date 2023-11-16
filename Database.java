@@ -1,23 +1,23 @@
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.function.Consumer;// May need to remove
 
-class ColumnValuePair{
-	public String column;
-	public Object value;
+public class Database {
 
-	public ColumnValuePair(String columnName, Object value){
-		column = columnName;
-		this.value = value;
+	public class ColumnValue{
+		public String column;
+		public Object value;
+
+		public ColumnValue(String columnName, Object value){
+			column = columnName;
+			this.value = value;
+		}
 	}
-}
 
-class Database {
 	private Connection connection;
 
 	public Connection connect(String url){
@@ -44,7 +44,7 @@ class Database {
 				// For every returned entry, run the operation with it
 				// Normally a print, its up to the caller to determine what to do with this
 				while (resultSet.next()) {
-					operation.accept(resultSet.getMetaData());
+					operation.accept(resultSet);
 				}
 			}
 		}
@@ -65,13 +65,12 @@ class Database {
 
 		try{
 			for (String column : columns) {
-				//Object value = resultMeta.getObject(column);
-				Object value = resultMeta.get
+				Object value = rowSet.getObject(column);
 				// We need to getObject from the meta data
 
 				// Check if we should append if an attribute is null
 				if(!(!showNullColumns && value == null)){
-					output.add(new ColumnValuePair(column, value));
+					output.add(new ColumnValue(column, value));
 				}
 			}
 		}
@@ -79,6 +78,6 @@ class Database {
 			System.err.println(e.getMessage());
 		}
 
-		return output.toArray(new ColumnValuePair[0]);// maybe to slow?
+		return output.toArray(new ColumnValue[0]);// maybe to slow?
 	}
 }
