@@ -7,8 +7,6 @@ import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.function.Consumer;// May need to remove
 
-import javafx.beans.binding.ObjectBinding;
-
 class ColumnValuePair{
 	public String column;
 	public Object value;
@@ -30,12 +28,12 @@ class Database {
 		catch (SQLException e) {
 			e.printStackTrace(System.out);
 		}
-
 		return connection;
 	}
 
 	// Execute statment and use the operation on each entry in the result
-	public boolean executeQuery(PreparedStatement statment, Consumer<ResultSetMetaData> operation){
+	// This allows us to delegate work to other files and keep this Database class generic and reusable.
+	public boolean executeQuery(PreparedStatement statment, Consumer<ResultSet> operation){
 		boolean success = false;
 		try{
 			ResultSet resultSet = statment.executeQuery();
@@ -57,10 +55,13 @@ class Database {
 	}
 
 	// Maybe pulbic? ResultSet being public is problematic
+	// Should be using ResultSetMetaData, however this library is poorly made and that doesnt have all metadata.
 	// Returns list of given columns with their values
-	// This function may be broken. It is untested. Ill make it fix later
-	public static ColumnValuePair[] getColumnValuesPair(ResultSetMetaData resultMeta, String[] columns, boolean showNullColumns){
-		ArrayList<ColumnValuePair> output = new ArrayList<>();
+	// This fuction is very specific on what it does, since from other classes being able to have access to a ResultSet only comes from the Consumer from exeQuery
+	// This fuction may be useless in that case?!?!?!
+	// Non static because dumb reasons
+	public ColumnValue[] getColumnsValues(ResultSet rowSet, String[] columns, boolean showNullColumns){
+		ArrayList<ColumnValue> output = new ArrayList<>();
 
 		try{
 			for (String column : columns) {

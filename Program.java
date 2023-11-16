@@ -12,11 +12,12 @@ import java.util.Scanner;
 import java.sql.PreparedStatement;
 
 public class Program {
-
+  
 	// Used as a reference to the database connection to run querys on it.
 	// Needed for prepared statment to avoid sql injection.
 	static Connection connection; 
 	static Database database;
+
 	public static void main(String[] args) throws Exception {
 		database = new Database();
 		connection = database.connect("jdbc:sqlite:library.db");
@@ -35,29 +36,30 @@ public class Program {
 		while((input = console.nextLine()) != null ) {
 			String[] args = input.split(" ");
 			String command = args[0];
-			
+
 			// Logic
 	
 		}
 		console.close();
 	}
+	// Example
+	public void exampleQuery() throws SQLException{
+		String sql = "SELECT ? FROM table";
+		PreparedStatement statement = connection.prepareStatement(sql);
 
-	public static void queryExample() throws SQLException{
-		/*
-		PreparedStatement statment = connection.prepareStatement(STRING sql);
-		statment.setString(1, names[0].toLowerCase());
-		statment.setString(2, names[1].toLowerCase());
+		statement.setString(1, "characterID");
 
-		exectureQuery(statment, (resultSet) -> {PER RESULT OPERATION});
-		*/
-		PreparedStatement statement = connection.prepareStatement("SELECT * FROM table WHERE thing = ?");
-		statement.setString(1, "string");
-
-		database.executeQuery(statement, (resultMeta) -> {
-			//database.get
-			//ColumnValuePair[] res = Database.getColumnValuesPair(resultMeta, new String[]{"name", "id", "age"}, false);
-
-			resultMeta.getColumnType("test");
+		// Execute query
+		// FOR EACH resultSet, we will print out the character id
+		// resultSet is variable name, this variable is ALWAYS of type ResultSet, determined by paramter type "Consumer<ResultSet>"
+		database.executeQuery(statement, (resultSet) -> {
+			try {
+				System.out.println(resultSet.getString("characterID"));
+			}
+			catch (SQLException e) {
+				e.printStackTrace();
+			}
 		});
-	}	
+	}
+  
 }
