@@ -1,5 +1,6 @@
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.Scanner;
 import java.sql.PreparedStatement;
 
@@ -8,10 +9,10 @@ public class Program {
 	// Used as a reference to the database connection to run querys on it.
 	// Needed for prepared statment to avoid sql injection.
 	static Connection connection;
-	static Database database;
+	static NarutoDatabase database;
 
 	public static void main(String[] args) throws Exception {
-		database = new Database();
+		database = new NarutoDatabase();
 		connection = database.connect("jdbc:sqlite:library.db");
 		runConsole(database);
 		System.out.println("Exiting...");
@@ -19,16 +20,22 @@ public class Program {
 		Debug.close(); // Required to be called at end of program
 	}
 
-	public static void runConsole(Database db) {
+	public static void runConsole(CommandProcessor processor) {
 		String input;
 
 		Scanner console = new Scanner(System.in);
 
 		while((input = console.nextLine()) != null ) {
-			String[] args = input.split(" ");
-			String command = args[0];
+			String[] tokens = input.split(" ");
+			String command = tokens[0];
+        	String[] args = Arrays.copyOfRange(tokens, 1, tokens.length);
 
-			// Logic
+			try{
+				processor.processCommand(command, args);
+			}
+			catch(Exception e){
+				e.printStackTrace();
+			}
 
 		}
 		console.close();
