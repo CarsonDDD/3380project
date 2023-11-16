@@ -8,8 +8,9 @@ import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.function.Consumer;// May need to remove
 
-class Database {
-	private class ColumnValue{
+
+public class Database {
+	public class ColumnValue{
 		public String column;
 		public Object value;
 
@@ -30,8 +31,8 @@ class Database {
 		}
 	}
 
-	
 	/*
+	HOW TO USE:
 		PreparedStatement statment = connection.prepareStatement(STRING sql);
 		statment.setString(1, names[0].toLowerCase());
 		statment.setString(2, names[1].toLowerCase());
@@ -61,8 +62,12 @@ class Database {
 	}
 
 	// Maybe pulbic? ResultSet being public is problematic
+	// Should be using ResultSetMetaData, however this library is poorly made and that doesnt have all metadata.
 	// Returns list of given columns with their values
-	private ColumnValue[] getColumnsValues(ResultSet rowSet, String[] columns, boolean showNullColumns){
+	// This fuction is very specific on what it does, since from other classes being able to have access to a ResultSet only comes from the Consumer from exeQuery
+	// This fuction may be useless in that case?!?!?!
+	// Non static because dumb reasons
+	public ColumnValue[] getColumnsValues(ResultSet rowSet, String[] columns, boolean showNullColumns){
 		ArrayList<ColumnValue> output = new ArrayList<>();
 
 		try{
