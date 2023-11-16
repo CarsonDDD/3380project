@@ -40,6 +40,7 @@ public class Database {
 		exectureQuery(statment, (resultSet) -> {PER RESULT OPERATION});
 	*/
 	// Execute statment and use the operation on each entry in the result
+	// This allows us to delegate work to other files and keep this Database class generic and reusable.
 	public boolean executeQuery(PreparedStatement statment, Consumer<ResultSet> operation){
 		boolean success = false;
 		try{
