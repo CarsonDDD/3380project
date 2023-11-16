@@ -14,6 +14,8 @@ import java.sql.PreparedStatement;
 public class Program {
 	static Connection connection;
 
+	Database database;
+
 	public static void main(String[] args) throws Exception {
 		//Database db = new Database("jdbc:sqlite:library.db");
 		//runConsole(db);
@@ -26,17 +28,38 @@ public class Program {
 		String input;
 
 		Scanner console = new Scanner(System.in);
-		
-
 
 		while((input = console.nextLine()) != null ) {
 			String[] args = input.split(" ");
 			String command = args[0];
-			
+
 			// Logic
 
 
 		}
 		console.close();
+	}
+
+	// Example
+	public void exampleQuery() throws SQLException{
+		String sql = "SELECT ? FROM table";
+		PreparedStatement statement = connection.prepareStatement(sql);
+
+		statement.setString(1, "characterID");
+
+		// Execute query
+		// FOR EACH resultSet, we will print out the character id
+		// resultSet is variable name, this variable is ALWAYS of type ResultSet, determined by paramter type "Consumer<ResultSet>"
+		database.executeQuery(statement, (resultSet) -> {
+			try {
+				System.out.println(resultSet.getString("characterID"));
+			}
+			catch (SQLException e) {
+				e.printStackTrace();
+			}
+		});
+
+
+
 	}
 }
