@@ -12,14 +12,18 @@ import java.util.Scanner;
 import java.sql.PreparedStatement;
 
 public class Program {
-	static Connection connection;
-
-	Database database;
+  
+	// Used as a reference to the database connection to run querys on it.
+	// Needed for prepared statment to avoid sql injection.
+	static Connection connection; 
+	static Database database;
 
 	public static void main(String[] args) throws Exception {
-		//Database db = new Database("jdbc:sqlite:library.db");
-		//runConsole(db);
-		//System.out.println("Exiting...");
+		database = new Database();
+		connection = database.connect("jdbc:sqlite:library.db");
+
+		runConsole(database);
+		System.out.println("Exiting...");
 
 		Debug.close(); // Required to be called at end of program
 	}
@@ -34,12 +38,10 @@ public class Program {
 			String command = args[0];
 
 			// Logic
-
-
+	
 		}
 		console.close();
 	}
-
 	// Example
 	public void exampleQuery() throws SQLException{
 		String sql = "SELECT ? FROM table";
@@ -58,8 +60,6 @@ public class Program {
 				e.printStackTrace();
 			}
 		});
-
-
-
 	}
+  
 }

@@ -2,43 +2,35 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
-import java.sql.Statement;
 import java.sql.SQLException;
 import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.function.Consumer;// May need to remove
 
+class ColumnValuePair{
+	public String column;
+	public Object value;
 
-public class Database {
-	public class ColumnValue{
-		public String column;
-		public Object value;
-
-		public ColumnValue(String columnName, Object value){
-			column = columnName;
-			this.value = value;
-		}
+	public ColumnValuePair(String columnName, Object value){
+		column = columnName;
+		this.value = value;
 	}
+}
 
+class Database {
 	private Connection connection;
 
-	public Database(String url) {
+	public Connection connect(String url){
 		try {
 			// create a connection to the database
 			connection = DriverManager.getConnection(url);
-		} catch (SQLException e) {
+		}
+		catch (SQLException e) {
 			e.printStackTrace(System.out);
 		}
+		return connection;
 	}
 
-	/*
-	HOW TO USE:
-		PreparedStatement statment = connection.prepareStatement(STRING sql);
-		statment.setString(1, names[0].toLowerCase());
-		statment.setString(2, names[1].toLowerCase());
-
-		exectureQuery(statment, (resultSet) -> {PER RESULT OPERATION});
-	*/
 	// Execute statment and use the operation on each entry in the result
 	// This allows us to delegate work to other files and keep this Database class generic and reusable.
 	public boolean executeQuery(PreparedStatement statment, Consumer<ResultSet> operation){
@@ -52,7 +44,7 @@ public class Database {
 				// For every returned entry, run the operation with it
 				// Normally a print, its up to the caller to determine what to do with this
 				while (resultSet.next()) {
-					operation.accept(resultSet);
+					operation.accept(resultSet.getMetaData());
 				}
 			}
 		}
@@ -73,11 +65,13 @@ public class Database {
 
 		try{
 			for (String column : columns) {
-				Object value = rowSet.getObject(column);
+				//Object value = resultMeta.getObject(column);
+				Object value = resultMeta.get
+				// We need to getObject from the meta data
 
 				// Check if we should append if an attribute is null
 				if(!(!showNullColumns && value == null)){
-					output.add(new ColumnValue(column, value));
+					output.add(new ColumnValuePair(column, value));
 				}
 			}
 		}
@@ -85,6 +79,6 @@ public class Database {
 			System.err.println(e.getMessage());
 		}
 
-		return output.toArray(new ColumnValue[0]);
+		return output.toArray(new ColumnValuePair[0]);// maybe to slow?
 	}
 }
