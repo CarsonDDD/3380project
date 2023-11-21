@@ -1,3 +1,3 @@
 public interface CommandProcessor {
-    boolean processCommand(String command, String[] args);
+    boolean processCommand(String command, String[] args) throws Exception;
 }
