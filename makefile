@@ -7,4 +7,4 @@ NarutoScraper.class: NarutoScraper.java
 build: NarutoScraper.class 
 
 run: build
-	java -cp ".;org.json.jar" Scraper.NarutoScraper
+	java -cp ".;json-simple-1.1" NarutoScraper
