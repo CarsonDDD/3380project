@@ -17,7 +17,7 @@ public class NarutoScraper {
 			System.out.println(i + ": " + line);
 		}
 	}
-	
+
 	public BufferedReader fetchData(String endPoint) throws IOException {
 		URL url = new URL(endPoint);
 
@@ -32,13 +32,6 @@ public class NarutoScraper {
 		if (responseCode != HttpURLConnection.HTTP_OK) {
 			throw new IOException("HTTP error code: " + responseCode);
 		}
-
-		/*try (BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()))) {
-			String line;
-			while ((line = reader.readLine()) != null) {
-				System.out.println(line); // PROCESS LINE
-			}
-		}*/
 
 		return new BufferedReader(new InputStreamReader(conn.getInputStream()));
 	}
