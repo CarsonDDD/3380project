@@ -8,6 +8,16 @@ import java.net.URL;
 
 public class NarutoScraper {
 
+	public static void main(String[] args) throws IOException {
+		NarutoScraper scraper = new NarutoScraper();
+		// https://narutodb.xyz/api/character/55
+		BufferedReader reader = scraper.fetchData("https://www.narutodb.xyz/api/character");
+		String line;
+		for(int i =0; (line = reader.readLine()) != null; i++){
+			System.out.println(i + ": " + line);
+		}
+	}
+	
 	public BufferedReader fetchData(String endPoint) throws IOException {
 		URL url = new URL(endPoint);
 
