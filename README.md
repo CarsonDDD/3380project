@@ -9,3 +9,9 @@ The workspace contains two folders by default, where:
 - `lib`: the folder to maintain dependencies
 
 Meanwhile, the compiled output files will be generated in the `bin` folder by default.
+
+
+## How to build
+
+- `make run-processor` runs the main project, where we can make interesting queries on the database
+- `make run-scraper` runs the program used to assemble the database for the main program.
