@@ -3,8 +3,7 @@ BIN_DIR = bin
 
 # Define classpath for the processor
 PROCESSOR_CLASSPATH = $(BIN_DIR)
-
-# Define the classpath for the scraper including the JSON library for compilation
+DEBUG_CLASSPATH = $(BIN_DIR)
 SCRAPER_CLASSPATH = $(BIN_DIR);NarutoDatabase/lib/json-simple-1.1.jar
 
 # Define the entry point of your programs
@@ -14,17 +13,21 @@ PROCESSOR_MAIN = NarutoDatabase.Processor.Program
 # Find all Java files in the src directory
 SCRAPER_SOURCES := $(wildcard NarutoDatabase/src/NarutoDatabase/Scraper/*.java)
 PROCESSOR_SOURCES := $(wildcard NarutoDatabase/src/NarutoDatabase/Processor/*.java)
+DEBUG_SOURCES := $(wildcard NarutoDatabase/src/NarutoDatabase/Logger/*.java)
 
-# Default build target
+# Default build. Builds debug twice.....
 all: build-scraper build-processor
 
-# Compile the scraper source files into .class files
-build-scraper:
+build-scraper: build-debug
 	javac -d $(BIN_DIR) -cp $(SCRAPER_CLASSPATH) $(SCRAPER_SOURCES)
 
-# Compile the processor source files into .class files
-build-processor:
+build-processor: build-debug
 	javac -d $(BIN_DIR) -cp $(PROCESSOR_CLASSPATH) $(PROCESSOR_SOURCES)
+
+
+build-debug:
+	javac -d $(BIN_DIR) -cp $(DEBUG_CLASSPATH) $(DEBUG_SOURCES)
+
 
 # Run the scraper program
 run-scraper: build-scraper
@@ -39,5 +42,4 @@ clean:
 	del /Q $(BIN_DIR)\*.class
 	del /Q $(BIN_DIR)\NarutoDatabase\Scraper\*.class
 	del /Q $(BIN_DIR)\NarutoDatabase\Processor\*.class
-
-
+	del /Q $(BIN_DIR)\NarutoDatabase\Logger\*.class
