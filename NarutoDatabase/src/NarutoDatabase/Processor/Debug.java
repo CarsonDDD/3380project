@@ -1,10 +1,11 @@
+package NarutoDatabase.Processor;
 import java.io.File;  // Import the File class
 import java.io.FileWriter;
 import java.io.IOException;  // Import the IOException class to handle errors
 
 public class Debug {
 	private static Debug instance;
-	
+
 	private final String fileName = "debug.txt";
 	private boolean enabled = true;
 	private FileWriter output;

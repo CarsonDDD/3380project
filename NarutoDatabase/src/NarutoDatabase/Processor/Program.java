@@ -1,3 +1,4 @@
+package NarutoDatabase.Processor;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Arrays;
@@ -13,11 +14,11 @@ public class Program {
 
 	public static void main(String[] args) throws Exception {
 		database = new NarutoDatabase();
-		connection = database.connect("jdbc:sqlite:library.db");
-		runConsole(database);
+		//connection = database.connect("jdbc:sqlite:library.db");
+		//runConsole(database);
 		System.out.println("Exiting...");
 
-		Debug.close(); // Required to be called at end of program
+		//Debug.close(); // Required to be called at end of program
 	}
 
 	public static void runConsole(CommandProcessor processor) {

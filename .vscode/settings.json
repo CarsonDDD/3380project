@@ -1,0 +1,11 @@
+{
+	"java.project.sourcePaths": [
+		"src",
+		"NarutoDatabase\\src"
+	],
+	"java.project.outputPath": "bin",
+	"java.project.referencedLibraries": [
+		"lib/**/*.jar",
+		"NarutoDatabase/lib/json-simple-1.1.jar"
+	]
+}

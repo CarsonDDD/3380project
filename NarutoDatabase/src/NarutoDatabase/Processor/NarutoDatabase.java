@@ -1,3 +1,5 @@
+package NarutoDatabase.Processor;
+
 public class NarutoDatabase extends Database implements CommandProcessor{
 
     @Override
