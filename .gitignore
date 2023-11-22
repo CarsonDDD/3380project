@@ -3,7 +3,7 @@
 
 # Compiled Files
 *.class
-#bin/
+bin/
 
 
 # Debug output

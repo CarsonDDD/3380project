@@ -4,7 +4,7 @@ BIN_DIR = bin
 # Define classpath for the processor
 PROCESSOR_CLASSPATH = $(BIN_DIR)
 DEBUG_CLASSPATH = $(BIN_DIR)
-SCRAPER_CLASSPATH = $(BIN_DIR);NarutoDatabase/lib/json-simple-1.1.jar
+SCRAPER_CLASSPATH = $(BIN_DIR);NarutoDatabase/json-simple-1.1.jar
 
 # Define the entry point of your programs
 SCRAPER_MAIN = NarutoDatabase.Scraper.NarutoScraper
