@@ -1,4 +1,4 @@
-package NarutoDatabase.Processor;
+package NarutoDatabase.Logger;
 import java.io.File;  // Import the File class
 import java.io.FileWriter;
 import java.io.IOException;  // Import the IOException class to handle errors
