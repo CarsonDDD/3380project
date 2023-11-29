@@ -15,11 +15,20 @@ public class NarutoScraper {
 
 	public static void main(String[] args) throws Exception {
 		NarutoScraper scraper = new NarutoScraper();
+		Debug.instance();// remove later
 
 		// https://narutodb.xyz/api/character/55 RETURNS PARENT OBJECT, THEN ARRAY
 		//BufferedReader reader = scraper.fetchData("https://www.narutodb.xyz/api/character");
 
+		// YEs, lets load the entire database into memory first!
 		JSONArray characters = scraper.getJsonArray("https://www.narutodb.xyz/api/character", "characters");
+		JSONArray clans = scraper.getJsonArray("https://www.narutodb.xyz/api/clan", "clans");
+		JSONArray villages = scraper.getJsonArray("https://www.narutodb.xyz/api/village", "villages");
+		JSONArray kekkeigenkai = scraper.getJsonArray("https://www.narutodb.xyz/api/kekkei-genkai", "kekkeigenkai");
+		JSONArray tailedBeast = scraper.getJsonArray("https://www.narutodb.xyz/api/tailed-beast", "tailedBeasts");
+		JSONArray teams = scraper.getJsonArray("https://www.narutodb.xyz/api/team", "teams");
+		JSONArray akatsuki = scraper.getJsonArray("https://www.narutodb.xyz/api/akatsuki", "akatsuki");
+		JSONArray kara = scraper.getJsonArray("https://www.narutodb.xyz/api/kara", "kara");
 
 		System.out.println("Total Characters: " + characters.size());
 		for (Object characterObj : characters) {
@@ -71,5 +80,38 @@ public class NarutoScraper {
 		}
 
 		return allData;
+	}
+
+	public void generateVillageSQL(JSONArray villageData){
+		// take in string array
+		// convert output inserts with debugger
+		for (Object characterObj : villageData) {
+			JSONObject village = (JSONObject) characterObj;
+			String s = getInsert("Villages", new String[]{(String)village.get("id"), (String)village.get("name")});
+
+			Debug.log(s, "villages.txt");
+		}
+	}
+
+	private String getInsert(String table, String[] values){
+		StringBuilder sb = new StringBuilder();
+
+		sb.append("INSERT INTO ").append(table).append(" VALUES(");
+
+		for(int i =0; i < values.length; i++){
+			sb.append(values[i]);
+
+			if(i != values.length){
+				sb.append(",");
+			}
+		}
+
+		for (String value : values) {
+			sb.append(value).append(",");
+		}
+
+		sb.append(");");
+		
+		return sb.toString();
 	}
 }
