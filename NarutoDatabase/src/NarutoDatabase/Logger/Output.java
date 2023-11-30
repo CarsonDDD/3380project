@@ -4,30 +4,38 @@ import java.io.FileWriter;
 import java.io.IOException;  // Import the IOException class to handle errors
 import java.util.HashMap;
 
-public class Debug {
-	private static Debug instance;
+public class Output {
+	private static Output instance;
 
 	private final String defaultFile = "debug.txt";
 	private boolean enabled = true;
 	//private FileWriter output;
 	private HashMap<String, FileWriter> outputs;
 
-	private Debug(){
+	private Output(){
 		outputs = new HashMap<>();
 		try {
-			File file = new File(defaultFile);
-			file.createNewFile();
-			outputs.put(defaultFile, new FileWriter(file));
-			//output = new FileWriter(file);
+			getOrCreateFileWriter(defaultFile);
 		}
 		catch (Exception e) {
 			System.err.println("Debugger: " + e.getMessage());
 		}
 	}
 
-	public static Debug instance(){
+	private FileWriter getOrCreateFileWriter(String fileName) throws IOException {
+		if (!outputs.containsKey(fileName)) {
+			File file = new File(fileName);
+			file.createNewFile();
+			return outputs.put(fileName, new FileWriter(file, true));
+		}
+		else{
+			return outputs.get(fileName);
+		}
+	}
+
+	public static Output instance(){
 		if(instance == null){
-			instance = new Debug();
+			instance = new Output();
 		}
 		return instance;
 	}
@@ -42,20 +50,15 @@ public class Debug {
 				e.printStackTrace();
 			}
 		}*/
-		log(info, instance.defaultFile);
+		log(info, instance().defaultFile);
 	}
 
 	public static void log(String info, String file){
 		if(instance().enabled){
 			try {
-				if(!instance.outputs.containsKey(file)){
-					//create new file
-					File newFile = new File(file);
-					newFile.createNewFile();
-					instance.outputs.put(file, new FileWriter(newFile));
-				}
-				instance.outputs.get(file).write(info + "\n");
-
+				FileWriter w = instance().getOrCreateFileWriter(file);
+				w.write(info + "\n");
+				w.flush();
 			}
 			catch(IOException e) {
 				e.printStackTrace();
@@ -67,9 +70,9 @@ public class Debug {
 
 	public static void close(){
 		//instance.output.close();
-		if(instance == null) return;
+		if(instance() == null) return;
 
-		instance.outputs.forEach( (file, writer) -> {
+		instance().outputs.forEach( (file, writer) -> {
 			try {
 				writer.close();
 			}
