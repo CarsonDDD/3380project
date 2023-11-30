@@ -4,7 +4,7 @@ import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.Scanner;
 import java.sql.PreparedStatement;
-import NarutoDatabase.Logger.Debug;
+import NarutoDatabase.Logger.Output;
 
 public class Program {
 
