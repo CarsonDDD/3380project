@@ -5,7 +5,7 @@ import java.io.IOException;  // Import the IOException class to handle errors
 import java.util.HashMap;
 
 public class Output {
-	private static Output instance;
+	private static Output _instance;
 
 	private final String defaultFile = "debug.txt";
 	private boolean enabled = true;
@@ -34,10 +34,10 @@ public class Output {
 	}
 
 	public static Output instance(){
-		if(instance == null){
-			instance = new Output();
+		if(_instance == null){
+			_instance = new Output();
 		}
-		return instance;
+		return _instance;
 	}
 
 	// log to file to seperate things
