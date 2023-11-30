@@ -5,7 +5,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import NarutoDatabase.Logger.Debug;
+import NarutoDatabase.Logger.Output;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -15,29 +15,31 @@ public class NarutoScraper {
 
 	public static void main(String[] args) throws Exception {
 		NarutoScraper scraper = new NarutoScraper();
-		Debug.instance();// remove later
+		Output.log("Starting application");
+		Output.log("second file","other.txt");
+		Output.log("third file","other2.txt");
 
 		// https://narutodb.xyz/api/character/55 RETURNS PARENT OBJECT, THEN ARRAY
 		//BufferedReader reader = scraper.fetchData("https://www.narutodb.xyz/api/character");
 
 		// YEs, lets load the entire database into memory first!
-		JSONArray characters = scraper.getJsonArray("https://www.narutodb.xyz/api/character", "characters");
+		/*JSONArray characters = scraper.getJsonArray("https://www.narutodb.xyz/api/character", "characters");
 		JSONArray clans = scraper.getJsonArray("https://www.narutodb.xyz/api/clan", "clans");
 		JSONArray villages = scraper.getJsonArray("https://www.narutodb.xyz/api/village", "villages");
 		JSONArray kekkeigenkai = scraper.getJsonArray("https://www.narutodb.xyz/api/kekkei-genkai", "kekkeigenkai");
 		JSONArray tailedBeast = scraper.getJsonArray("https://www.narutodb.xyz/api/tailed-beast", "tailedBeasts");
 		JSONArray teams = scraper.getJsonArray("https://www.narutodb.xyz/api/team", "teams");
 		JSONArray akatsuki = scraper.getJsonArray("https://www.narutodb.xyz/api/akatsuki", "akatsuki");
-		JSONArray kara = scraper.getJsonArray("https://www.narutodb.xyz/api/kara", "kara");
+		JSONArray kara = scraper.getJsonArray("https://www.narutodb.xyz/api/kara", "kara");*/
 
-		System.out.println("Total Characters: " + characters.size());
+		/*System.out.println("Total Characters: " + characters.size());
 		for (Object characterObj : characters) {
 			JSONObject character = (JSONObject) characterObj;
 			//System.out.println(character.get("id") + ": "+ character.get("name"));
 			//Debug.log(character.get("id") + ": "+ character.get("name"));
-		}
+		}*/
 
-		Debug.close();
+		Output.close();
 	}
 
 	public BufferedReader fetchData(String endpoint) throws IOException {
@@ -89,7 +91,7 @@ public class NarutoScraper {
 			JSONObject village = (JSONObject) characterObj;
 			String s = getInsert("Villages", new String[]{(String)village.get("id"), (String)village.get("name")});
 
-			Debug.log(s, "villages.txt");
+			Output.log(s, "villages.txt");
 		}
 	}
 
@@ -111,7 +113,7 @@ public class NarutoScraper {
 		}
 
 		sb.append(");");
-		
+
 		return sb.toString();
 	}
 }

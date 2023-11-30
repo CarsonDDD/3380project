@@ -23,14 +23,14 @@ public class Output {
 	}
 
 	private FileWriter getOrCreateFileWriter(String fileName) throws IOException {
-		if (!outputs.containsKey(fileName)) {
+		FileWriter writer = outputs.get(fileName);
+		if (writer == null) {
 			File file = new File(fileName);
 			file.createNewFile();
-			return outputs.put(fileName, new FileWriter(file, true));
+			writer = new FileWriter(file, true);
+			outputs.put(fileName, writer);
 		}
-		else{
-			return outputs.get(fileName);
-		}
+		return writer;
 	}
 
 	public static Output instance(){
@@ -66,13 +66,11 @@ public class Output {
 		}
 	}
 
-
-
 	public static void close(){
 		//instance.output.close();
-		if(instance() == null) return;
+		if(_instance == null) return;
 
-		instance().outputs.forEach( (file, writer) -> {
+		_instance.outputs.forEach( (file, writer) -> {
 			try {
 				writer.close();
 			}

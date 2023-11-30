@@ -43,3 +43,4 @@ clean:
 	del /Q $(BIN_DIR)\NarutoDatabase\Scraper\*.class
 	del /Q $(BIN_DIR)\NarutoDatabase\Processor\*.class
 	del /Q $(BIN_DIR)\NarutoDatabase\Logger\*.class
+	del /Q *.txt
