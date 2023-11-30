@@ -15,31 +15,41 @@ public class NarutoScraper {
 
 	public static void main(String[] args) throws Exception {
 		NarutoScraper scraper = new NarutoScraper();
-		Output.log("Starting application");
-		Output.log("second file","other.txt");
-		Output.log("third file","other2.txt");
+		long startTime = System.currentTimeMillis();
+		System.out.println("Starting Application...");
+
 
 		// https://narutodb.xyz/api/character/55 RETURNS PARENT OBJECT, THEN ARRAY
 		//BufferedReader reader = scraper.fetchData("https://www.narutodb.xyz/api/character");
 
 		// YEs, lets load the entire database into memory first!
-		/*JSONArray characters = scraper.getJsonArray("https://www.narutodb.xyz/api/character", "characters");
+		//JSONArray characters = scraper.getJsonArray("https://www.narutodb.xyz/api/character", "characters");
 		JSONArray clans = scraper.getJsonArray("https://www.narutodb.xyz/api/clan", "clans");
 		JSONArray villages = scraper.getJsonArray("https://www.narutodb.xyz/api/village", "villages");
-		JSONArray kekkeigenkai = scraper.getJsonArray("https://www.narutodb.xyz/api/kekkei-genkai", "kekkeigenkai");
-		JSONArray tailedBeast = scraper.getJsonArray("https://www.narutodb.xyz/api/tailed-beast", "tailedBeasts");
-		JSONArray teams = scraper.getJsonArray("https://www.narutodb.xyz/api/team", "teams");
-		JSONArray akatsuki = scraper.getJsonArray("https://www.narutodb.xyz/api/akatsuki", "akatsuki");
-		JSONArray kara = scraper.getJsonArray("https://www.narutodb.xyz/api/kara", "kara");*/
+		//JSONArray kekkeigenkai = scraper.getJsonArray("https://www.narutodb.xyz/api/kekkei-genkai", "kekkeigenkai");
+		//JSONArray tailedBeast = scraper.getJsonArray("https://www.narutodb.xyz/api/tailed-beast", "tailedBeasts");
+		//JSONArray teams = scraper.getJsonArray("https://www.narutodb.xyz/api/team", "teams");
+		//JSONArray akatsuki = scraper.getJsonArray("https://www.narutodb.xyz/api/akatsuki", "akatsuki");
+		//JSONArray kara = scraper.getJsonArray("https://www.narutodb.xyz/api/kara", "kara");
 
-		/*System.out.println("Total Characters: " + characters.size());
-		for (Object characterObj : characters) {
+		//System.out.println("Total Characters: " + characters.size());
+		/*for (Object characterObj : characters) {
 			JSONObject character = (JSONObject) characterObj;
 			//System.out.println(character.get("id") + ": "+ character.get("name"));
 			//Debug.log(character.get("id") + ": "+ character.get("name"));
 		}*/
 
+		scraper.generateVillageSQL(villages);
+		scraper.generateClanSQL(clans);
+
+
 		Output.close();
+		long totalTime = System.currentTimeMillis() - startTime;
+		long min = totalTime / 60000;
+		long sec = (totalTime % 60000) / 1000;
+		//long mili = totalTime % 1000;
+		System.out.println("Finished Application!");
+		System.out.println("run time: " + min + "m:"+sec + "s");
 	}
 
 	public BufferedReader fetchData(String endpoint) throws IOException {
@@ -87,15 +97,37 @@ public class NarutoScraper {
 	public void generateVillageSQL(JSONArray villageData){
 		// take in string array
 		// convert output inserts with debugger
-		for (Object characterObj : villageData) {
-			JSONObject village = (JSONObject) characterObj;
-			String s = getInsert("Villages", new String[]{(String)village.get("id"), (String)village.get("name")});
+		for (Object obj : villageData) {
+			JSONObject villageJson = (JSONObject) obj;
+			//String village = villageJson.toJSONString();
+			String id = String.valueOf(villageJson.get("id"));
+			String name = "'" + String.valueOf(villageJson.get("name")) + "'";
 
-			Output.log(s, "villages.txt");
+			// WE NEED TO FORMAT HERE
+			String sql = generateInsert("Villages", new String[]{id, "'" + name + "'"});
+			//String s = village.toJSONString();
+			Output.log(sql, "villages.txt");
 		}
 	}
 
-	private String getInsert(String table, String[] values){
+	public void generateClanSQL(JSONArray clanData){
+		for (Object obj : clanData) {
+			JSONObject clanJson = (JSONObject) obj;
+			//String clan = clanJson.toJSONString();
+			String id = String.valueOf(clanJson.get("id"));
+			String name = "'" + String.valueOf(clanJson.get("name")) + "'";
+			//String clanImage;
+			//String villageId;
+			//String genkaiId;
+
+			// WE NEED TO FORMAT HERE
+			String sql = generateInsert("Clans", new String[]{id, name});
+			//String s = clan.toJSONString();
+			Output.log(sql, "clans.txt");
+		}
+	}
+
+	private String generateInsert(String table, String[] values){
 		StringBuilder sb = new StringBuilder();
 
 		sb.append("INSERT INTO ").append(table).append(" VALUES(");
@@ -103,15 +135,10 @@ public class NarutoScraper {
 		for(int i =0; i < values.length; i++){
 			sb.append(values[i]);
 
-			if(i != values.length){
+			if(i != values.length-1){
 				sb.append(",");
 			}
 		}
-
-		for (String value : values) {
-			sb.append(value).append(",");
-		}
-
 		sb.append(");");
 
 		return sb.toString();
