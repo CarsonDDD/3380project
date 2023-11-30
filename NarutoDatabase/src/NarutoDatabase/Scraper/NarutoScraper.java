@@ -30,7 +30,7 @@ public class NarutoScraper {
 		//JSONArray tailedBeast = scraper.getJsonArray("https://www.narutodb.xyz/api/tailed-beast", "tailedBeasts");
 		//JSONArray teams = scraper.getJsonArray("https://www.narutodb.xyz/api/team", "teams");
 		//JSONArray akatsuki = scraper.getJsonArray("https://www.narutodb.xyz/api/akatsuki", "akatsuki");
-		//JSONArray kara = scraper.getJsonArray("https://www.narutodb.xyz/api/kara", "kara");
+		JSONArray kara = scraper.getJsonArray("https://www.narutodb.xyz/api/kara", "kara");
 
 		//System.out.println("Total Characters: " + characters.size());
 		/*for (Object characterObj : characters) {
@@ -124,6 +124,23 @@ public class NarutoScraper {
 			String sql = generateInsert("Clans", new String[]{id, name});
 			//String s = clan.toJSONString();
 			Output.log(sql, "clans.txt");
+		}
+	}
+
+	public void generateKaraSQL(JSONArray karaData){
+		for (Object obj : karaData) {
+			JSONObject karaJson = (JSONObject) obj;
+			//String kara = karaJson.toJSONString();
+			String id = String.valueOf(karaJson.get("id"));
+			String name = "'" + String.valueOf(karaJson.get("name")) + "'";
+			//String karaImage;
+			//String villageId;
+			//String genkaiId;
+
+			// WE NEED TO FORMAT HERE
+			String sql = generateInsert("kara", new String[]{id, name});
+			//String s = kara.toJSONString();
+			Output.log(sql, "kara.txt");
 		}
 	}
 
