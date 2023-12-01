@@ -6,20 +6,16 @@ import java.util.Scanner;
 import java.sql.PreparedStatement;
 import NarutoDatabase.Logger.Output;
 
+// This file doenst really need editing (besides connecting to the database), NarutoDatabase.java does the work
 public class Program {
 
-	// Used as a reference to the database connection to run querys on it.
-	// Needed for prepared statment to avoid sql injection.
-	static Connection connection;
-	static NarutoDatabase database;
-
 	public static void main(String[] args) throws Exception {
-		database = new NarutoDatabase();
-		//connection = database.connect("jdbc:sqlite:library.db");
-		//runConsole(database);
-		System.out.println("Exiting...");
+		NarutoDatabase database = new NarutoDatabase();
+		database.connect("jdbc:sqlite:library.db"); // This may need to be commented out for the meantime
 
-		//Debug.close(); // Required to be called at end of program
+		runConsole(database);
+
+		System.out.println("Finished Executing...");
 	}
 
 	public static void runConsole(CommandProcessor processor) {
@@ -42,25 +38,4 @@ public class Program {
 		}
 		console.close();
 	}
-
-	// Example
-	public void exampleQuery() throws SQLException{
-		String sql = "SELECT ? FROM table";
-		PreparedStatement statement = connection.prepareStatement(sql);
-
-		statement.setString(1, "characterID");
-
-		// Execute query
-		// FOR EACH resultSet, we will print out the character id
-		// resultSet is variable name, this variable is ALWAYS of type ResultSet, determined by paramter type "Consumer<ResultSet>"
-		database.executeQuery(statement, (resultSet) -> {
-			try {
-				System.out.println(resultSet.getString("characterID"));
-			}
-			catch (SQLException e) {
-				e.printStackTrace();
-			}
-		});
-	}
-
 }
