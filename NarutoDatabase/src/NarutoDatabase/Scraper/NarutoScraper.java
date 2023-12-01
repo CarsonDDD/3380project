@@ -5,13 +5,20 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import NarutoDatabase.Logger.Output;
+import NarutoDatabase.Logger.Output; // THis is not an error
+import NarutoDatabase.Scraper.Entities.*;
+import NarutoDatabase.Scraper.Entities.Character;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import java.util.*;
 
 public class NarutoScraper {
+
+	HashMap<Integer,Village> villages = new HashMap<>();
+	HashMap<String,Jutsu> jutsus = new HashMap<>();
+	HashMap<Integer,NarutoDatabase.Scraper.Entities.Character> characers = new HashMap<>();
 
 	public static void main(String[] args) throws Exception {
 		NarutoScraper scraper = new NarutoScraper();
@@ -92,6 +99,64 @@ public class NarutoScraper {
 		}
 
 		return allData;
+	}
+
+	// Age, height, weight for personal.
+	public void processVillageJSON(JSONArray villageData){
+		// Loop through every village
+		for (Object obj : villageData) {
+			JSONObject villageJson = (JSONObject) obj;
+			//String village = villageJson.toJSONString();
+			int vId = (int)villageJson.get("id");// THIS MAY NOT WORK
+			String vName = String.valueOf(villageJson.get("name"));
+
+			Village v = new Village(vId, vName);
+
+			JSONArray characersInVillage = (JSONArray)villageJson.get("Characters"); // This cast prob doesnt work, lets assume it does for now
+			for (Object charObj : characersInVillage) {
+				JSONObject charJson = (JSONObject)charObj;
+
+				int cId = (int)charJson.get("id");
+				Character c = characers.get(cId);
+				if(c == null){
+					String cName = String.valueOf(charJson.get("name"));
+					c = new Character(cId, cName);
+
+					// GET ALL THE OTHER CHARACTER INFORMATION
+					// Justsu array
+					// personal object ??!?!?!?!?!?
+					// uniquite traits arary
+
+					JSONArray justuInCharacter = (JSONArray)charJson.get("jutsu"); // This cast prob doesnt work, lets assume it does for now
+					// for each
+					for (Object jutsuObj : justuInCharacter) {
+						JSONObject jutsuJson = (JSONObject)jutsuObj;
+						String jName = String.valueOf(jutsuJson);
+
+						Jutsu j = jutsus.get(jutsuJson);
+						if(j == null){
+							j = new Jutsu(jName);
+						}
+						c.jutsu.add(j);
+					}
+
+
+					JSONArray uniqueTraits = (JSONArray)charJson.get("uniqueTraits"); // This cast prob doesnt work, lets assume it does for now
+					// for each
+					for (Object traitObj : justuInCharacter) {
+						JSONObject traitJson = (JSONObject)traitObj;
+						// WHAT EVER THIS IS
+					}
+
+
+				}
+
+				v.characters.add(c);
+
+			}
+
+			// NOW DO CHARACTER
+		}
 	}
 
 	public void generateVillageSQL(JSONArray villageData){
