@@ -1,0 +1,226 @@
+{
+    "characters": [
+        {
+            "id": 22,
+            "name": "Aho Bird",
+            "images": [
+                "https://static.wikia.nocookie.net/naruto/images/2/2f/Ahou-Bird.png"
+            ],
+            "debut": {
+                "anime": "Naruto Episode #55",
+                "game": "Naruto: Ultimate Ninja Online",
+                "appearsIn": "Anime, Game"
+            },
+            "personal": {
+                "species": "Crow"
+            }
+        },
+        {
+            "id": 32,
+            "name": "Akane (Kunoichi)",
+            "images": [],
+            "debut": {
+                "anime": "Naruto Shippūden Episode #479",
+                "novel": "The Last: Naruto the Movie",
+                "movie": "The Last: Naruto the Movie",
+                "appearsIn": "Anime, Novel, Movie"
+            },
+            "personal": {
+                "sex": "Female",
+                "affiliation": "Konohagakure",
+                "team": "Naruto's Fan Girls"
+            },
+            "voiceActors": {
+                "japanese": "Riho Takada",
+                "english": "Debi Mae West"
+            }
+        },
+        {
+            "id": 342,
+            "name": "Guren (prisoner)",
+            "images": [
+                "https://static.wikia.nocookie.net/naruto/images/0/0a/Guren_%28prisoner%29.png"
+            ],
+            "debut": {
+                "manga": "Naruto Chapter #349",
+                "anime": "Naruto Shippūden Episode #117",
+                "game": "Naruto Shippūden: Ultimate Ninja Heroes 3",
+                "appearsIn": "Anime, Manga, Game"
+            },
+            "personal": {
+                "sex": "Male",
+                "age": {
+                    "Part II": 25
+                },	
+                "occupation": "Prisoner"
+            },
+            "voiceActors": {
+                "japanese": "Tomoyoshi Fukazu",
+                "english": "Patrick Seitz"
+            }
+        },
+        {
+            "id": 431,
+            "name": "Human Path (character)",
+            "images": [
+                "https://static.wikia.nocookie.net/naruto/images/a/a3/Human_Pain.png",
+                "https://static.wikia.nocookie.net/naruto/images/f/f5/Human_Path_alive.png"
+            ],
+            "debut": {
+                "manga": "Naruto Chapter #376",
+                "anime": "Naruto Shippūden Episode #127",
+                "game": "Naruto Shippūden: Ultimate Ninja Heroes 3",
+                "ova": "Naruto x UT",
+                "appearsIn": "Anime, Manga, Game"
+            },
+            "personal": {
+                "sex": "Male",
+                "status": "Deceased",
+                "height":	
+                {
+                    "Part II": "198cm"
+                },
+                "affiliation": "Takigakure"
+            },
+            "voiceActors": {
+                "japanese": "Fumiya Itō",
+                "english": "Patrick Seitz"
+            }
+        },
+        {
+            "id": 525,
+            "name": "Kaede",
+            "images": [],
+            "debut": {
+                "anime": "Naruto Shippūden Episode #479",
+                "novel": "The Last: Naruto the Movie",
+                "movie": "The Last: Naruto the Movie",
+                "appearsIn": "Anime, Novel, Movie"
+            },
+            "personal": {
+                "sex": "Female",
+                "affiliation": "Konohagakure",
+                "team": "Naruto's Fan Girls"
+            },
+            "voiceActors": {
+                "japanese": "Ai Hashizume",
+                "english": "Megan Hollingshead"
+            }
+        },
+        {
+            "id": 773,
+            "name": "Matsuba",
+            "images": [
+                "https://static.wikia.nocookie.net/naruto/images/f/fb/Matsuba.png"
+            ],
+            "debut": {
+                "anime": "Boruto Episode #40",
+                "appearsIn": "Anime"
+            },
+            "personal": {
+                "sex": "Male",
+                "occupation": "Advisor",
+                "affiliation": "Green Bank"
+            },
+            "voiceActors": {
+                "japanese": "Takuya Kodama",
+                "english": "Christopher Swindle"
+            }
+        },
+        {
+            "id": 881,
+            "name": "Naraka Path (character)",
+            "images": [
+                "https://static.wikia.nocookie.net/naruto/images/8/81/Naraka_Path.png",
+                "https://static.wikia.nocookie.net/naruto/images/7/71/Naraka_Path_alive.png"
+            ],
+            "debut": {
+                "manga": "Naruto Chapter #379",
+                "anime": "Naruto Shippūden Episode #127",
+                "game": "Naruto Shippūden: Ultimate Ninja Heroes 3",
+                "ova": "Naruto x UT",
+                "appearsIn": "Anime, Manga, Game"
+            },
+            "personal": {
+                "sex": "Male",
+                "status": "Deceased",
+                "height":	
+                {
+                    "Part II": "185cm"
+                },
+                "occupation": "Priest"
+            },
+            "voiceActors": {
+                "japanese": "Osamu Mukai",
+                "english": "J.B. Blanc"
+            }
+        },
+        {
+            "id": 1126,
+            "name": "Shū (lord)",
+            "images": [
+                "https://static.wikia.nocookie.net/naruto/images/d/dc/Lord_Shu.png"
+            ],
+            "debut": {
+                "anime": "Naruto Shippūden Episode #309",
+                "appearsIn": "Anime"
+            },
+            "personal": {
+                "sex": "Male",
+                "occupation": "Lord",
+                "affiliation": "Land of That Symbol Land of That"
+            },
+            "voiceActors": {
+                "japanese": "Kengo Kawanishi",
+                "english": "Brian Beacock"
+            }
+        },
+        {
+            "id": 1207,
+            "name": "Tekkan",
+            "images": [
+                "https://static.wikia.nocookie.net/naruto/images/f/f0/Tekkan.png"
+            ],
+            "debut": {
+                "anime": "Boruto Episode #233",
+                "novel": "Shikamaru Shinden: A Cloud Dancing in Forlorn Falling Petals",
+                "appearsIn": "Anime, Novel"
+            },
+            "personal": {
+                "sex": "Male",
+                "classification": "Daimyō",
+                "affiliation": "Land of Lightning Symbol Land of Lightning"
+            },
+            "voiceActors": {
+                "japanese": "Hisanori Koyatsu"
+            }
+        },
+        {
+            "id": 1250,
+            "name": "Tonton",
+            "images": [
+                "https://static.wikia.nocookie.net/naruto/images/b/b7/Tonton.png"
+            ],
+            "debut": {
+                "manga": "Naruto Chapter #148",
+                "anime": "Naruto Episode #85",
+                "movie": "Naruto Shippūden the Movie",
+                "game": "Naruto: Ultimate Ninja 2",
+                "ova": "Hidden Leaf Village Grand Sports Festival!",
+                "appearsIn": "Anime, Manga, Game, Movie"
+            },
+            "personal": {
+                "sex": "Female",
+                "species": "Pig",
+                "affiliation": [
+                    "Konohagakure Allied", "Shinobi Forces"
+                ],
+                "team": "Logistical Support and Medical Division"
+            },
+            "voiceActors": {
+                "japanese": "Keiko Nemoto",
+                "english": "Megan Hollingshead"
+            }
+        }
+    ]
+}
