@@ -4,13 +4,15 @@ import Entities.Interfaces.IHasCharacters;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 public class Team implements IHasCharacters {
 	private static HashMap<Integer, Team> teamsAll = new HashMap<>();
-	int id;
-	String name;
+	public int id;
+	public String name;
 
-	private final ArrayList<Character> characters = new ArrayList<>(1500);
+	public final ArrayList<Character> characters = new ArrayList<>(1500);
 
 	public Team(int id, String name){
 		this.id = id;
@@ -33,5 +35,9 @@ public class Team implements IHasCharacters {
 
 	public static Team put(int teamId, Team team){
 		return teamsAll.put(teamId, team);
+	}
+
+	public static Set<Map.Entry<Integer, Team>> entrySet(){
+		return teamsAll.entrySet();
 	}
 }

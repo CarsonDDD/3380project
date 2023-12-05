@@ -5,10 +5,10 @@ import java.util.*;
 
 public class Character implements IHasPersonal, IHasDebut, IHasTools, IHasJutsu, IHasNatureType, IHasVoiceActor, IHasUniqueTraits {
 	private static HashMap<Integer, Character> charactersAll = new HashMap<>();
-	int id;
+	public int id;
 	public String name;
 	//Other information
-	private final ArrayList<Jutsu> jutsus = new ArrayList<>();
+	public final ArrayList<Jutsu> jutsus = new ArrayList<>();
 
 	public final ArrayList<UniqueTrait> traits = new ArrayList<>();
 

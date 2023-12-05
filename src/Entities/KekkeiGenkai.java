@@ -12,7 +12,7 @@ public class KekkeiGenkai implements IHasCharacters {
 	public String name;
 	public int id;
 
-	private final ArrayList<Character> characters = new ArrayList<>(1500);
+	public final ArrayList<Character> characters = new ArrayList<>(1500);
 
 	public KekkeiGenkai(int id, String name){
 		this.id = id;
