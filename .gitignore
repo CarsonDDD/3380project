@@ -10,3 +10,5 @@ bin/
 *.txt
 
 .DS_Store
+
+.idea
