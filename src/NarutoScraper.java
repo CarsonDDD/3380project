@@ -139,6 +139,15 @@ public class NarutoScraper {
         converter.createTeamMembers("Non-specific.txt");
         System.out.println("Finished creating Team SQL--" + getElapsedTime(currentTime));
 
+        System.out.println("\nCreating Akatsuki (team) SQL");
+        currentTime = System.currentTimeMillis();
+        converter.convertAkatsuki("Akatsuki.txt");
+        System.out.println("Finished creating Akatsuki SQL--" + getElapsedTime(currentTime));
+
+        System.out.println("\nCreating Kara (team) SQL");
+        currentTime = System.currentTimeMillis();
+        converter.convertKara("Kara.txt");
+        System.out.println("Finished creating kara SQL--" + getElapsedTime(currentTime));
 
         System.out.println("\nFinished converting!");
         System.out.println("Total time: " + getElapsedTime(startTime));

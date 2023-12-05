@@ -191,55 +191,20 @@ public class JsonToOOP {
         }
     }
 
+    // The akatsukiArray is just characters in THE SINGLE kara
     public void processKaraJson(JSONArray karaJsonArray){
-        for(Object object : karaJsonArray) {
-            JSONObject karaJson = (JSONObject) object;
-
-            int karaId = ((Number)karaJson.get("id")).intValue();
-            Kara kara = Kara.get(karaId);
-            if(kara == null){
-                //clan = new Clan();
-                String karaName = String.valueOf(karaJson.get("name"));
-                kara = new Kara(karaId, karaName);
-
-                handleDebut((JSONObject) karaJson.get("debut"), kara);
-                handlePersonal((JSONObject) karaJson.get("personal"), kara);
-                handleTools((JSONArray) karaJson.get("tools"), kara);
-
-                // KekkiGenkai STRANGE ADD
-                String kekkiName = String.valueOf(karaJson.get("kekkeiGenkai"));
-                KekkeiGenkai kekki = KekkeiGenkai.get(kekkiName);
-                if(kekki != null){
-                    kara.addKekkiGenkai(kekki);
-                }
-
-                Kara.put(karaId, kara);
-            }
-        }
+        // These are characters
+        Kara kara = new Kara();
+        Kara.instance = kara;
+        handleAddingCharacters(karaJsonArray,Kara.instance);
     }
 
-    public void processAkatsukiJson(JSONArray AkatsukiJsonArray){
-        for(Object object : AkatsukiJsonArray) {
-            JSONObject akatsukiJson = (JSONObject) object;
-
-            int akatsukiId = ((Number)akatsukiJson.get("id")).intValue();
-            Akatsuki akatsuki = Akatsuki.get(akatsukiId);
-            if(akatsuki == null){
-                String akatsukiName = String.valueOf(akatsukiJson.get("name"));
-                akatsuki = new Akatsuki(akatsukiId, akatsukiName);
-
-                //debut
-                //jutsu
-                //natureType
-                //personal
-                // tailed beast
-                // Partner (s)?
-                //uniquetraits
-                //voiceactors
-
-                Akatsuki.put(akatsukiId, akatsuki);
-            }
-        }
+    // The akatsukiArray is just characters in THE SINGLE akatsuki
+    public void processAkatsukiJson(JSONArray akatsukiJsonArray){
+        // These are characters
+        Akatsuki akatsuki = new Akatsuki();
+        Akatsuki.instance = akatsuki;
+        handleAddingCharacters(akatsukiJsonArray,Akatsuki.instance);
     }
 
     public void handleVoiceActors(JSONObject voiceActorsJson, IHasVoiceActor target){
