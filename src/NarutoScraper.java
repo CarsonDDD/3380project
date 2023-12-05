@@ -93,7 +93,7 @@ public class NarutoScraper {
         System.out.println("\nCreating Voice Actor SQL");
         currentTime = System.currentTimeMillis();
         converter.convertVoiceActors();
-        System.out.println("Finished creating Jutsu SQL--" + getElapsedTime(currentTime));
+        System.out.println("Finished creating Voice SQL--" + getElapsedTime(currentTime));
 
         System.out.println("\nCreating Media SQL");
         currentTime = System.currentTimeMillis();

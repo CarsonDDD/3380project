@@ -241,6 +241,7 @@ public class JsonToOOP {
             }
         }
     }
+
     public void handleVoiceActors(JSONObject voiceActorsJson, IHasVoiceActor target){
         if (voiceActorsJson == null) return;
 
@@ -414,6 +415,7 @@ public class JsonToOOP {
             }
             else {
                 // STANDARD
+                // TODO: GATHER PROPER DATA
                 String uniqueKey = key + value.toString();
                 Personal personal = Personal.get(uniqueKey);
                 if (personal == null) {
@@ -424,7 +426,6 @@ public class JsonToOOP {
                 target.addPersonal(personal);
             }
         }
-
     }
 
     // template
