@@ -76,9 +76,44 @@ public class NarutoScraper {
 
 
         // -----------------------------------------------------
-
+        OOPToSQL converter = new OOPToSQL();
         System.out.println("\nConverting to SQL...");
         currentTime = System.currentTimeMillis();
+
+        System.out.println("\nCreating Village SQL");
+        currentTime = System.currentTimeMillis();
+        converter.convertVillages();
+        System.out.println("Finished creating Village SQL--" + getElapsedTime(currentTime));
+
+        System.out.println("\nCreating Jutsu SQL");
+        currentTime = System.currentTimeMillis();
+        converter.convertJutsu();
+        System.out.println("Finished creating Jutsu SQL--" + getElapsedTime(currentTime));
+
+        System.out.println("\nCreating Voice Actor SQL");
+        currentTime = System.currentTimeMillis();
+        converter.convertVoiceActors();
+        System.out.println("Finished creating Jutsu SQL--" + getElapsedTime(currentTime));
+
+        System.out.println("\nCreating Media SQL");
+        currentTime = System.currentTimeMillis();
+        converter.convertMedia();
+        System.out.println("Finished creating Media SQL--" + getElapsedTime(currentTime));
+
+        System.out.println("\nCreating KekkeiGenkai SQL");
+        currentTime = System.currentTimeMillis();
+        converter.convertKekkeiGenkai();
+        System.out.println("Finished creating KekkeiGenkai SQL--" + getElapsedTime(currentTime));
+
+        System.out.println("\nCreating Character SQL");
+        currentTime = System.currentTimeMillis();
+        converter.convertCharacter();
+        converter.createCharacterNatureTypes();
+        converter.createCharacterTools();
+        converter.createCharacterDebuts();
+        converter.createCharacterVoiceActors();
+        converter.createCharacterUniqueTraits();
+        System.out.println("Finished creating Character SQL--" + getElapsedTime(currentTime));
 
 
         System.out.println("\nFinished converting!");

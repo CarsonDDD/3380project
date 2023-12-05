@@ -4,10 +4,14 @@ import java.util.HashMap;
 
 public class UniqueTrait {
 	private static HashMap<String, UniqueTrait> traitsAll = new HashMap<>();
-	String trait;
+	private static int numTraits= 0;
+
+	public int id;
+	public String trait;
 
 	public UniqueTrait(String trait){
 		this.trait = trait;
+		id = numTraits++;
 	}
 
 	public static UniqueTrait get(String traitName){

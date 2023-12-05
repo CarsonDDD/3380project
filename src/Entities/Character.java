@@ -3,23 +3,24 @@ import Entities.Interfaces.*;
 
 import java.util.*;
 
-public class Character implements IHasPersonal, IDebut, IHasTools, IHasJutsu, IHasNatureType, IHasVoiceActor, IHasUniqueTraits {
+public class Character implements IHasPersonal, IHasDebut, IHasTools, IHasJutsu, IHasNatureType, IHasVoiceActor, IHasUniqueTraits {
 	private static HashMap<Integer, Character> charactersAll = new HashMap<>();
 	int id;
 	public String name;
 	//Other information
 	private final ArrayList<Jutsu> jutsus = new ArrayList<>();
-	private final ArrayList<UniqueTrait> traits = new ArrayList<>();
 
-	private final ArrayList<Media> debuts = new ArrayList<>();
+	public final ArrayList<UniqueTrait> traits = new ArrayList<>();
 
-	private final ArrayList<Personal> personals = new ArrayList<>();
+	public final ArrayList<Media> debuts = new ArrayList<>();
 
-	private final ArrayList<VoiceActor> voiceActors = new ArrayList<>();
+	public final ArrayList<Personal> personals = new ArrayList<>();
 
-	private final ArrayList<Tool> tools = new ArrayList<>();
+	public final ArrayList<VoiceActor> voiceActors = new ArrayList<>();
 
-	private final ArrayList<NatureType> natureTypes = new ArrayList<>();
+	public final ArrayList<Tool> tools = new ArrayList<>();
+
+	public final ArrayList<NatureType> natureTypes = new ArrayList<>();
 
 	public Character(int id, String name){
 		this.id = id;
@@ -76,6 +77,10 @@ public class Character implements IHasPersonal, IDebut, IHasTools, IHasJutsu, IH
 			}
 		}
 		return null;
+	}
+
+	public static Set<Map.Entry<Integer, Character>> entrySet(){
+		return charactersAll.entrySet();
 	}
 
 }

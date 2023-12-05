@@ -10,25 +10,24 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.HashMap;
 
 public class JsonToOOP {
 
     //HashMap<String, Jutsu> jutsusAll = new HashMap<>();// key is value
     //HashMap<String, UniqueTrait> traitsAll = new HashMap<>(); // key is value
     //HashMap<Integer, Character> charactersAll = new HashMap<>();
-    HashMap<Integer, Clan> clansAll = new HashMap<>();
-    HashMap<Integer, KekkeiGenkai> kekkeiGenkaiAll = new HashMap<>();
-    HashMap<Integer, Team> teamsAll = new HashMap<>();
-    HashMap<Integer, Village> villagesAll = new HashMap<>();
-    HashMap<String, Media> mediasAll = new HashMap<>(); // Key is type+name
-    HashMap<String, Personal> personalAll = new HashMap<>(); // Key is type+value
-    HashMap<String, VoiceActor> voiceActorsAll = new HashMap<>(); // Key is name+language
-    HashMap<String, Tool> toolsAll = new HashMap<>(); // key is tool name
-    HashMap<String, NatureType> natureTypeAll = new HashMap<>(); // key is value
-    HashMap<Integer, TailedBeast> tailedBeastsAll = new HashMap<>();
-    HashMap<Integer, Kara> karaAll = new HashMap<>();
-    HashMap<Integer, Akatsuki> akatsukiAll = new HashMap<>(); // not finished
+    //HashMap<Integer, Clan> clansAll = new HashMap<>();
+    //HashMap<Integer, KekkeiGenkai> kekkeiGenkaiAll = new HashMap<>();
+    //HashMap<Integer, Team> teamsAll = new HashMap<>();
+    //HashMap<Integer, Village> villagesAll = new HashMap<>();
+    //HashMap<String, Media> mediasAll = new HashMap<>(); // Key is type+name
+    //HashMap<String, Personal> personalAll = new HashMap<>(); // Key is type+value
+    //HashMap<String, VoiceActor> voiceActorAll = new HashMap<>(); // Key is name+language
+    //HashMap<String, Tool> toolsAll = new HashMap<>(); // key is tool name
+    //HashMap<String, NatureType> natureTypeAll = new HashMap<>(); // key is value
+    //HashMap<Integer, TailedBeast> tailedBeastsAll = new HashMap<>();
+    //HashMap<Integer, Kara> karaAll = new HashMap<>();
+    //HashMap<Integer, Akatsuki> akatsukiAll = new HashMap<>(); // not finished
     // Rank??!?!?!?!?!? TODO: later
 
     public BufferedReader fetchData(String endpoint) throws IOException {
@@ -108,7 +107,7 @@ public class JsonToOOP {
             JSONObject beastJson = (JSONObject) object;
 
             int beastId = ((Number)beastJson.get("id")).intValue();
-            TailedBeast tailedBeast = tailedBeastsAll.get(beastId);
+            TailedBeast tailedBeast = TailedBeast.get(beastId);
             // Technically tailedBeast should ALWAYS be null, unless the api has duplicates
             if(tailedBeast == null){
                 // get tailedBeast data
@@ -123,7 +122,7 @@ public class JsonToOOP {
                 handleTools((JSONArray) beastJson.get("tools"), tailedBeast);
                 handleNatureTypes((JSONArray) beastJson.get("natureType"), tailedBeast);
 
-                tailedBeastsAll.put(beastId, tailedBeast);
+                TailedBeast.put(beastId, tailedBeast);
             }
         }
     }
@@ -133,13 +132,13 @@ public class JsonToOOP {
             JSONObject clanJson = (JSONObject) object;
 
             int cId = ((Number)clanJson.get("id")).intValue();
-            Clan clan = clansAll.get(cId);
+            Clan clan = Clan.get(cId);
 
             if(clan == null){
                 String cName = String.valueOf(clanJson.get("name"));
                 clan = new Clan(cId, cName);
                 handleAddingCharacters((JSONArray)clanJson.get("characters"), clan);
-                clansAll.put(cId, clan);
+                Clan.put(cId, clan);
             }
         }
     }
@@ -149,13 +148,13 @@ public class JsonToOOP {
             JSONObject kekkiJson = (JSONObject) object;
 
             int kekkiId = ((Number)kekkiJson.get("id")).intValue();
-            KekkeiGenkai kekki = kekkeiGenkaiAll.get(kekkiId);
+            KekkeiGenkai kekki = KekkeiGenkai.get(kekkiId);
 
             if(kekki == null){
                 String kekkiName = String.valueOf(kekkiJson.get("name"));
                 kekki = new KekkeiGenkai(kekkiId, kekkiName);
                 handleAddingCharacters((JSONArray)kekkiJson.get("characters"), kekki);
-                kekkeiGenkaiAll.put(kekkiId, kekki);
+                KekkeiGenkai.put(kekkiId, kekki);
             }
         }
     }
@@ -165,13 +164,13 @@ public class JsonToOOP {
             JSONObject teamJson = (JSONObject) object;
 
             int teamId = ((Number)teamJson.get("id")).intValue();
-            Team team = teamsAll.get(teamId);
+            Team team = Team.get(teamId);
 
             if(team == null){
                 String teamName = String.valueOf(teamJson.get("name"));
                 team = new Team(teamId, teamName);
                 handleAddingCharacters((JSONArray)teamJson.get("characters"), team);
-                teamsAll.put(teamId, team);
+                Team.put(teamId, team);
             }
         }
     }
@@ -181,13 +180,13 @@ public class JsonToOOP {
             JSONObject villageJson = (JSONObject) object;
 
             int villageId = ((Number)villageJson.get("id")).intValue();
-            Village village = villagesAll.get(villageId);
+            Village village = Village.get(villageId);
 
             if(village == null){
                 String villageName = String.valueOf(villageJson.get("name"));
                 village = new Village(villageId, villageName);
                 handleAddingCharacters((JSONArray)villageJson.get("characters"), village);
-                villagesAll.put(villageId, village);
+                Village.put(villageId, village);
             }
         }
     }
@@ -197,7 +196,7 @@ public class JsonToOOP {
             JSONObject karaJson = (JSONObject) object;
 
             int karaId = ((Number)karaJson.get("id")).intValue();
-            Kara kara = karaAll.get(karaId);
+            Kara kara = Kara.get(karaId);
             if(kara == null){
                 //clan = new Clan();
                 String karaName = String.valueOf(karaJson.get("name"));
@@ -209,12 +208,12 @@ public class JsonToOOP {
 
                 // KekkiGenkai STRANGE ADD
                 String kekkiName = String.valueOf(karaJson.get("kekkeiGenkai"));
-                KekkeiGenkai kekki = findKekkeiGenkaiByName(kekkeiGenkaiAll, kekkiName);
+                KekkeiGenkai kekki = KekkeiGenkai.get(kekkiName);
                 if(kekki != null){
                     kara.addKekkiGenkai(kekki);
                 }
 
-                karaAll.put(karaId, kara);
+                Kara.put(karaId, kara);
             }
         }
     }
@@ -224,7 +223,7 @@ public class JsonToOOP {
             JSONObject akatsukiJson = (JSONObject) object;
 
             int akatsukiId = ((Number)akatsukiJson.get("id")).intValue();
-            Akatsuki akatsuki = akatsukiAll.get(akatsukiId);
+            Akatsuki akatsuki = Akatsuki.get(akatsukiId);
             if(akatsuki == null){
                 String akatsukiName = String.valueOf(akatsukiJson.get("name"));
                 akatsuki = new Akatsuki(akatsukiId, akatsukiName);
@@ -238,7 +237,7 @@ public class JsonToOOP {
                 //uniquetraits
                 //voiceactors
 
-                akatsukiAll.put(akatsukiId, akatsuki);
+                Akatsuki.put(akatsukiId, akatsuki);
             }
         }
     }
@@ -253,10 +252,10 @@ public class JsonToOOP {
             // SINGLE CASE
             if (actor instanceof String) {
                 String uniqueKey = actor + language;
-                VoiceActor voiceActor = voiceActorsAll.get(uniqueKey);
+                VoiceActor voiceActor = VoiceActor.get(uniqueKey);
                 if (voiceActor == null) {
                     voiceActor = new VoiceActor((String) actor, language);
-                    voiceActorsAll.put(uniqueKey, voiceActor);
+                    VoiceActor.put(uniqueKey, voiceActor);
                 }
                 target.addActor(voiceActor);
             }
@@ -267,10 +266,10 @@ public class JsonToOOP {
                     // We need to make sure every one is a separate value
                     String name = (String) nameObj;
                     String uniqueKey = name + language;
-                    VoiceActor voiceActor = voiceActorsAll.get(uniqueKey);
+                    VoiceActor voiceActor = VoiceActor.get(uniqueKey);
                     if (voiceActor == null) {
                         voiceActor = new VoiceActor(name, language);
-                        voiceActorsAll.put(uniqueKey, voiceActor);
+                        VoiceActor.put(uniqueKey, voiceActor);
                     }
                     target.addActor(voiceActor);
                 }
@@ -284,10 +283,10 @@ public class JsonToOOP {
         for (Object natureObj : natureTypeArray) {
             String nature = (String) natureObj;
 
-            NatureType natureType = natureTypeAll.get(nature);
+            NatureType natureType = NatureType.get(nature);
             if (natureType == null) {
                 natureType = new NatureType(nature);
-                natureTypeAll.put(nature, natureType);
+                NatureType.put(nature, natureType);
             }
             target.addNatureType(natureType);
         }
@@ -306,15 +305,6 @@ public class JsonToOOP {
             }
             target.addTrait(trait);
         }
-    }
-
-    public KekkeiGenkai findKekkeiGenkaiByName(HashMap<Integer, KekkeiGenkai> kekkeiGenkaiAll, String kekkiName) {
-        for (KekkeiGenkai kekki : kekkeiGenkaiAll.values()) {
-            if (kekki.name.contains(kekkiName)) { // may not be contains, who knows?
-                return kekki;
-            }
-        }
-        return null;
     }
 
     public void handleJutsu(JSONArray jutsuArray, IHasJutsu target){
@@ -360,26 +350,26 @@ public class JsonToOOP {
         for (Object toolObj : toolsJsonArray) {
             String toolName = (String) toolObj;
 
-            Tool tool = toolsAll.get(toolName);
+            Tool tool = Tool.get(toolName);
             if (tool == null) {
                 tool = new Tool(toolName);
-                toolsAll.put(toolName, tool);
+                Tool.put(toolName, tool);
             }
             target.addTool(tool);
         }
     }
 
-    public void handleDebut(JSONObject debutJson, IDebut target){
+    public void handleDebut(JSONObject debutJson, IHasDebut target){
         if (debutJson == null) return;
 
         for (Object key : debutJson.keySet()) {
             String mediaType = (String) key;
             String mediaName = debutJson.get(key).toString();
             //Media media = new Media(mediaType, mediaName);
-            Media media = mediasAll.get(mediaType+mediaName);
+            Media media = Media.get(mediaType+mediaName);
             if(media == null){
                 media = new Media(mediaType, mediaName);
-                mediasAll.put(mediaType + mediaName, media);
+                Media.put(mediaType + mediaName, media);
             }
             target.addMedia(media);
         }
@@ -413,10 +403,10 @@ public class JsonToOOP {
                     String heightValue = heightJson.get(heightKey).toString();
                     String heightUniqueKey = key + heightKey + heightValue;
 
-                    Personal heightPersonal = personalAll.get(heightUniqueKey);
+                    Personal heightPersonal = Personal.get(heightUniqueKey);
                     if (heightPersonal == null) {
                         heightPersonal = new Personal(key + " (" + heightKey + ")", heightValue);
-                        personalAll.put(heightUniqueKey, heightPersonal);
+                        Personal.put(heightUniqueKey, heightPersonal);
                     }
 
                     target.addPersonal(heightPersonal);
@@ -425,10 +415,10 @@ public class JsonToOOP {
             else {
                 // STANDARD
                 String uniqueKey = key + value.toString();
-                Personal personal = personalAll.get(uniqueKey);
+                Personal personal = Personal.get(uniqueKey);
                 if (personal == null) {
                     personal = new Personal(key, value.toString());
-                    personalAll.put(uniqueKey, personal);
+                    Personal.put(uniqueKey, personal);
                 }
 
                 target.addPersonal(personal);
@@ -443,13 +433,13 @@ public class JsonToOOP {
             JSONObject clanJson = (JSONObject) object;
 
             int cId = ((Number)clanJson.get("id")).intValue();
-            Clan clan = clansAll.get(cId);
+            Clan clan = Clan.get(cId);
             if(clan == null){
                 //clan = new Clan();
 
                 // Clan info
 
-                clansAll.put(cId, clan);
+                Clan.put(cId, clan);
             }
         }
     }

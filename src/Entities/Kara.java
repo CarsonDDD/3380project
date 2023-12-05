@@ -1,13 +1,15 @@
 package Entities;
 
-import Entities.Interfaces.IDebut;
+import Entities.Interfaces.IHasDebut;
 import Entities.Interfaces.IHasKekkiGenkai;
 import Entities.Interfaces.IHasPersonal;
 import Entities.Interfaces.IHasTools;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
-public class Kara implements IHasPersonal, IDebut, IHasTools, IHasKekkiGenkai {
+public class Kara implements IHasPersonal, IHasDebut, IHasTools, IHasKekkiGenkai {
+    private static HashMap<Integer, Kara> karaAll = new HashMap<>();
     String name;
     int id;
 
@@ -42,5 +44,13 @@ public class Kara implements IHasPersonal, IDebut, IHasTools, IHasKekkiGenkai {
     @Override
     public void addKekkiGenkai(KekkeiGenkai kekki) {
         kekkeiGenkais.add(kekki);
+    }
+
+    public static Kara get(Integer id) {
+        return karaAll.get(id);
+    }
+
+    public static void put(Integer id, Kara kara) {
+        karaAll.put(id, kara);
     }
 }
