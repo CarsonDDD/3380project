@@ -218,28 +218,12 @@ public class JsonToOOP {
         }
     }
 
-    public void processAkatsukiJson(JSONArray AkatsukiJsonArray){
-        for(Object object : AkatsukiJsonArray) {
-            JSONObject akatsukiJson = (JSONObject) object;
-
-            int akatsukiId = ((Number)akatsukiJson.get("id")).intValue();
-            Akatsuki akatsuki = Akatsuki.get(akatsukiId);
-            if(akatsuki == null){
-                String akatsukiName = String.valueOf(akatsukiJson.get("name"));
-                akatsuki = new Akatsuki(akatsukiId, akatsukiName);
-
-                //debut
-                //jutsu
-                //natureType
-                //personal
-                // tailed beast
-                // Partner (s)?
-                //uniquetraits
-                //voiceactors
-
-                Akatsuki.put(akatsukiId, akatsuki);
-            }
-        }
+    // The akatsukiArray is just characters in THE SINGLE akatsuki
+    public void processAkatsukiJson(JSONArray akatsukiJsonArray){
+        // These are characters
+        Akatsuki akatsuki = new Akatsuki();
+        Akatsuki.instance = akatsuki;
+        handleAddingCharacters(akatsukiJsonArray,Akatsuki.instance);
     }
 
     public void handleVoiceActors(JSONObject voiceActorsJson, IHasVoiceActor target){

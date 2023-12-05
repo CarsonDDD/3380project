@@ -240,6 +240,17 @@ public class OOPToSQL {
         }
     }
 
+    public void convertAkatsuki(String outputFile){
+        Output.log("\n# Akatsuki as Teams, Teams(teamId, teamName)",outputFile);
+        Akatsuki akatsuki = Akatsuki.instance;
+        Output.log(generateInsert("Teams", new String[]{akatsuki.ID +"", "\""+akatsuki.NAME + "\""}),outputFile);
+
+        // Many to many table
+        for(Character character : akatsuki.characters){
+            Output.log(generateInsert("TeamMembers", new String[]{character.id +"", "\""+akatsuki.ID + "\""})+"#"+character.name + "---" + akatsuki.NAME,outputFile);
+        }
+    }
+
     public void createTeamMembers(String outputFile){
         Output.log("\n# TeamMembers(characterId, teamId)",outputFile);
         for (Map.Entry<Integer, Team> entry : Team.entrySet()){
