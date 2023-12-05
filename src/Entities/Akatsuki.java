@@ -13,7 +13,6 @@ public class Akatsuki implements IHasCharacters {
     //public int id;
     public final ArrayList<Character> characters = new ArrayList();
 
-
     public Akatsuki(){
     }
 
