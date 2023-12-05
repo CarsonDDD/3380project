@@ -1,0 +1,14 @@
+# Package Files #
+# *.jar
+
+# Compiled Files
+*.class
+bin/
+
+
+# Debug output
+*.txt
+
+.DS_Store
+
+.idea
