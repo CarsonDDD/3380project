@@ -12,6 +12,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import Logger.Output;
+import java.util.logging.Logger;
 
 public class JsonToOOP {
 
@@ -460,10 +462,10 @@ public class JsonToOOP {
 
                     Personal weightPersonal = Personal.get(weightUniqueKey);
                     if (weightPersonal == null) {
-                        weightPersonal = new Personal(key + " (" + weightKey + ")", weightValue);
+                        weightPersonal = new Personal("weight", weightValue);
                         Personal.put(weightUniqueKey, weightPersonal);
                     }
-
+                    Output.log(weightValue);
                     target.addPersonal(weightPersonal);
                 }
             }
@@ -476,10 +478,10 @@ public class JsonToOOP {
 
                     Personal agePersonal = Personal.get(ageUniqueKey);
                     if (agePersonal == null) {
-                        agePersonal = new Personal(key + " (" + ageKey + ")", ageValue);
+                        agePersonal = new Personal("age", ageValue);
                         Personal.put(ageUniqueKey, agePersonal);
                     }
-
+                    Output.log(ageValue);
                     target.addPersonal(agePersonal);
                 }
             }
@@ -494,10 +496,10 @@ public class JsonToOOP {
 
                     Personal heightPersonal = Personal.get(heightUniqueKey);
                     if (heightPersonal == null) {
-                        heightPersonal = new Personal(key + " (" + heightKey + ")", heightValue);
+                        heightPersonal = new Personal("height", heightValue);
                         Personal.put(heightUniqueKey, heightPersonal);
                     }
-
+                    Output.log(heightValue);
                     target.addPersonal(heightPersonal);
                 }
             }

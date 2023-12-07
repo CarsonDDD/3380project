@@ -2,7 +2,7 @@ package Entities;
 
 import java.util.HashMap;
 
-// TODO: Personals is weird
+// TODO: Personals somehow flatten
 public class Personal {
     private static int numPersonal = 0;
     public int id;

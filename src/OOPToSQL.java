@@ -108,6 +108,7 @@ public class OOPToSQL {
         }
     }
 
+    // Characters(characterId, characterName, villageId, clanId, beastId, birthdate, bloodType, status, sex, weight, age, height)
     public void convertCharacter(String outputFile){
         Output.log("\n# Characters(characterId, characterName, villageId, clanId, personalId, beastId)",outputFile);
         for (Map.Entry<Integer, Character> entry : Character.entrySet()){
@@ -138,13 +139,65 @@ public class OOPToSQL {
                 }
             }
 
+            // TODO: BEASTID, just lookup beast table to check existnace
+
             // PersonalID TODO: FIX/ CHANGE PERSONAL
             // possible many to many TODO:
-            int personalId = -999;
             // TODO: beast?!?!?!?!?!!?!?!?!?! is this jikugienuri?
             // TODO: TailedBeast, Personal (for real), Rank, Occupation, Classifications
+            // Characters(characterId, characterName, villageId, clanId, beastId, birthdate, bloodType, status, sex, weight, age, height)
+            // PERSONALS
+            String birth = character.birthDate;
+            String blood = character.bloodType;
+            String status = character.status;
+            String sex = character.sex;
+            String weight = character.weight;
+            String age = character.age;
+            String height = character.height;
 
-            Output.log(generateInsert("Characters", new String[]{id +"", "\""+name + "\"", villageId+"", clanId+""}), outputFile);
+            // NULL CONVERSION
+            if(birth.isBlank()){
+                birth = "null";
+            }
+            else{
+                birth = "'" + birth + "'";
+            }
+
+            if(blood.isBlank()){
+                blood = "null";
+            }
+            else{
+                blood = "'" + blood + "'";
+            }
+
+            if(status.isBlank()){
+                status = "null";
+            }
+            else{
+                status = "'" + status + "'";
+            }
+
+            if(sex.isBlank()){
+                sex = "null";
+            }
+            else{
+                sex = "'" + sex + "'";
+            }
+
+            if(weight.isBlank()){
+                weight = "null";
+            }
+
+            if(height.isBlank()){
+                height = "null";
+            }
+
+            if(age.isBlank()){
+                age = "null";
+            }
+
+            // Characters(characterId, characterName, villageId, clanId, beastId, birthdate, bloodType, status, sex, weight, age, height)
+            Output.log(generateInsert("Characters", new String[]{id +"", "\""+name + "\"", villageId+"", clanId+"", "BEASTID", birth, blood,status,sex,weight,age,height}), outputFile);
         }
     }
 

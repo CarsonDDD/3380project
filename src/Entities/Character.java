@@ -3,8 +3,9 @@ import Entities.Interfaces.*;
 
 import java.util.*;
 
+// TODO: Write function to flatten personals into a single Personal (used for sql)
 public class Character implements IHasPersonal, IHasDebut, IHasTools, IHasJutsu, IHasNatureType, IHasVoiceActor, IHasUniqueTraits, IHasRanks, IHasOccupation, IHasClassification {
-	private static HashMap<Integer, Character> charactersAll = new HashMap<>();
+	private final static HashMap<Integer, Character> charactersAll = new HashMap<>();
 	public int id;
 	public String name;
 	//Other information
@@ -14,7 +15,7 @@ public class Character implements IHasPersonal, IHasDebut, IHasTools, IHasJutsu,
 
 	public final ArrayList<Media> debuts = new ArrayList<>();
 
-	public final ArrayList<Personal> personals = new ArrayList<>();
+	//public final ArrayList<Personal> personals = new ArrayList<>();
 
 	public final ArrayList<VoiceActor> voiceActors = new ArrayList<>();
 
@@ -28,6 +29,14 @@ public class Character implements IHasPersonal, IHasDebut, IHasTools, IHasJutsu,
 
 	public final ArrayList<Classification> classifications = new ArrayList<>();
 
+	public String birthDate = "";
+	public String bloodType = "";
+	public String status = "";
+	public String sex = "";
+	public String weight = "";
+	public String age = "";
+	public String height ="";
+
 	public Character(int id, String name){
 		this.id = id;
 		this.name = name;
@@ -40,7 +49,32 @@ public class Character implements IHasPersonal, IHasDebut, IHasTools, IHasJutsu,
 
 	@Override
 	public void addPersonal(Personal newPersonal) {
-		personals.add(newPersonal);
+		//personals.add(newPersonal);
+		// Check type
+		// fill in value
+		// dance?!?@?@?@?@
+
+		if(newPersonal.type.equals("birthdate")){
+			this.birthDate = newPersonal.value;
+		}
+		else if(newPersonal.type.equals("bloodType")){
+			this.bloodType = newPersonal.value;
+		}
+		else if(newPersonal.type.equals("status")){
+			this.status = newPersonal.value;
+		}
+		else if(newPersonal.type.equals("sex")){
+			this.sex = newPersonal.value;
+		}
+		else if(newPersonal.type.equals("weight")){
+			this.weight = newPersonal.value;
+		}
+		else if(newPersonal.type.equals("age")){
+			this.age = newPersonal.value;
+		}
+		else if(newPersonal.type.equals("height")){
+			this.height = newPersonal.value;
+		}
 	}
 
 	@Override
