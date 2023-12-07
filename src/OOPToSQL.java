@@ -162,6 +162,7 @@ public class OOPToSQL {
         }
     }
 
+    // Occupation is many to many
     public void convertOccupation(String outputFile){
         Output.log("\n# Occupation(occupationId, occupationName)",outputFile);
         for (Map.Entry<String, Occupation> occupations : Occupation.entrySet()) {
