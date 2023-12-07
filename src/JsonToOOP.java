@@ -96,11 +96,12 @@ public class JsonToOOP {
                 if (!(cId == 22 || cId == 32 || cId == 342 || cId == 395 || cId == 431 || cId == 525 || cId == 773 || cId == 881 || cId == 1126 || cId == 1207 || cId == 1250)) {
                     handlePersonal((JSONObject) charJson.get("personal"), character);
 
-                    // OCCUPATION IS INSIDE PERSONAL
-                    // Sometimes its an array, sometimes its not. This is super strange how its not just always an array
+                    // THESE are nested INSIDE PERSONAL
+                    // Sometimes they can be an array, sometimes not
                     JSONObject p = ((JSONObject) charJson.get("personal"));
-                    if(p != null /*&& cId == 132*/){
+                    if(p != null /*&& cId == 132*/){// This check is probably not needed
                         handleOccupation(p.get("occupation"), character);
+                        handleClassification(p.get("classification"), character);
                     }
 
                 }
@@ -569,6 +570,30 @@ public class JsonToOOP {
             }
             target.addRank(rank);
         }
+    }
+
+    public void handleClassification(Object classificationJson, IHasClassification target){
+        if(classificationJson == null) return;
+
+        if(classificationJson instanceof String){
+            addSingleClassification(classificationJson, target);
+        }
+        else{
+            for(Object object: (JSONArray)classificationJson){
+                addSingleClassification(object, target);
+            }
+        }
+    }
+
+    private void addSingleClassification(Object classificationName, IHasClassification target){
+        String classificationString = (String)classificationName;
+        Classification classification = Classification.get(classificationString);
+
+        if(classification == null && !classificationString.contains("Puppet")){
+            classification = new Classification(classificationString);
+            Classification.put(classificationString,classification);
+        }
+        target.addClassification(classification);
     }
 
     // template

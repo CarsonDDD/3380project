@@ -174,6 +174,18 @@ public class OOPToSQL {
         }
     }
 
+    // Classification is many to many
+    public void convertClassification(String outputFile){
+        Output.log("\n# Classifications(classificationId, classificationName)",outputFile);
+        for (Map.Entry<String, Classification> classifications : Classification.entrySet()) {
+            Classification classification = classifications.getValue();
+
+            String cId = classification.id +"";
+            String cName = "'" + classification.classification + "'";
+            Output.log(generateInsert("Classifications", new String[]{cId,cName}), outputFile);
+        }
+    }
+
     // NatureType-Character is many to many
     public void createCharacterNatureTypes(String outputFile){
         Output.log("\n# CharactersNatureTypes(natureType, characterId)",outputFile);
