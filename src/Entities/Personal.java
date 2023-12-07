@@ -23,7 +23,7 @@ public class Personal {
         return personalAll.get(key);
     }
 
-    public static void put(String key, Personal personal) {
-        personalAll.put(key, personal);
+    public static void put(String personalId, Personal personal) {
+        personalAll.put(personalId, personal);
     }
 }

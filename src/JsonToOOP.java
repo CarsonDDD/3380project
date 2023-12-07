@@ -344,7 +344,8 @@ public class JsonToOOP {
     // TODO: FINE TUNE
     public void handlePersonal(JSONObject personalJson, IHasPersonal target){
         if (personalJson == null) return;
-
+        boolean haveStatus = false;
+        boolean haveSex = false;
         for (Object keyObj : personalJson.keySet()) {
             String key = (String) keyObj; // Convert key to String
             Object value = personalJson.get(key);
@@ -360,6 +361,86 @@ public class JsonToOOP {
                             ((TailedBeast)target).jinchuriki.add(jinchurikiCharacter);
                         }
                     }
+                }
+            }
+            else if ("birthdate".equals(key)) {
+                String birthdateKey = key;
+                String birthdate = value.toString();
+
+                Personal birthdatePersonal = Personal.get(birthdateKey+birthdate);
+                if (birthdatePersonal == null) {
+                    birthdatePersonal = new Personal(birthdateKey, birthdate);
+                    Personal.put(birthdateKey+birthdate, birthdatePersonal);
+                }
+
+                target.addPersonal(birthdatePersonal);
+            }
+            else if ("bloodType".equals(key)) {
+                String bloodTypeKey = key;
+                String bloodType = value.toString();
+
+                Personal bloodTypePersonal = Personal.get(bloodTypeKey+bloodType);
+                if (bloodTypePersonal == null) {
+                    bloodTypePersonal = new Personal(bloodTypeKey, bloodType);
+                    Personal.put(bloodTypeKey+bloodType, bloodTypePersonal);
+                }
+
+                target.addPersonal(bloodTypePersonal);
+            }
+            else if ("status".equals(key)) {
+                haveStatus = true;
+                String statusKey = key;
+                String status = value.toString();
+
+                Personal statusPersonal = Personal.get(statusKey+status);
+                if (statusPersonal == null) {
+                    statusPersonal = new Personal(statusKey, status);
+                    Personal.put(statusKey+status, statusPersonal);
+                }
+
+                target.addPersonal(statusPersonal);
+            }
+            else if ("sex".equals(key)) {
+                haveSex = true;
+                String SexKey = key;
+                String Sex = value.toString();
+
+                Personal SexPersonal = Personal.get(SexKey+Sex);
+                if (SexPersonal == null) {
+                    SexPersonal = new Personal(SexKey, Sex);
+                    Personal.put(SexKey+Sex, SexPersonal);
+                }
+
+                target.addPersonal(SexPersonal);
+            }
+            else if ("weight".equals(key) && value instanceof JSONObject weightJson) {
+                for (Object weightKeyObj : weightJson.keySet()) {
+                    String weightKey = (String) weightKeyObj; // Convert weightKey to String
+                    String weightValue = weightJson.get(weightKey).toString();
+                    String weightUniqueKey = key + weightKey + weightValue;
+
+                    Personal weightPersonal = Personal.get(weightUniqueKey);
+                    if (weightPersonal == null) {
+                        weightPersonal = new Personal(key + " (" + weightKey + ")", weightValue);
+                        Personal.put(weightUniqueKey, weightPersonal);
+                    }
+
+                    target.addPersonal(weightPersonal);
+                }
+            }
+            else if ("age".equals(key) && value instanceof JSONObject ageJson) {
+                for (Object ageKeyObj : ageJson.keySet()) {
+                    String ageKey = (String) ageKeyObj; // Convert ageKey to String
+                    String ageValue = ageJson.get(ageKey).toString();
+                    String ageUniqueKey = key + ageKey + ageValue;
+
+                    Personal agePersonal = Personal.get(ageUniqueKey);
+                    if (agePersonal == null) {
+                        agePersonal = new Personal(key + " (" + ageKey + ")", ageValue);
+                        Personal.put(ageUniqueKey, agePersonal);
+                    }
+
+                    target.addPersonal(agePersonal);
                 }
             }
             // MULTIPLE HEIGHTS. Just store it strangely as OOP, when converting to sql, we will fix it
@@ -378,18 +459,32 @@ public class JsonToOOP {
                     target.addPersonal(heightPersonal);
                 }
             }
-            else {
-                // STANDARD
-                // TODO: GATHER PROPER DATA
-                String uniqueKey = key + value.toString();
-                Personal personal = Personal.get(uniqueKey);
-                if (personal == null) {
-                    personal = new Personal(key, value.toString());
-                    Personal.put(uniqueKey, personal);
+        }
+        if (!haveStatus) {
+            haveStatus = true;
+                String statusKey = "status";
+                String status = "Alived";
+
+                Personal statusPersonal = Personal.get(statusKey+status);
+                if (statusPersonal == null) {
+                    statusPersonal = new Personal(statusKey, status);
+                    Personal.put(statusKey+status, statusPersonal);
                 }
 
-                target.addPersonal(personal);
-            }
+                target.addPersonal(statusPersonal);
+        }
+        if (!haveSex) {
+            haveSex = true;
+                String SexKey = "sex";
+                String Sex = "Undefined";
+
+                Personal SexPersonal = Personal.get(SexKey+Sex);
+                if (SexPersonal == null) {
+                    SexPersonal = new Personal(SexKey, Sex);
+                    Personal.put(SexKey+Sex, SexPersonal);
+                }
+
+                target.addPersonal(SexPersonal);
         }
     }
 
