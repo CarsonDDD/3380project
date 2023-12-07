@@ -142,8 +142,23 @@ public class OOPToSQL {
             // possible many to many TODO:
             int personalId = -999;
             // TODO: beast?!?!?!?!?!!?!?!?!?! is this jikugienuri?
+            // TODO: TailedBeast, Personal (for real), Rank, Occupation, Classifications
 
             Output.log(generateInsert("Characters", new String[]{id +"", "\""+name + "\"", villageId+"", clanId+""}), outputFile);
+        }
+    }
+
+    // Rank is many to many
+    // Current only handles character
+    public void convertRank(String outputFile){
+        Output.log("\n# Rank(rankId, period, rankName)",outputFile);
+        for (Map.Entry<String, Rank> ranks : Rank.entrySet()) {
+            Rank rank = ranks.getValue();
+
+            String rankId = rank.id +"";
+            String rankPeriod = "'" + rank.period + "'";;
+            String rankName = "'" + rank.name + "'";
+            Output.log(generateInsert("Ranks", new String[]{rankId,rankPeriod,rankName})+" #"+rank.name, outputFile);
         }
     }
 

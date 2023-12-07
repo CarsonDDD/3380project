@@ -57,7 +57,6 @@ public class NarutoScraper {
         scraper.processTailedBeastJson(tailedBeast);
         System.out.println("Finished TailedBeasts--" + getElapsedTime(currentTime));
 
-
         System.out.println("\nProcessing Kara JSON");
         currentTime = System.currentTimeMillis();
         JSONArray kara = scraper.getJsonArray("https://www.narutodb.xyz/api/kara", "kara");
@@ -107,47 +106,59 @@ public class NarutoScraper {
         converter.convertMedia("Non-specific.txt");
         System.out.println("Finished creating Media SQL--" + getElapsedTime(currentTime));
 
-
+        // VILLAGE
         System.out.println("\nCreating Village SQL");
         currentTime = System.currentTimeMillis();
         converter.convertVillages("Non-specific.txt");
         System.out.println("Finished creating Village SQL--" + getElapsedTime(currentTime));
 
+        // JUTSU
         System.out.println("\nCreating Jutsu SQL");
         currentTime = System.currentTimeMillis();
         converter.convertJutsu("Non-specific.txt");
         System.out.println("Finished creating Jutsu SQL--" + getElapsedTime(currentTime));
 
+        // VOICE ACTOR
         System.out.println("\nCreating Voice Actor SQL");
         currentTime = System.currentTimeMillis();
         converter.convertVoiceActors("Non-specific.txt");
         System.out.println("Finished creating Voice SQL--" + getElapsedTime(currentTime));
 
+        // KEKKEIGENKAI
         System.out.println("\nCreating KekkeiGenkai SQL");
         currentTime = System.currentTimeMillis();
         converter.convertKekkeiGenkai("Non-specific.txt");
         System.out.println("Finished creating KekkeiGenkai SQL--" + getElapsedTime(currentTime));
 
+        // CLAN
         System.out.println("\nCreating Clan SQL");
         currentTime = System.currentTimeMillis();
         converter.convertClan("Non-specific.txt");
         System.out.println("Finished creating Clan SQL--" + getElapsedTime(currentTime));
 
+        // TEAMS
         System.out.println("\nCreating Team SQL");
         currentTime = System.currentTimeMillis();
         converter.convertTeam("Non-specific.txt");
         converter.createTeamMembers("Non-specific.txt");
         System.out.println("Finished creating Team SQL--" + getElapsedTime(currentTime));
 
+        // ATAKTSUKI
         System.out.println("\nCreating Akatsuki (team) SQL");
         currentTime = System.currentTimeMillis();
         converter.convertAkatsuki("Akatsuki.txt");
         System.out.println("Finished creating Akatsuki SQL--" + getElapsedTime(currentTime));
 
+        // KARA
         System.out.println("\nCreating Kara (team) SQL");
         currentTime = System.currentTimeMillis();
         converter.convertKara("Kara.txt");
         System.out.println("Finished creating kara SQL--" + getElapsedTime(currentTime));
+
+        System.out.println("\nCreating Ranks SQL");
+        currentTime = System.currentTimeMillis();
+        converter.convertRank("Rank.txt");
+        System.out.println("Finished creating Rank SQL--" + getElapsedTime(currentTime));
 
         System.out.println("\nFinished converting!");
         System.out.println("Total time: " + getElapsedTime(startTime));
