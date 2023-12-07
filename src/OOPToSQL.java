@@ -162,6 +162,17 @@ public class OOPToSQL {
         }
     }
 
+    public void convertOccupation(String outputFile){
+        Output.log("\n# Occupation(occupationId, occupationName)",outputFile);
+        for (Map.Entry<String, Occupation> occupations : Occupation.entrySet()) {
+            Occupation occupation = occupations.getValue();
+
+            String ocId = occupation.id +"";
+            String ocName = "'" + occupation.occupation + "'";
+            Output.log(generateInsert("Occupations", new String[]{ocId,ocName}), outputFile);
+        }
+    }
+
     // NatureType-Character is many to many
     public void createCharacterNatureTypes(String outputFile){
         Output.log("\n# CharactersNatureTypes(natureType, characterId)",outputFile);

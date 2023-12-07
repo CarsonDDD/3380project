@@ -95,6 +95,14 @@ public class JsonToOOP {
 
                 if (!(cId == 22 || cId == 32 || cId == 342 || cId == 395 || cId == 431 || cId == 525 || cId == 773 || cId == 881 || cId == 1126 || cId == 1207 || cId == 1250)) {
                     handlePersonal((JSONObject) charJson.get("personal"), character);
+
+                    // OCCUPATION IS INSIDE PERSONAL
+                    // Sometimes its an array, sometimes its not. This is super strange how its not just always an array
+                    JSONObject p = ((JSONObject) charJson.get("personal"));
+                    if(p != null /*&& cId == 132*/){
+                        handleOccupation(p.get("occupation"), character);
+                    }
+
                 }
                 if (!(cId == 1360 || cId == 811)) {
                     handleRank((JSONObject) charJson.get("rank"), character);
@@ -519,6 +527,30 @@ public class JsonToOOP {
 
                 target.addPersonal(SexPersonal);
         }
+    }
+
+    public void handleOccupation(Object occupationJson, IHasOccupation target){
+        if(occupationJson == null) return;
+
+        if(occupationJson instanceof String){
+            addSingleOccupation(occupationJson, target);
+        }
+        else{
+            for(Object object: (JSONArray)occupationJson){
+                addSingleOccupation(object, target);
+            }
+        }
+    }
+
+    private void addSingleOccupation(Object occupationName, IHasOccupation target){
+        String occupationString = (String)occupationName;
+        Occupation occupation = Occupation.get(occupationString);
+
+        if(occupation == null){
+            occupation = new Occupation(occupationString);
+            Occupation.put(occupationString,occupation);
+        }
+        target.addOccupation(occupation);
     }
 
     public void handleRank(JSONObject rankJson, IHasRanks target){

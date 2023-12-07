@@ -69,10 +69,11 @@ public class NarutoScraper {
         scraper.processAkatsukiJson(akatsuki);
         System.out.println("Finished Kara--" + getElapsedTime(currentTime));
 
+        //HashMap<Integer, Character> characterrs = Character.charactersAll;
+
         //Output.close();
         System.out.println("\nFinished LoadingJson!");
         System.out.println("Total time: " + getElapsedTime(startTime));
-
 
         // ---------------------OOP TO SQL--------------------------------
 
@@ -155,10 +156,17 @@ public class NarutoScraper {
         converter.convertKara("Kara.txt");
         System.out.println("Finished creating kara SQL--" + getElapsedTime(currentTime));
 
+        // RANKS
         System.out.println("\nCreating Ranks SQL");
         currentTime = System.currentTimeMillis();
         converter.convertRank("Rank.txt");
         System.out.println("Finished creating Rank SQL--" + getElapsedTime(currentTime));
+
+        // RANKS
+        System.out.println("\nCreating Occupation SQL");
+        currentTime = System.currentTimeMillis();
+        converter.convertOccupation("Occupation.txt");
+        System.out.println("Finished creating Occupation SQL--" + getElapsedTime(currentTime));
 
         System.out.println("\nFinished converting!");
         System.out.println("Total time: " + getElapsedTime(startTime));

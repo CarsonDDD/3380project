@@ -3,7 +3,7 @@ import Entities.Interfaces.*;
 
 import java.util.*;
 
-public class Character implements IHasPersonal, IHasDebut, IHasTools, IHasJutsu, IHasNatureType, IHasVoiceActor, IHasUniqueTraits, IHasRanks {
+public class Character implements IHasPersonal, IHasDebut, IHasTools, IHasJutsu, IHasNatureType, IHasVoiceActor, IHasUniqueTraits, IHasRanks, IHasOccupation {
 	private static HashMap<Integer, Character> charactersAll = new HashMap<>();
 	public int id;
 	public String name;
@@ -24,9 +24,16 @@ public class Character implements IHasPersonal, IHasDebut, IHasTools, IHasJutsu,
 
 	public final ArrayList<Rank> ranks = new ArrayList<>();
 
+	public final ArrayList<Occupation> occupations = new ArrayList<>();
+
 	public Character(int id, String name){
 		this.id = id;
 		this.name = name;
+	}
+
+	@Override
+	public void addOccupation(Occupation newOccupation){
+		occupations.add(newOccupation);
 	}
 
 	@Override
