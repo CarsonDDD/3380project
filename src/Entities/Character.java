@@ -3,7 +3,7 @@ import Entities.Interfaces.*;
 
 import java.util.*;
 
-public class Character implements IHasPersonal, IHasDebut, IHasTools, IHasJutsu, IHasNatureType, IHasVoiceActor, IHasUniqueTraits {
+public class Character implements IHasPersonal, IHasDebut, IHasTools, IHasJutsu, IHasNatureType, IHasVoiceActor, IHasUniqueTraits, IHasRanks {
 	private static HashMap<Integer, Character> charactersAll = new HashMap<>();
 	public int id;
 	public String name;
@@ -21,6 +21,8 @@ public class Character implements IHasPersonal, IHasDebut, IHasTools, IHasJutsu,
 	public final ArrayList<Tool> tools = new ArrayList<>();
 
 	public final ArrayList<NatureType> natureTypes = new ArrayList<>();
+
+	public final ArrayList<Rank> ranks = new ArrayList<>();
 
 	public Character(int id, String name){
 		this.id = id;
@@ -60,6 +62,11 @@ public class Character implements IHasPersonal, IHasDebut, IHasTools, IHasJutsu,
 	@Override
 	public void addActor(VoiceActor actor) {
 		voiceActors.add(actor);
+	}
+
+	@Override
+	public void addRank(Rank rank) {
+		ranks.add(rank);
 	}
 
 	public static Character get(int characterId){
