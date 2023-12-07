@@ -10,6 +10,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 
 public class JsonToOOP {
 
@@ -341,6 +343,29 @@ public class JsonToOOP {
         }
     }
 
+    private String handleStringFloat(String value){
+        String result = "";
+        String[] arr;
+        if (value.indexOf("–") != -1){
+            arr = value.split("–");
+        }
+        else{
+            arr = value.split("-");
+        }
+        if (arr.length == 1) {
+            result = arr[0].trim();
+        }
+        else
+        {
+            NumberFormat formatter = new DecimalFormat("0.0");
+            float num1 = Float.parseFloat(arr[0].trim());
+            float num2 = Float.parseFloat(arr[1].trim());
+            float avg = (num1+num2)/2;
+            result = formatter.format(avg);
+        }
+        return result;
+    }
+
     // TODO: FINE TUNE
     public void handlePersonal(JSONObject personalJson, IHasPersonal target){
         if (personalJson == null) return;
@@ -417,6 +442,8 @@ public class JsonToOOP {
                 for (Object weightKeyObj : weightJson.keySet()) {
                     String weightKey = (String) weightKeyObj; // Convert weightKey to String
                     String weightValue = weightJson.get(weightKey).toString();
+                    weightValue = weightValue.split("kg")[0];
+                    weightValue = handleStringFloat(weightValue);
                     String weightUniqueKey = key + weightKey + weightValue;
 
                     Personal weightPersonal = Personal.get(weightUniqueKey);
@@ -432,6 +459,7 @@ public class JsonToOOP {
                 for (Object ageKeyObj : ageJson.keySet()) {
                     String ageKey = (String) ageKeyObj; // Convert ageKey to String
                     String ageValue = ageJson.get(ageKey).toString();
+                    ageValue = handleStringFloat(ageValue);
                     String ageUniqueKey = key + ageKey + ageValue;
 
                     Personal agePersonal = Personal.get(ageUniqueKey);
@@ -448,6 +476,8 @@ public class JsonToOOP {
                 for (Object heightKeyObj : heightJson.keySet()) {
                     String heightKey = (String) heightKeyObj; // Convert heightKey to String
                     String heightValue = heightJson.get(heightKey).toString();
+                    heightValue = heightValue.split("cm")[0];
+                    heightValue = handleStringFloat(heightValue);
                     String heightUniqueKey = key + heightKey + heightValue;
 
                     Personal heightPersonal = Personal.get(heightUniqueKey);
