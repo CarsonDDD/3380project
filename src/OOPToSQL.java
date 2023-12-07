@@ -110,7 +110,7 @@ public class OOPToSQL {
 
     // Characters(characterId, characterName, villageId, clanId, beastId, birthdate, bloodType, status, sex, weight, age, height)
     public void convertCharacter(String outputFile){
-        Output.log("\n# Characters(characterId, characterName, villageId, clanId, personalId, beastId)",outputFile);
+        Output.log("\n# Characters(characterId, characterName, villageId, clanId, beastId, birthdate, bloodType, status, sex, weight, age, height)",outputFile);
         for (Map.Entry<Integer, Character> entry : Character.entrySet()){
             Integer key = entry.getKey();
             Character character = entry.getValue();
@@ -140,12 +140,14 @@ public class OOPToSQL {
             }
 
             // TODO: BEASTID, just lookup beast table to check existnace
+            String beastId = "null";
+            // compare char id to
+            // character and beast share the same id, essentially beast id IS characterId and acts as a bool
+            TailedBeast beast = TailedBeast.get(character.id);
+            if(beast != null){
+                beastId = character.id+"";
+            }
 
-            // PersonalID TODO: FIX/ CHANGE PERSONAL
-            // possible many to many TODO:
-            // TODO: beast?!?!?!?!?!!?!?!?!?! is this jikugienuri?
-            // TODO: TailedBeast, Personal (for real), Rank, Occupation, Classifications
-            // Characters(characterId, characterName, villageId, clanId, beastId, birthdate, bloodType, status, sex, weight, age, height)
             // PERSONALS
             String birth = character.birthDate;
             String blood = character.bloodType;
@@ -197,7 +199,7 @@ public class OOPToSQL {
             }
 
             // Characters(characterId, characterName, villageId, clanId, beastId, birthdate, bloodType, status, sex, weight, age, height)
-            Output.log(generateInsert("Characters", new String[]{id +"", "\""+name + "\"", villageId+"", clanId+"", "BEASTID", birth, blood,status,sex,weight,age,height}), outputFile);
+            Output.log(generateInsert("Characters", new String[]{id +"", "\""+name + "\"", villageId+"", clanId+"", beastId, birth, blood,status,sex,weight,age,height}), outputFile);
         }
     }
 
@@ -212,6 +214,32 @@ public class OOPToSQL {
             String rankPeriod = "'" + rank.period + "'";;
             String rankName = "'" + rank.name + "'";
             Output.log(generateInsert("Ranks", new String[]{rankId,rankPeriod,rankName})+" #"+rank.name, outputFile);
+        }
+    }
+
+    // CharactersHaveRanks(rankId, characterId) Many to many
+    public void createCharacterRank(String outputFile){
+        Output.log("\n# CharactersHaveRanks(rankId, characterId)",outputFile);
+        for (Map.Entry<Integer, Character> entry : Character.entrySet()) {
+            Integer characterId = entry.getKey();
+            Character character = entry.getValue();
+
+            for(Rank rank : character.ranks){
+                Output.log(generateInsert("CharactersHaveRanks", new String[]{rank.id+"",characterId+""})+" #"+rank.name+"—"+character.name, outputFile);
+            }
+        }
+    }
+
+    // TailedBeastJinchuriki(rankId, characterId) Many to many
+    public void createTailedBeastjinchuriki(String outputFile){
+        Output.log("\n# TailedBeastJinchuriki(beastId, characterId)",outputFile);
+        for (Map.Entry<Integer, TailedBeast> entry : TailedBeast.entrySet()) {
+            //Integer characterId = entry.getKey();
+            TailedBeast beast = entry.getValue();
+
+            for(Character character : beast.jinchuriki){
+                Output.log(generateInsert("TailedBeastJinchuriki", new String[]{beast.id+"",character.id+""})+" #"+beast.name+"—"+character.name, outputFile);
+            }
         }
     }
 
@@ -365,17 +393,4 @@ public class OOPToSQL {
         }
     }
 
-    // Personal-Character is many to many?
-    public void createCharacterPersonal(){
-        /*Output.log("\n# \n#Personal-Characters Many to Many",outputFile);
-        for (Map.Entry<Integer, Character> entry : Character.entrySet()) {
-            Integer characterId = entry.getKey();
-            Character character = entry.getValue();
-            Output.log("\n# #Personal-Characters for: " + character.name,outputFile);
-
-            for(Personal personal : character.personals){
-                Output.log(generateInsert("CharactersPersonal", new String[]{characterId+"",personal.id+""})+" #"+personal., outputFile);
-            }
-        }*/
-    }
 }

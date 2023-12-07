@@ -130,14 +130,17 @@ public class JsonToOOP {
                 String beastName = String.valueOf(beastJson.get("name"));
                 tailedBeast = new TailedBeast(beastId, beastName);
 
-                handleJutsu((JSONArray)beastJson.get("jutsu"), tailedBeast);
+                /*handleJutsu((JSONArray)beastJson.get("jutsu"), tailedBeast);
                 handleUniqueTraits((JSONArray)beastJson.get("uniqueTraits"),  tailedBeast);
                 handleDebut((JSONObject) beastJson.get("debut"), tailedBeast);
                 handlePersonal((JSONObject) beastJson.get("personal"), tailedBeast);
                 handleVoiceActors((JSONObject) beastJson.get("voiceActors"), tailedBeast);
-                handleTools((JSONArray) beastJson.get("tools"), tailedBeast);
-                handleNatureTypes((JSONArray) beastJson.get("natureType"), tailedBeast);
+                handleTools((JSONArray) beastJson.get("tools"), tailedBeast);*/
+                //handleNatureTypes((JSONArray) beastJson.get("natureType"), tailedBeast);
+                //handlePersonal((JSONObject) beastJson.get("personal"), tailedBeast);
 
+                JSONArray jinchurikiArray = (JSONArray) ((JSONObject)beastJson.get("personal")).get("jinchūriki");
+                handleJinchuriki(jinchurikiArray, tailedBeast);
                 TailedBeast.put(beastId, tailedBeast);
             }
         }
@@ -378,6 +381,24 @@ public class JsonToOOP {
             result = formatter.format(avg);
         }
         return result;
+    }
+
+    public  void handleJinchuriki(JSONArray jinchurikiArray, IHasCharacters target){
+        if(jinchurikiArray == null) return;
+
+        for (Object jinchurikiNameObj : jinchurikiArray) {
+            String jinchurikiName = (String) jinchurikiNameObj;
+            jinchurikiName = jinchurikiName.replace(" (Yin half)","");
+            Character jinchurikiCharacter = Character.get(jinchurikiName);
+
+            if (jinchurikiCharacter != null) {
+                target.addCharacter(jinchurikiCharacter);
+            }
+            else{
+                System.out.println("\n\n\nJinchuriki references character: '"+jinchurikiName+"' which doesnt exist\n\n");
+            }
+        }
+        //Object jinchurikiObj = personalJson.get("jinchūriki");
     }
 
     // TODO: FINE TUNE

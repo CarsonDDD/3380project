@@ -70,6 +70,7 @@ public class NarutoScraper {
         System.out.println("Finished Kara--" + getElapsedTime(currentTime));
 
         //HashMap<Integer, Character> characterrs = Character.charactersAll;
+        //HashMap<Integer, TailedBeast> beastsTAILED = TailedBeast.tailedBeastsAll;
 
         //Output.close();
         System.out.println("\nFinished LoadingJson!");
@@ -91,6 +92,9 @@ public class NarutoScraper {
         converter.createCharacterUniqueTraits("Character.txt");
         converter.createKekkeiGenkaiCharacter("Character.txt");
         converter.createCharacterJutsu("Character.txt");
+        converter.createCharacterRank("Rank.txt");
+        converter.createTailedBeastjinchuriki("Rank.txt");
+
         // UNIQUE TRAIT INFO
 
         //TOOLS
