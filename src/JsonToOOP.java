@@ -96,6 +96,9 @@ public class JsonToOOP {
                 if (!(cId == 22 || cId == 32 || cId == 342 || cId == 395 || cId == 431 || cId == 525 || cId == 773 || cId == 881 || cId == 1126 || cId == 1207 || cId == 1250)) {
                     handlePersonal((JSONObject) charJson.get("personal"), character);
                 }
+                if (!(cId == 1360 || cId == 811)) {
+                    handleRank((JSONObject) charJson.get("rank"), character);
+                }
 
                 Character.put(cId, character);
             }
@@ -515,6 +518,24 @@ public class JsonToOOP {
                 }
 
                 target.addPersonal(SexPersonal);
+        }
+    }
+
+    public void handleRank(JSONObject rankJson, IHasRanks target){
+        if (rankJson == null) return;
+        
+        JSONObject ninjaRankJson = (JSONObject) rankJson.get("ninjaRank");
+        if (ninjaRankJson == null) return;
+        for (Object key : ninjaRankJson.keySet()) {
+            String period = (String) key;
+            String rankName = ninjaRankJson.get(key).toString();
+            
+            Rank rank = Rank.get(period+rankName);
+            if(rank == null){
+                rank = new Rank(period, rankName);
+                Rank.put(period + rankName, rank);
+            }
+            target.addRank(rank);
         }
     }
 
