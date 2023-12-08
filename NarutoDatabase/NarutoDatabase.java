@@ -6,26 +6,25 @@ public class NarutoDatabase extends Database implements CommandProcessor{
     // COMMANDS AND QUERIES GO IN THIS FILE
     @Override
     public boolean processCommand(String command, String[] args) throws Exception{
-		switch (command) {
-			case "test":
-				exampleQuery();
-				System.out.println("Hello!");
-				return true;
+		switch (command.toLowerCase()) {
+			case "quit":
+				System.out.println("Existing database...");
+				return false;
 			case "help":
 				helpCommand();
-				System.out.println("Hello!");
 				return true;
 			default:
-				return false;
+				return true;
         }
     }
 
-	private void helpCommand(){
+	public void helpCommand(){
 		StringBuilder sb = new StringBuilder();
 
 		sb.append("\n---- Help ----\n");
-		sb.append("1.\n");
-		sb.append("2.\n");
+		sb.append("Commands:\n");
+		sb.append("1. `Help` - Shows help menu\n");
+		sb.append("2. `Quit` - Quits the program\n");
 		sb.append("3.\n");
 		sb.append("4.\n");
 		sb.append("5.\n");
@@ -36,6 +35,8 @@ public class NarutoDatabase extends Database implements CommandProcessor{
 		sb.append("10.\n");
 		sb.append("11.\n");
 		sb.append("12.\n");
+
+		System.out.println(sb.toString());
 	}
 
 	public void test() throws SQLException{

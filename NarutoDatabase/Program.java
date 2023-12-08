@@ -13,11 +13,10 @@ public class Program {
 		NarutoDatabase database = new NarutoDatabase();
 		database.connect("jdbc:sqlite:NarutoDatabase/Naruto.db");
 
-		//database.
-		database.test();
-
-		//runConsole(database);
-
+		//database.test();
+		System.out.println("Welcome to the NarutoDatabase (actual database!)");
+		database.helpCommand();
+		runConsole(database);
 		System.out.println("Finished Executing...");
 	}
 
@@ -31,8 +30,9 @@ public class Program {
 			String command = tokens[0];
         	String[] args = Arrays.copyOfRange(tokens, 1, tokens.length);
 
+
 			try{
-				processor.processCommand(command, args);
+				if(!processor.processCommand(command, args)) break;
 			}
 			catch(Exception e){
 				e.printStackTrace();
