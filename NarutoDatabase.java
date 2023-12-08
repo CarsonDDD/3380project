@@ -30,6 +30,21 @@ public class NarutoDatabase extends Database implements CommandProcessor{
 			case "mpc":
 				mostPopularChar();
 				return true;
+			case "ma":
+				mostActors();;
+				return true;
+			case "ut":
+				if (args.length >= 1)
+					uniqueTrait(args[0]);
+				else
+					System.out.println("Need at least one argument");
+				return true;
+			case "ik":
+				individualKek();
+				return true;
+			case "tc":
+				teamChange();
+				return true;
 			default:
 				System.out.println("Command not find, please use `Help` to view list of command");
 				return true;
@@ -45,14 +60,14 @@ public class NarutoDatabase extends Database implements CommandProcessor{
 		sb.append("2. `Quit` - Quits the program\n");
 		sb.append("3. `aa` - The average age of characters in each clan and in ascending order\n");
 		sb.append("4. `jubr` - A list of ninja characters from a specific rank that can use and jutsu they can use from each village\n\t(Academy Student, Genin, Chunin, Jonin, Kage,...)\n");
-		sb.append("5.\n");
-		sb.append("6.\n");
-		sb.append("7.\n");
+		sb.append("5. `ut` - Find characters with a specific unique trait and their affiliated teams\n");
+		sb.append("6. `ik` - All characters (dead/alive) that have unique Kekkeigenkai. (Kekkei Genkai than only that character can use)\n");
+		sb.append("7. `tc` - Listing all characters and the number of teams they have changed throughout the Naruto series.\n");
 		sb.append("8.\n");
 		sb.append("9. `cg` - A list of Clans that have Kekkei Genkai\n");
 		sb.append("10. `rn` - For each nature types, find the team with the highest ratio of members of that nature type\n");
 		sb.append("11. `mpc` - Top 3 most popular characters base on the number of media types they debut in\n");
-		sb.append("12.\n");
+		sb.append("12. `ma` - Ranking villages by the number of voice actors associated with characters inside that village\n");
 
 		System.out.println(sb.toString());
 	}
@@ -171,7 +186,7 @@ public class NarutoDatabase extends Database implements CommandProcessor{
 			SELECT teamName, natureType, ROUND((userNum * 1.0) / memberNum, 2) as rate
 			FROM natureRankingPerTeam
 			NATURAL JOIN teamMemberCount
-			WHERE natureRank = 1
+			WHERE natureRank = 1;
 		""";
 		PreparedStatement statement = connection.prepareStatement(sql);
 
@@ -230,6 +245,114 @@ public class NarutoDatabase extends Database implements CommandProcessor{
 				if (clanName == null)
 				clanName = "Not in clan";
 				System.out.printf("Character: %s, Debut in: %d medias, team: %s, village: %s, clan %s\n", charName, debutCount, teamName, villageName, clanName);
+			}
+			catch (SQLException e) {
+				e.printStackTrace();
+			}
+		});
+	}
+
+	public void mostActors() throws SQLException{
+		String sql = """
+			SELECT villageName, count(actorId) AS countActor
+			FROM Villages
+			NATURAL JOIN Characters
+			NATURAL JOIN VoiceActorsActCharacters
+			GROUP BY villageName
+			ORDER BY countActor DESC;
+		""";
+		PreparedStatement statement = connection.prepareStatement(sql);
+
+		this.executeQuery(statement, (resultSet)->{
+			try {
+				String villageName = resultSet.getString("villageName");
+				int countActor = resultSet.getInt("countActor");
+				System.out.printf("Village name: %s, number of actors: %d\n", villageName, countActor);
+			}
+			catch (SQLException e) {
+				e.printStackTrace();
+			}
+		});
+	}
+
+	public void uniqueTrait(String trait) throws SQLException{
+		String sql = """
+					SELECT Characters.characterName, Teams.teamName, CharactersUniqueTraits.trait
+					FROM Characters
+					INNER JOIN CharactersUniqueTraits ON Characters.characterId = CharactersUniqueTraits.characterId
+					LEFT JOIN TeamMembers ON Characters.characterId = TeamMembers.characterId
+					LEFT JOIN Teams ON TeamMembers.teamId = Teams.teamId
+					WHERE CharactersUniqueTraits.trait LIKE ?;
+				""";
+		PreparedStatement statement = connection.prepareStatement(sql);
+		statement.setString(1, "%" + trait + "%");
+
+		this.executeQuery(statement, (resultSet)->{
+			try {
+				String charName = resultSet.getString("characterName");
+				String teamName = resultSet.getString("teamName");
+				String traitName = resultSet.getString("trait");
+				if (teamName == null)
+					teamName = "Not in team";
+				System.out.printf("Character: %s, Team: %s, Trait: %s\n", charName, teamName, traitName);
+			}
+			catch (SQLException e) {
+				e.printStackTrace();
+			}
+		});
+	}
+
+	public void individualKek() throws SQLException{
+		String sql = """
+				WITH
+					UserCount AS (
+						SELECT genkaiId, COUNT(genkaiName) AS count
+						FROM Characters
+						NATURAL JOIN CharactersHaveKekkeiGenkai
+						NATURAL JOIN KekkeiGenkai
+						GROUP BY genkaiId
+					)
+				
+				SELECT characterName, genkaiName
+				FROM Characters
+				NATURAL JOIN CharactersHaveKekkeiGenkai
+				NATURAL JOIN KekkeiGenkai
+				NATURAL JOIN UserCount
+				WHERE count = 1;
+				""";
+		PreparedStatement statement = connection.prepareStatement(sql);
+
+		this.executeQuery(statement, (resultSet)->{
+			try {
+				String charName = resultSet.getString("characterName");
+				String genkaiName = resultSet.getString("genkaiName");
+				System.out.printf("Character: %s, KekkeiGenkai: %s\n", charName, genkaiName);
+			}
+			catch (SQLException e) {
+				e.printStackTrace();
+			}
+		});
+	}
+
+	public void teamChange() throws SQLException{
+		String sql = """
+					WITH TeamChanges AS (
+						SELECT characterId,COUNT(DISTINCT teamId) AS teamCount
+						FROM TeamMembers
+						GROUP BY characterId
+						HAVING COUNT(DISTINCT teamId) > 1
+					)
+					SELECT C.characterId, C.characterName, TC.teamCount
+					FROM Characters C
+					INNER JOIN TeamChanges TC ON C.characterId = TC.characterId;
+				""";;
+		PreparedStatement statement = connection.prepareStatement(sql);
+
+		this.executeQuery(statement, (resultSet)->{
+			try {
+				String charName = resultSet.getString("characterName");
+				String count = resultSet.getString("teamCount");
+				System.out.printf("Character: %s, Number of team: %d\n", charName, count);
 			}
 			catch (SQLException e) {
 				e.printStackTrace();
