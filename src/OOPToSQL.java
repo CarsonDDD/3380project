@@ -1,5 +1,6 @@
 import Entities.*;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import Entities.Character;
@@ -285,11 +286,12 @@ public class OOPToSQL {
     }
 
     public void convertNatureTypes(String outputFile){
+        //HashMap<String, NatureType> natures = NatureType.natureTypeAll;
         Output.log("\n--  NatureTypes(natureId, type)",outputFile);
         for (Map.Entry<String, NatureType> entry : NatureType.entrySet()) {
             NatureType natureType = entry.getValue();
 
-            Output.log(generateInsert("NatureTypes", new String[]{natureType.id + "", formatString(natureType.type)}));
+            Output.log(generateInsert("NatureTypes", new String[]{natureType.id + "", formatString(natureType.type)}), outputFile);
         }
 
     }
