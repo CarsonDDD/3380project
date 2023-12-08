@@ -162,6 +162,21 @@ CREATE TABLE Ranks (
     rankName VARCHAR(255) NOT NULL
 );
 
+CREATE TABLE CharactersClassifications (
+    characterId INT,
+    classificationId INT,
+    PRIMARY KEY (characterId, classificationId),
+    FOREIGN KEY (classificationId) REFERENCES Classifications(classificationId),
+    FOREIGN KEY (characterId) REFERENCES Characters(characterId)
+);
+
+CREATE TABLE CharactersOccupations (
+    characterId INT,
+    occupationId INT,
+    PRIMARY KEY (characterId, occupationId),
+    FOREIGN KEY (occupationId) REFERENCES Occupations(occupationId),
+    FOREIGN KEY (characterId) REFERENCES Characters(characterId)
+);
 
 
 --  Characters(characterId, characterName, villageId, clanId, beastId, birthdate, bloodType, status, sex, weight, age, height)
@@ -192,7 +207,6 @@ INSERT INTO Characters VALUES(23,'Aino',null,null,null,'null','null','Deceased',
 INSERT INTO Characters VALUES(24,'Ajisai',0,null,null,'null','null','Deceased','Female',null,null,155.6);
 INSERT INTO Characters VALUES(25,'Akaboshi',null,null,null,'null','null','Alived','Male',null,null,null);
 INSERT INTO Characters VALUES(26,'Manabu Akado',16,null,null,'null','null','Alived','Male',null,38,null);
-INSERT INTO Characters VALUES(27,'Yoroi Akado',16,null,null,'February 21','O','Presumed Deceased','Male',70,23,180);
 INSERT INTO Characters VALUES(28,'Akahoshi',7,null,null,'null','null','Alived','Male',null,null,null);
 INSERT INTO Characters VALUES(29,'Akamaru',16,17,null,'July 7','null','Alived','Male',5.1,3.5,28);
 INSERT INTO Characters VALUES(30,'Iwana Akame',16,null,null,'null','null','Alived','Male',null,32,null);
@@ -13344,6 +13358,984 @@ INSERT INTO TailedBeastJinchuriki VALUES(669,363); -- Kokuo—Han
 INSERT INTO TailedBeastJinchuriki VALUES(669,1344); -- Kokuo—Naruto Uzumaki
 INSERT INTO TailedBeastJinchuriki VALUES(1134,983); -- Son Goku—Roshi
 INSERT INTO TailedBeastJinchuriki VALUES(1134,1344); -- Son Goku—Naruto Uzumaki
+
+--  CharactersClassifications(characterId, classificationId)
+INSERT INTO CharactersClassifications VALUES(1,0); -- Ten-Tails—Tailed Beast
+INSERT INTO CharactersClassifications VALUES(27,1); -- Yoroi Akado—Missing-nin
+INSERT INTO CharactersClassifications VALUES(48,2); -- Akino—Summon
+INSERT INTO CharactersClassifications VALUES(55,3); -- Amachi—Medical-nin
+INSERT INTO CharactersClassifications VALUES(59,3); -- Amai—Medical-nin
+INSERT INTO CharactersClassifications VALUES(62,3); -- Ameno—Medical-nin
+INSERT INTO CharactersClassifications VALUES(77,1); -- Aniki (missing-nin)—Missing-nin
+INSERT INTO CharactersClassifications VALUES(80,4); -- Ao—Sensor Type
+INSERT INTO CharactersClassifications VALUES(80,5); -- Ao—Hunter-nin
+INSERT INTO CharactersClassifications VALUES(81,2); -- Aoda—Summon
+INSERT INTO CharactersClassifications VALUES(84,3); -- Aosa—Medical-nin
+INSERT INTO CharactersClassifications VALUES(96,1); -- Ashimaru—Missing-nin
+INSERT INTO CharactersClassifications VALUES(96,6); -- Ashimaru—Mercenary Ninja
+INSERT INTO CharactersClassifications VALUES(104,3); -- Azure Fang—Medical-nin
+INSERT INTO CharactersClassifications VALUES(108,2); -- Baku—Summon
+INSERT INTO CharactersClassifications VALUES(115,7); -- Bansai—Ninja monk
+INSERT INTO CharactersClassifications VALUES(117,1); -- Beekeeper—Missing-nin
+INSERT INTO CharactersClassifications VALUES(121,2); -- Bisuke—Summon
+INSERT INTO CharactersClassifications VALUES(122,1); -- Juzo Biwa—Missing-nin
+INSERT INTO CharactersClassifications VALUES(124,8); -- Blue B—Jinchuriki
+INSERT INTO CharactersClassifications VALUES(124,9); -- Blue B—Pseudo-Jinchuriki
+INSERT INTO CharactersClassifications VALUES(124,4); -- Blue B—Sensor Type
+INSERT INTO CharactersClassifications VALUES(129,2); -- Bull—Summon
+INSERT INTO CharactersClassifications VALUES(131,8); -- Bunpuku—Jinchuriki
+INSERT INTO CharactersClassifications VALUES(135,3); -- C—Medical-nin
+INSERT INTO CharactersClassifications VALUES(135,4); -- C—Sensor Type
+INSERT INTO CharactersClassifications VALUES(142,10); -- Chichiatsu—Daimyo
+INSERT INTO CharactersClassifications VALUES(144,10); -- Chikara—Daimyo
+INSERT INTO CharactersClassifications VALUES(145,4); -- Chino—Sensor Type
+INSERT INTO CharactersClassifications VALUES(146,7); -- Chiriku—Ninja monk
+INSERT INTO CharactersClassifications VALUES(148,3); -- Chiyo—Medical-nin
+INSERT INTO CharactersClassifications VALUES(150,11); -- Chiyomatsu—Samurai
+INSERT INTO CharactersClassifications VALUES(153,0); -- Chomei—Tailed Beast
+INSERT INTO CharactersClassifications VALUES(154,1); -- Choseki—Missing-nin
+INSERT INTO CharactersClassifications VALUES(156,7); -- Chukaku—Ninja monk
+INSERT INTO CharactersClassifications VALUES(157,4); -- Chukichi—Sensor Type
+INSERT INTO CharactersClassifications VALUES(160,2); -- Conch King—Summon
+INSERT INTO CharactersClassifications VALUES(164,11); -- Cursed Warrior—Samurai
+INSERT INTO CharactersClassifications VALUES(171,10); -- Calm Seas Daimyo—Daimyo
+INSERT INTO CharactersClassifications VALUES(172,10); -- Claw Daimyo—Daimyo
+INSERT INTO CharactersClassifications VALUES(173,10); -- Earth Daimyo—Daimyo
+INSERT INTO CharactersClassifications VALUES(174,10); -- Fang Daimyo—Daimyo
+INSERT INTO CharactersClassifications VALUES(175,10); -- Fire Daimyo (Part I-II)—Daimyo
+INSERT INTO CharactersClassifications VALUES(176,10); -- Frost Daimyo—Daimyo
+INSERT INTO CharactersClassifications VALUES(177,10); -- Hot Water Daimyo—Daimyo
+INSERT INTO CharactersClassifications VALUES(178,10); -- Lightning Daimyo—Daimyo
+INSERT INTO CharactersClassifications VALUES(179,10); -- Sound Daimyo—Daimyo
+INSERT INTO CharactersClassifications VALUES(180,10); -- Tea Daimyo—Daimyo
+INSERT INTO CharactersClassifications VALUES(182,10); -- This Daimyo—Daimyo
+INSERT INTO CharactersClassifications VALUES(183,10); -- Valleys Daimyo—Daimyo
+INSERT INTO CharactersClassifications VALUES(184,10); -- Water Daimyo—Daimyo
+INSERT INTO CharactersClassifications VALUES(185,10); -- Wind Daimyo (Part I)—Daimyo
+INSERT INTO CharactersClassifications VALUES(186,10); -- Wind Daimyo (Part II)—Daimyo
+INSERT INTO CharactersClassifications VALUES(189,10); -- Danjo—Daimyo
+INSERT INTO CharactersClassifications VALUES(193,12); -- Deidara—S-rank
+INSERT INTO CharactersClassifications VALUES(193,1); -- Deidara—Missing-nin
+INSERT INTO CharactersClassifications VALUES(193,6); -- Deidara—Mercenary Ninja
+INSERT INTO CharactersClassifications VALUES(195,2); -- Demonic Statue of the Outer Path—Summon
+INSERT INTO CharactersClassifications VALUES(201,2); -- Doki—Summon
+INSERT INTO CharactersClassifications VALUES(206,1); -- Doshin—Missing-nin
+INSERT INTO CharactersClassifications VALUES(211,2); -- Earth Prison Golem—Summon
+INSERT INTO CharactersClassifications VALUES(218,2); -- Enra—Summon
+INSERT INTO CharactersClassifications VALUES(221,8); -- Fu—Jinchuriki
+INSERT INTO CharactersClassifications VALUES(230,13); -- Fukasaku—Sage
+INSERT INTO CharactersClassifications VALUES(230,2); -- Fukasaku—Summon
+INSERT INTO CharactersClassifications VALUES(235,2); -- Fukuemon—Summon
+INSERT INTO CharactersClassifications VALUES(236,2); -- Fukurokumaru—Summon
+INSERT INTO CharactersClassifications VALUES(250,3); -- Furofuki—Medical-nin
+INSERT INTO CharactersClassifications VALUES(257,4); -- Fuyo—Sensor Type
+INSERT INTO CharactersClassifications VALUES(259,8); -- Gaara—Jinchuriki
+INSERT INTO CharactersClassifications VALUES(259,4); -- Gaara—Sensor Type
+INSERT INTO CharactersClassifications VALUES(260,2); -- Gama—Summon
+INSERT INTO CharactersClassifications VALUES(261,2); -- Gamabunta—Summon
+INSERT INTO CharactersClassifications VALUES(263,2); -- Gamagoro—Summon
+INSERT INTO CharactersClassifications VALUES(264,2); -- Gamahiro—Summon
+INSERT INTO CharactersClassifications VALUES(265,2); -- Gamaken—Summon
+INSERT INTO CharactersClassifications VALUES(266,13); -- Gamakichi—Sage
+INSERT INTO CharactersClassifications VALUES(266,2); -- Gamakichi—Summon
+INSERT INTO CharactersClassifications VALUES(267,13); -- Gamamaru—Sage
+INSERT INTO CharactersClassifications VALUES(269,2); -- Gamariki—Summon
+INSERT INTO CharactersClassifications VALUES(271,2); -- Gamatatsu—Summon
+INSERT INTO CharactersClassifications VALUES(274,3); -- Kiseru Gankubi—Medical-nin
+INSERT INTO CharactersClassifications VALUES(278,1); -- Gantetsu—Missing-nin
+INSERT INTO CharactersClassifications VALUES(279,1); -- Gantetsu (Iwagakure)—Missing-nin
+INSERT INTO CharactersClassifications VALUES(280,2); -- Garaga—Summon
+INSERT INTO CharactersClassifications VALUES(284,2); -- Garuda—Summon
+INSERT INTO CharactersClassifications VALUES(292,1); -- Gekko—Missing-nin
+INSERT INTO CharactersClassifications VALUES(297,1); -- Gengo—Missing-nin
+INSERT INTO CharactersClassifications VALUES(297,10); -- Gengo—Daimyo
+INSERT INTO CharactersClassifications VALUES(297,4); -- Gengo—Sensor Type
+INSERT INTO CharactersClassifications VALUES(306,2); -- Gerotora—Summon
+INSERT INTO CharactersClassifications VALUES(308,2); -- Giant Bee—Summon
+INSERT INTO CharactersClassifications VALUES(309,2); -- Giant Centipede—Summon
+INSERT INTO CharactersClassifications VALUES(310,2); -- Giant Clam—Summon
+INSERT INTO CharactersClassifications VALUES(312,2); -- Giant Crustacean—Summon
+INSERT INTO CharactersClassifications VALUES(313,2); -- Giant Drill-Beaked Bird—Summon
+INSERT INTO CharactersClassifications VALUES(314,2); -- Giant Eagle—Summon
+INSERT INTO CharactersClassifications VALUES(315,2); -- Giant Insect—Summon
+INSERT INTO CharactersClassifications VALUES(316,2); -- Giant Marlin—Summon
+INSERT INTO CharactersClassifications VALUES(317,2); -- Giant Multi-Headed Dog—Summon
+INSERT INTO CharactersClassifications VALUES(318,2); -- Giant Ox—Summon
+INSERT INTO CharactersClassifications VALUES(319,2); -- Giant Panda—Summon
+INSERT INTO CharactersClassifications VALUES(320,2); -- Giant Rhino—Summon
+INSERT INTO CharactersClassifications VALUES(321,2); -- Giant Snake-Tailed Chameleon—Summon
+INSERT INTO CharactersClassifications VALUES(323,2); -- Three Giant Snakes—Summon
+INSERT INTO CharactersClassifications VALUES(326,9); -- Ginkaku—Pseudo-Jinchuriki
+INSERT INTO CharactersClassifications VALUES(328,3); -- Doshu Goetsu—Medical-nin
+INSERT INTO CharactersClassifications VALUES(338,1); -- Gozu—Missing-nin
+INSERT INTO CharactersClassifications VALUES(338,6); -- Gozu—Mercenary Ninja
+INSERT INTO CharactersClassifications VALUES(343,2); -- Guruko—Summon
+INSERT INTO CharactersClassifications VALUES(345,0); -- Gyuki—Tailed Beast
+INSERT INTO CharactersClassifications VALUES(355,14); -- Hakkaku—Cooking-nin
+INSERT INTO CharactersClassifications VALUES(356,6); -- Haku—Mercenary Ninja
+INSERT INTO CharactersClassifications VALUES(360,1); -- Hakui—Missing-nin
+INSERT INTO CharactersClassifications VALUES(361,3); -- Hakui (medic)—Medical-nin
+INSERT INTO CharactersClassifications VALUES(362,3); -- Hakuto—Medical-nin
+INSERT INTO CharactersClassifications VALUES(363,8); -- Han—Jinchuriki
+INSERT INTO CharactersClassifications VALUES(371,10); -- Haruna—Daimyo
+INSERT INTO CharactersClassifications VALUES(374,3); -- Sakura Haruno—Medical-nin
+INSERT INTO CharactersClassifications VALUES(388,12); -- Hidan—S-rank
+INSERT INTO CharactersClassifications VALUES(388,1); -- Hidan—Missing-nin
+INSERT INTO CharactersClassifications VALUES(389,1); -- Hidari—Missing-nin
+INSERT INTO CharactersClassifications VALUES(389,6); -- Hidari—Mercenary Ninja
+INSERT INTO CharactersClassifications VALUES(397,6); -- Himushi—Mercenary Ninja
+INSERT INTO CharactersClassifications VALUES(406,1); -- Hiruko (missing-nin)—Missing-nin
+INSERT INTO CharactersClassifications VALUES(408,1); -- Hisame—Missing-nin
+INSERT INTO CharactersClassifications VALUES(413,9); -- Hoichi—Pseudo-Jinchuriki
+INSERT INTO CharactersClassifications VALUES(414,1); -- Hoki (Watari)—Missing-nin
+INSERT INTO CharactersClassifications VALUES(417,1); -- Hokushin—Missing-nin
+INSERT INTO CharactersClassifications VALUES(418,4); -- Hokuto—Sensor Type
+INSERT INTO CharactersClassifications VALUES(421,12); -- Kisame Hoshigaki—S-rank
+INSERT INTO CharactersClassifications VALUES(421,1); -- Kisame Hoshigaki—Missing-nin
+INSERT INTO CharactersClassifications VALUES(422,1); -- Shizuma Hoshigaki—Missing-nin
+INSERT INTO CharactersClassifications VALUES(425,3); -- Hosho—Medical-nin
+INSERT INTO CharactersClassifications VALUES(433,1); -- Hyogo—Missing-nin
+INSERT INTO CharactersClassifications VALUES(446,2); -- Hozuki Castle's Ninken—Summon
+INSERT INTO CharactersClassifications VALUES(448,2); -- Ibuse—Summon
+INSERT INTO CharactersClassifications VALUES(451,7); -- Ichigen—Ninja monk
+INSERT INTO CharactersClassifications VALUES(465,3); -- Hana Inuzuka—Medical-nin
+INSERT INTO CharactersClassifications VALUES(470,3); -- Io (medical-nin)—Medical-nin
+INSERT INTO CharactersClassifications VALUES(478,1); -- Ishidate—Missing-nin
+INSERT INTO CharactersClassifications VALUES(478,6); -- Ishidate—Mercenary Ninja
+INSERT INTO CharactersClassifications VALUES(480,0); -- Isobu—Tailed Beast
+INSERT INTO CharactersClassifications VALUES(494,3); -- Iyashi—Medical-nin
+INSERT INTO CharactersClassifications VALUES(499,3); -- Wasabi Izuno—Medical-nin
+INSERT INTO CharactersClassifications VALUES(508,4); -- Jibiki—Sensor Type
+INSERT INTO CharactersClassifications VALUES(509,1); -- Jiga—Missing-nin
+INSERT INTO CharactersClassifications VALUES(515,13); -- Jiraiya—Sage
+INSERT INTO CharactersClassifications VALUES(515,15); -- Jiraiya—Sannin
+INSERT INTO CharactersClassifications VALUES(521,13); -- Jugo—Sage
+INSERT INTO CharactersClassifications VALUES(537,1); -- Kagura (game)—Missing-nin
+INSERT INTO CharactersClassifications VALUES(540,1); -- Kahyo—Missing-nin
+INSERT INTO CharactersClassifications VALUES(546,1); -- Kajika—Missing-nin
+INSERT INTO CharactersClassifications VALUES(548,1); -- Kajura—Missing-nin
+INSERT INTO CharactersClassifications VALUES(548,6); -- Kajura—Mercenary Ninja
+INSERT INTO CharactersClassifications VALUES(554,4); -- Kakoi—Sensor Type
+INSERT INTO CharactersClassifications VALUES(558,12); -- Kakuzu—S-rank
+INSERT INTO CharactersClassifications VALUES(558,1); -- Kakuzu—Missing-nin
+INSERT INTO CharactersClassifications VALUES(559,1); -- Kakuzu's Partner—Missing-nin
+INSERT INTO CharactersClassifications VALUES(565,2); -- Kamatari—Summon
+INSERT INTO CharactersClassifications VALUES(574,1); -- Kandachi—Missing-nin
+INSERT INTO CharactersClassifications VALUES(583,3); -- Kanpo—Medical-nin
+INSERT INTO CharactersClassifications VALUES(591,8); -- Yagura Karatachi—Jinchuriki
+INSERT INTO CharactersClassifications VALUES(592,6); -- Karenbana—Mercenary Ninja
+INSERT INTO CharactersClassifications VALUES(593,4); -- Karin—Sensor Type
+INSERT INTO CharactersClassifications VALUES(598,1); -- Karyu—Missing-nin
+INSERT INTO CharactersClassifications VALUES(600,13); -- Koji Kashin—Sage
+INSERT INTO CharactersClassifications VALUES(608,2); -- Katsuyu—Summon
+INSERT INTO CharactersClassifications VALUES(615,10); -- Doto Kazahana—Daimyo
+INSERT INTO CharactersClassifications VALUES(616,10); -- Koyuki Kazahana—Daimyo
+INSERT INTO CharactersClassifications VALUES(617,10); -- Sosetsu Kazahana—Daimyo
+INSERT INTO CharactersClassifications VALUES(618,4); -- Moegi Kazamatsuri—Sensor Type
+INSERT INTO CharactersClassifications VALUES(622,1); -- Kazuma—Missing-nin
+INSERT INTO CharactersClassifications VALUES(626,4); -- Kidomaru—Sensor Type
+INSERT INTO CharactersClassifications VALUES(636,8); -- Killer B—Jinchuriki
+INSERT INTO CharactersClassifications VALUES(641,9); -- Kinkaku—Pseudo-Jinchuriki
+INSERT INTO CharactersClassifications VALUES(646,3); -- Kiri (ninja)—Medical-nin
+INSERT INTO CharactersClassifications VALUES(648,3); -- Kirisaki—Medical-nin
+INSERT INTO CharactersClassifications VALUES(648,1); -- Kirisaki—Missing-nin
+INSERT INTO CharactersClassifications VALUES(649,1); -- Kirisame—Missing-nin
+INSERT INTO CharactersClassifications VALUES(652,3); -- Kito—Medical-nin
+INSERT INTO CharactersClassifications VALUES(669,0); -- Kokuo—Tailed Beast
+INSERT INTO CharactersClassifications VALUES(684,12); -- Konan—S-rank
+INSERT INTO CharactersClassifications VALUES(684,4); -- Konan—Sensor Type
+INSERT INTO CharactersClassifications VALUES(685,2); -- Konenmaru—Summon
+INSERT INTO CharactersClassifications VALUES(686,6); -- Kongo—Mercenary Ninja
+INSERT INTO CharactersClassifications VALUES(687,1); -- Etoro Konjiki—Missing-nin
+INSERT INTO CharactersClassifications VALUES(687,6); -- Etoro Konjiki—Mercenary Ninja
+INSERT INTO CharactersClassifications VALUES(688,1); -- Metoro Konjiki—Missing-nin
+INSERT INTO CharactersClassifications VALUES(688,6); -- Metoro Konjiki—Mercenary Ninja
+INSERT INTO CharactersClassifications VALUES(697,2); -- Kosuke—Summon
+INSERT INTO CharactersClassifications VALUES(706,3); -- Kumadori—Medical-nin
+INSERT INTO CharactersClassifications VALUES(707,1); -- Jingo Kumano—Missing-nin
+INSERT INTO CharactersClassifications VALUES(711,0); -- Kurama—Tailed Beast
+INSERT INTO CharactersClassifications VALUES(711,4); -- Kurama—Sensor Type
+INSERT INTO CharactersClassifications VALUES(711,13); -- Kurama—Sage
+INSERT INTO CharactersClassifications VALUES(719,11); -- Tsubaki Kurogane—Samurai
+INSERT INTO CharactersClassifications VALUES(720,3); -- Hako Kuroi—Medical-nin
+INSERT INTO CharactersClassifications VALUES(723,3); -- Buntan Kurosuki—Medical-nin
+INSERT INTO CharactersClassifications VALUES(724,1); -- Raiga Kurosuki—Missing-nin
+INSERT INTO CharactersClassifications VALUES(729,4); -- Kussaku—Sensor Type
+INSERT INTO CharactersClassifications VALUES(731,3); -- Kusuna—Medical-nin
+INSERT INTO CharactersClassifications VALUES(733,3); -- Kusushi—Medical-nin
+INSERT INTO CharactersClassifications VALUES(734,2); -- Kyodaigumo—Summon
+INSERT INTO CharactersClassifications VALUES(743,2); -- Lion-Turtle—Summon
+INSERT INTO CharactersClassifications VALUES(750,10); -- Ikkyu Madoka—Daimyo
+INSERT INTO CharactersClassifications VALUES(752,3); -- Magire—Medical-nin
+INSERT INTO CharactersClassifications VALUES(757,1); -- Malice—Missing-nin
+INSERT INTO CharactersClassifications VALUES(757,3); -- Malice—Medical-nin
+INSERT INTO CharactersClassifications VALUES(761,2); -- Manda—Summon
+INSERT INTO CharactersClassifications VALUES(762,2); -- Manda II—Summon
+INSERT INTO CharactersClassifications VALUES(771,0); -- Matatabi—Tailed Beast
+INSERT INTO CharactersClassifications VALUES(777,2); -- Mecha-Kurama—Summon
+INSERT INTO CharactersClassifications VALUES(778,9); -- Mecha-Naruto—Pseudo-Jinchuriki
+INSERT INTO CharactersClassifications VALUES(779,1); -- Meizu—Missing-nin
+INSERT INTO CharactersClassifications VALUES(779,6); -- Meizu—Mercenary Ninja
+INSERT INTO CharactersClassifications VALUES(785,1); -- Mezu (missing-nin)—Missing-nin
+INSERT INTO CharactersClassifications VALUES(794,11); -- Mifune—Samurai
+INSERT INTO CharactersClassifications VALUES(795,3); -- Migaki—Medical-nin
+INSERT INTO CharactersClassifications VALUES(804,1); -- Minoichi—Missing-nin
+INSERT INTO CharactersClassifications VALUES(810,3); -- Mitate—Medical-nin
+INSERT INTO CharactersClassifications VALUES(813,3); -- Mitsuki—Medical-nin
+INSERT INTO CharactersClassifications VALUES(813,13); -- Mitsuki—Sage
+INSERT INTO CharactersClassifications VALUES(813,4); -- Mitsuki—Sensor Type
+INSERT INTO CharactersClassifications VALUES(818,1); -- Mizuki—Missing-nin
+INSERT INTO CharactersClassifications VALUES(823,2); -- Moguranmaru—Summon
+INSERT INTO CharactersClassifications VALUES(824,3); -- Mogusa—Medical-nin
+INSERT INTO CharactersClassifications VALUES(830,1); -- Renge Momoashi—Missing-nin
+INSERT INTO CharactersClassifications VALUES(831,1); -- Zabuza Momochi—Missing-nin
+INSERT INTO CharactersClassifications VALUES(831,6); -- Zabuza Momochi—Mercenary Ninja
+INSERT INTO CharactersClassifications VALUES(834,1); -- Monju—Missing-nin
+INSERT INTO CharactersClassifications VALUES(836,1); -- Idate Morino—Missing-nin
+INSERT INTO CharactersClassifications VALUES(842,3); -- Mozuku (Land of Calm Seas)—Medical-nin
+INSERT INTO CharactersClassifications VALUES(844,4); -- Mu—Sensor Type
+INSERT INTO CharactersClassifications VALUES(850,1); -- Mukade—Missing-nin
+INSERT INTO CharactersClassifications VALUES(851,1); -- Mukade (movie)—Missing-nin
+INSERT INTO CharactersClassifications VALUES(854,1); -- Murasame—Missing-nin
+INSERT INTO CharactersClassifications VALUES(856,13); -- Naruto Musasabi—Sage
+INSERT INTO CharactersClassifications VALUES(860,1); -- Nagare—Missing-nin
+INSERT INTO CharactersClassifications VALUES(861,12); -- Nagato—S-rank
+INSERT INTO CharactersClassifications VALUES(861,4); -- Nagato—Sensor Type
+INSERT INTO CharactersClassifications VALUES(864,8); -- Menma Namikaze—Jinchuriki
+INSERT INTO CharactersClassifications VALUES(864,4); -- Menma Namikaze—Sensor Type
+INSERT INTO CharactersClassifications VALUES(865,8); -- Minato Namikaze—Jinchuriki
+INSERT INTO CharactersClassifications VALUES(865,13); -- Minato Namikaze—Sage
+INSERT INTO CharactersClassifications VALUES(865,4); -- Minato Namikaze—Sensor Type
+INSERT INTO CharactersClassifications VALUES(896,2); -- Ni's Dogs—Summon
+INSERT INTO CharactersClassifications VALUES(898,8); -- Yugito Nii—Jinchuriki
+INSERT INTO CharactersClassifications VALUES(899,2); -- Ningame—Summon
+INSERT INTO CharactersClassifications VALUES(901,4); -- Nishi (sensor)—Sensor Type
+INSERT INTO CharactersClassifications VALUES(903,3); -- Rin Nohara—Medical-nin
+INSERT INTO CharactersClassifications VALUES(903,8); -- Rin Nohara—Jinchuriki
+INSERT INTO CharactersClassifications VALUES(907,1); -- Nowaki—Missing-nin
+INSERT INTO CharactersClassifications VALUES(908,2); -- Nue—Summon
+INSERT INTO CharactersClassifications VALUES(916,11); -- Okisuke—Samurai
+INSERT INTO CharactersClassifications VALUES(927,1); -- Oppo—Missing-nin
+INSERT INTO CharactersClassifications VALUES(928,1); -- Orochimaru—Missing-nin
+INSERT INTO CharactersClassifications VALUES(928,12); -- Orochimaru—S-rank
+INSERT INTO CharactersClassifications VALUES(928,15); -- Orochimaru—Sannin
+INSERT INTO CharactersClassifications VALUES(934,13); -- Asura otsutsuki—Sage
+INSERT INTO CharactersClassifications VALUES(934,4); -- Asura otsutsuki—Sensor Type
+INSERT INTO CharactersClassifications VALUES(935,8); -- Hagoromo otsutsuki—Jinchuriki
+INSERT INTO CharactersClassifications VALUES(935,13); -- Hagoromo otsutsuki—Sage
+INSERT INTO CharactersClassifications VALUES(935,4); -- Hagoromo otsutsuki—Sensor Type
+INSERT INTO CharactersClassifications VALUES(936,13); -- Hamura otsutsuki—Sage
+INSERT INTO CharactersClassifications VALUES(938,4); -- Indra otsutsuki—Sensor Type
+INSERT INTO CharactersClassifications VALUES(940,4); -- Kaguya otsutsuki—Sensor Type
+INSERT INTO CharactersClassifications VALUES(941,4); -- Kinshiki otsutsuki—Sensor Type
+INSERT INTO CharactersClassifications VALUES(944,4); -- Toneri otsutsuki—Sensor Type
+INSERT INTO CharactersClassifications VALUES(945,4); -- Urashiki otsutsuki—Sensor Type
+INSERT INTO CharactersClassifications VALUES(946,10); -- owashi—Daimyo
+INSERT INTO CharactersClassifications VALUES(947,3); -- En Oyashiro—Medical-nin
+INSERT INTO CharactersClassifications VALUES(948,3); -- Oyone—Medical-nin
+INSERT INTO CharactersClassifications VALUES(949,2); -- Pakkun—Summon
+INSERT INTO CharactersClassifications VALUES(958,1); -- Rahyo—Missing-nin
+INSERT INTO CharactersClassifications VALUES(961,2); -- Rainenmaru—Summon
+INSERT INTO CharactersClassifications VALUES(970,1); -- Renga—Missing-nin
+INSERT INTO CharactersClassifications VALUES(980,1); -- Rokuro—Missing-nin
+INSERT INTO CharactersClassifications VALUES(981,1); -- Aoi Rokusho—Missing-nin
+INSERT INTO CharactersClassifications VALUES(983,8); -- Roshi—Jinchuriki
+INSERT INTO CharactersClassifications VALUES(984,1); -- Ruiga—Missing-nin
+INSERT INTO CharactersClassifications VALUES(985,3); -- Ruka—Medical-nin
+INSERT INTO CharactersClassifications VALUES(987,3); -- Ryokan—Medical-nin
+INSERT INTO CharactersClassifications VALUES(994,2); -- Ryurimaru—Summon
+INSERT INTO CharactersClassifications VALUES(1003,1); -- Sadai—Missing-nin
+INSERT INTO CharactersClassifications VALUES(1003,6); -- Sadai—Mercenary Ninja
+INSERT INTO CharactersClassifications VALUES(1005,4); -- Sagan—Sensor Type
+INSERT INTO CharactersClassifications VALUES(1009,0); -- Saiken—Tailed Beast
+INSERT INTO CharactersClassifications VALUES(1021,2); -- San's Bird—Summon
+INSERT INTO CharactersClassifications VALUES(1022,4); -- Sana—Sensor Type
+INSERT INTO CharactersClassifications VALUES(1035,3); -- Biwako Sarutobi—Medical-nin
+INSERT INTO CharactersClassifications VALUES(1036,4); -- Hiruzen Sarutobi—Sensor Type
+INSERT INTO CharactersClassifications VALUES(1042,12); -- Sasori—S-rank
+INSERT INTO CharactersClassifications VALUES(1042,1); -- Sasori—Missing-nin
+INSERT INTO CharactersClassifications VALUES(1050,11); -- Sazanka—Samurai
+INSERT INTO CharactersClassifications VALUES(1057,3); -- Sekka—Medical-nin
+INSERT INTO CharactersClassifications VALUES(1063,13); -- Hashirama Senju—Sage
+INSERT INTO CharactersClassifications VALUES(1066,4); -- Tobirama Senju—Sensor Type
+INSERT INTO CharactersClassifications VALUES(1072,7); -- Sentoki—Ninja monk
+INSERT INTO CharactersClassifications VALUES(1079,2); -- Shiba—Summon
+INSERT INTO CharactersClassifications VALUES(1091,13); -- Shima—Sage
+INSERT INTO CharactersClassifications VALUES(1091,2); -- Shima—Summon
+INSERT INTO CharactersClassifications VALUES(1095,1); -- Hakubi Shin—Missing-nin
+INSERT INTO CharactersClassifications VALUES(1098,1); -- Shinga—Missing-nin
+INSERT INTO CharactersClassifications VALUES(1101,3); -- Shinno—Medical-nin
+INSERT INTO CharactersClassifications VALUES(1113,2); -- Shiromari—Summon
+INSERT INTO CharactersClassifications VALUES(1115,4); -- Shishio—Sensor Type
+INSERT INTO CharactersClassifications VALUES(1122,3); -- Shizune—Medical-nin
+INSERT INTO CharactersClassifications VALUES(1123,1); -- Shojoji—Missing-nin
+INSERT INTO CharactersClassifications VALUES(1127,0); -- Shukaku—Tailed Beast
+INSERT INTO CharactersClassifications VALUES(1129,1); -- Shura—Missing-nin
+INSERT INTO CharactersClassifications VALUES(1134,0); -- Son Goku—Tailed Beast
+INSERT INTO CharactersClassifications VALUES(1134,13); -- Son Goku—Sage
+INSERT INTO CharactersClassifications VALUES(1135,9); -- Sora—Pseudo-Jinchuriki
+INSERT INTO CharactersClassifications VALUES(1135,7); -- Sora—Ninja monk
+INSERT INTO CharactersClassifications VALUES(1143,1); -- Suien—Missing-nin
+INSERT INTO CharactersClassifications VALUES(1144,1); -- Suika—Missing-nin
+INSERT INTO CharactersClassifications VALUES(1147,4); -- Suiren—Sensor Type
+INSERT INTO CharactersClassifications VALUES(1152,3); -- Sukui—Medical-nin
+INSERT INTO CharactersClassifications VALUES(1175,3); -- Taji—Medical-nin
+INSERT INTO CharactersClassifications VALUES(1197,11); -- Tatewaki—Samurai
+INSERT INTO CharactersClassifications VALUES(1221,1); -- Teru—Missing-nin
+INSERT INTO CharactersClassifications VALUES(1239,10); -- Toki—Daimyo
+INSERT INTO CharactersClassifications VALUES(1240,1); -- Toki (Shinobazu)—Missing-nin
+INSERT INTO CharactersClassifications VALUES(1276,1); -- Tsukiyo—Missing-nin
+INSERT INTO CharactersClassifications VALUES(1280,3); -- Tsunade—Medical-nin
+INSERT INTO CharactersClassifications VALUES(1280,15); -- Tsunade—Sannin
+INSERT INTO CharactersClassifications VALUES(1282,5); -- Tsurugi—Hunter-nin
+INSERT INTO CharactersClassifications VALUES(1283,1); -- Misumi Tsurugi—Missing-nin
+INSERT INTO CharactersClassifications VALUES(1284,3); -- Tsuyu—Medical-nin
+INSERT INTO CharactersClassifications VALUES(1293,12); -- Itachi Uchiha—S-rank
+INSERT INTO CharactersClassifications VALUES(1293,1); -- Itachi Uchiha—Missing-nin
+INSERT INTO CharactersClassifications VALUES(1294,2); -- Itachi's Crow—Summon
+INSERT INTO CharactersClassifications VALUES(1299,8); -- Madara Uchiha—Jinchuriki
+INSERT INTO CharactersClassifications VALUES(1299,1); -- Madara Uchiha—Missing-nin
+INSERT INTO CharactersClassifications VALUES(1299,4); -- Madara Uchiha—Sensor Type
+INSERT INTO CharactersClassifications VALUES(1299,13); -- Madara Uchiha—Sage
+INSERT INTO CharactersClassifications VALUES(1303,8); -- Obito Uchiha—Jinchuriki
+INSERT INTO CharactersClassifications VALUES(1303,9); -- Obito Uchiha—Pseudo-Jinchuriki
+INSERT INTO CharactersClassifications VALUES(1303,1); -- Obito Uchiha—Missing-nin
+INSERT INTO CharactersClassifications VALUES(1303,12); -- Obito Uchiha—S-rank
+INSERT INTO CharactersClassifications VALUES(1303,4); -- Obito Uchiha—Sensor Type
+INSERT INTO CharactersClassifications VALUES(1306,3); -- Sarada Uchiha—Medical-nin
+INSERT INTO CharactersClassifications VALUES(1307,1); -- Sasuke Uchiha—Missing-nin
+INSERT INTO CharactersClassifications VALUES(1309,3); -- Shin Uchiha—Medical-nin
+INSERT INTO CharactersClassifications VALUES(1313,4); -- Tekka Uchiha—Sensor Type
+INSERT INTO CharactersClassifications VALUES(1318,3); -- Ugai—Medical-nin
+INSERT INTO CharactersClassifications VALUES(1320,2); -- uhei—Summon
+INSERT INTO CharactersClassifications VALUES(1321,2); -- Ultimate Summoning Beast—Summon
+INSERT INTO CharactersClassifications VALUES(1323,2); -- Umibozu—Summon
+INSERT INTO CharactersClassifications VALUES(1328,10); -- Sanzui Unabara—Daimyo
+INSERT INTO CharactersClassifications VALUES(1331,11); -- Urakaku—Samurai
+INSERT INTO CharactersClassifications VALUES(1333,2); -- Urushi (summon)—Summon
+INSERT INTO CharactersClassifications VALUES(1335,4); -- Utakata—Sensor Type
+INSERT INTO CharactersClassifications VALUES(1335,8); -- Utakata—Jinchuriki
+INSERT INTO CharactersClassifications VALUES(1335,1); -- Utakata—Missing-nin
+INSERT INTO CharactersClassifications VALUES(1337,4); -- Yugao Uzuki—Sensor Type
+INSERT INTO CharactersClassifications VALUES(1339,4); -- Boruto Uzumaki—Sensor Type
+INSERT INTO CharactersClassifications VALUES(1341,8); -- Kushina Uzumaki—Jinchuriki
+INSERT INTO CharactersClassifications VALUES(1342,8); -- Menma Uzumaki—Jinchuriki
+INSERT INTO CharactersClassifications VALUES(1342,1); -- Menma Uzumaki—Missing-nin
+INSERT INTO CharactersClassifications VALUES(1342,4); -- Menma Uzumaki—Sensor Type
+INSERT INTO CharactersClassifications VALUES(1342,12); -- Menma Uzumaki—S-rank
+INSERT INTO CharactersClassifications VALUES(1343,8); -- Mito Uzumaki—Jinchuriki
+INSERT INTO CharactersClassifications VALUES(1343,4); -- Mito Uzumaki—Sensor Type
+INSERT INTO CharactersClassifications VALUES(1344,8); -- Naruto Uzumaki—Jinchuriki
+INSERT INTO CharactersClassifications VALUES(1344,13); -- Naruto Uzumaki—Sage
+INSERT INTO CharactersClassifications VALUES(1344,4); -- Naruto Uzumaki—Sensor Type
+INSERT INTO CharactersClassifications VALUES(1345,9); -- Nine-Tailed Naruto Clone—Pseudo-Jinchuriki
+INSERT INTO CharactersClassifications VALUES(1350,11); -- Waraji—Samurai
+INSERT INTO CharactersClassifications VALUES(1353,13); -- White Snake Sage—Sage
+INSERT INTO CharactersClassifications VALUES(1359,3); -- Kabuto Yakushi—Medical-nin
+INSERT INTO CharactersClassifications VALUES(1359,1); -- Kabuto Yakushi—Missing-nin
+INSERT INTO CharactersClassifications VALUES(1359,13); -- Kabuto Yakushi—Sage
+INSERT INTO CharactersClassifications VALUES(1361,3); -- Nono Yakushi—Medical-nin
+INSERT INTO CharactersClassifications VALUES(1364,4); -- Fu Yamanaka—Sensor Type
+INSERT INTO CharactersClassifications VALUES(1365,4); -- Ino Yamanaka—Sensor Type
+INSERT INTO CharactersClassifications VALUES(1365,3); -- Ino Yamanaka—Medical-nin
+INSERT INTO CharactersClassifications VALUES(1367,4); -- Inoichi Yamanaka—Sensor Type
+INSERT INTO CharactersClassifications VALUES(1368,3); -- Inojin Yamanaka—Medical-nin
+INSERT INTO CharactersClassifications VALUES(1368,4); -- Inojin Yamanaka—Sensor Type
+INSERT INTO CharactersClassifications VALUES(1369,4); -- Kohan Yamanaka—Sensor Type
+INSERT INTO CharactersClassifications VALUES(1370,4); -- Santa Yamanaka—Sensor Type
+INSERT INTO CharactersClassifications VALUES(1376,3); -- Yashamaru—Medical-nin
+INSERT INTO CharactersClassifications VALUES(1379,3); -- Yokaze—Medical-nin
+INSERT INTO CharactersClassifications VALUES(1382,3); -- Yome—Medical-nin
+INSERT INTO CharactersClassifications VALUES(1383,3); -- Yomi—Medical-nin
+INSERT INTO CharactersClassifications VALUES(1389,11); -- Yoshiteru—Samurai
+INSERT INTO CharactersClassifications VALUES(1394,3); -- Yubina—Medical-nin
+INSERT INTO CharactersClassifications VALUES(1397,4); -- Kurenai Yuhi—Sensor Type
+INSERT INTO CharactersClassifications VALUES(1400,3); -- Iwabee Yuino—Medical-nin
+INSERT INTO CharactersClassifications VALUES(1418,4); -- Zaji—Sensor Type
+INSERT INTO CharactersClassifications VALUES(1423,7); -- Zenza—Ninja monk
+INSERT INTO CharactersClassifications VALUES(1425,8); -- Black Zetsu—Jinchuriki
+INSERT INTO CharactersClassifications VALUES(1425,12); -- Black Zetsu—S-rank
+INSERT INTO CharactersClassifications VALUES(1425,4); -- Black Zetsu—Sensor Type
+INSERT INTO CharactersClassifications VALUES(1426,12); -- White Zetsu—S-rank
+INSERT INTO CharactersClassifications VALUES(1428,11); -- Zori—Samurai
+
+--  CharactersOccupations(characterId, occupationId)
+INSERT INTO CharactersOccupations VALUES(3,0); -- A (First Raikage)—Raikage
+INSERT INTO CharactersOccupations VALUES(4,0); -- A (Second Raikage)—Raikage
+INSERT INTO CharactersOccupations VALUES(5,0); -- A (Third Raikage)—Raikage
+INSERT INTO CharactersOccupations VALUES(6,0); -- A (Fourth Raikage)—Raikage
+INSERT INTO CharactersOccupations VALUES(6,1); -- A (Fourth Raikage)—Supreme Leader of the Allied Shinobi Forces
+INSERT INTO CharactersOccupations VALUES(11,2); -- Shibi Aburame—Head of the Aburame Clan
+INSERT INTO CharactersOccupations VALUES(13,3); -- Shino Aburame—Academy Teacher
+INSERT INTO CharactersOccupations VALUES(13,4); -- Shino Aburame—Chunin Exams Proctor
+INSERT INTO CharactersOccupations VALUES(13,5); -- Shino Aburame—Genin Exams Proctor  (Anime only)
+INSERT INTO CharactersOccupations VALUES(21,6); -- Ahiko—Prisoner
+INSERT INTO CharactersOccupations VALUES(23,7); -- Aino—Attendant of the Land of Ancestors
+INSERT INTO CharactersOccupations VALUES(27,8); -- Yoroi Akado—Otogakure spy
+INSERT INTO CharactersOccupations VALUES(27,9); -- Yoroi Akado—Bodyguard
+INSERT INTO CharactersOccupations VALUES(28,10); -- Akahoshi—Hoshikage
+INSERT INTO CharactersOccupations VALUES(30,11); -- Iwana Akame—Academy Teacher  (anime only)
+INSERT INTO CharactersOccupations VALUES(31,12); -- Akane—Carpenter
+INSERT INTO CharactersOccupations VALUES(34,13); -- Akari—Cultist
+INSERT INTO CharactersOccupations VALUES(35,14); -- Akatsuchi—Tsuchikage's Bodyguard
+INSERT INTO CharactersOccupations VALUES(35,15); -- Akatsuchi—Tsuchikage's Assistant
+INSERT INTO CharactersOccupations VALUES(42,16); -- Choza Akimichi—Head of the Akimichi Clan
+INSERT INTO CharactersOccupations VALUES(53,17); -- Mikazuki Amaashi—Project Developer
+INSERT INTO CharactersOccupations VALUES(55,18); -- Amachi—Scientist
+INSERT INTO CharactersOccupations VALUES(60,19); -- Amaru—Apprentice Doctor
+INSERT INTO CharactersOccupations VALUES(69,20); -- Anato—Researcher
+INSERT INTO CharactersOccupations VALUES(70,21); -- Anbu Commander—Head Anbu
+INSERT INTO CharactersOccupations VALUES(71,22); -- Bird-Masked Anbu Member—Anbu Captain
+INSERT INTO CharactersOccupations VALUES(72,22); -- Boar-Masked Anbu Member—Anbu Captain
+INSERT INTO CharactersOccupations VALUES(79,23); -- Ankorodo Shop Owner—Shop owner
+INSERT INTO CharactersOccupations VALUES(80,24); -- Ao—Fifth Mizukage's Bodyguard
+INSERT INTO CharactersOccupations VALUES(80,25); -- Ao—Captain of the Sensor Division of the Allied Shinobi Forces
+INSERT INTO CharactersOccupations VALUES(80,26); -- Ao—Outer
+INSERT INTO CharactersOccupations VALUES(83,27); -- Aoneko—Cat Quiz Proprietor
+INSERT INTO CharactersOccupations VALUES(86,28); -- Mokume Arai—Construction worker
+INSERT INTO CharactersOccupations VALUES(91,29); -- Asaki—Remon's attendant
+INSERT INTO CharactersOccupations VALUES(93,30); -- Neon's Mother—Kaminarimon Company executive
+INSERT INTO CharactersOccupations VALUES(94,31); -- Sandayu Asama—Koyuki Kazahana's personal assistant
+INSERT INTO CharactersOccupations VALUES(97,32); -- Ashina—Actress
+INSERT INTO CharactersOccupations VALUES(99,33); -- Asura Path (character)—Mercenary
+INSERT INTO CharactersOccupations VALUES(101,34); -- Ayame—Waitress
+INSERT INTO CharactersOccupations VALUES(106,35); -- Baji—Bandit leader
+INSERT INTO CharactersOccupations VALUES(107,36); -- Baki—Senior
+INSERT INTO CharactersOccupations VALUES(110,6); -- Bakuto—Prisoner
+INSERT INTO CharactersOccupations VALUES(111,37); -- Bamboo Minister—Minister
+INSERT INTO CharactersOccupations VALUES(112,38); -- Bando—Weapons Dealer
+INSERT INTO CharactersOccupations VALUES(115,39); -- Bansai—Head Monk
+INSERT INTO CharactersOccupations VALUES(117,40); -- Beekeeper—Beekeeper
+INSERT INTO CharactersOccupations VALUES(118,11); -- Bekko—Academy Teacher  (anime only)
+INSERT INTO CharactersOccupations VALUES(119,41); -- Benga—Hozuki Castle officer
+INSERT INTO CharactersOccupations VALUES(125,42); -- Boro—Inner
+INSERT INTO CharactersOccupations VALUES(125,43); -- Boro—Cult Leader
+INSERT INTO CharactersOccupations VALUES(128,26); -- Bug—Outer
+INSERT INTO CharactersOccupations VALUES(128,13); -- Bug—Cultist
+INSERT INTO CharactersOccupations VALUES(130,44); -- Buna—Gardener apprentice
+INSERT INTO CharactersOccupations VALUES(131,45); -- Bunpuku—Priest
+INSERT INTO CharactersOccupations VALUES(132,46); -- Bunzo—Loan Collector
+INSERT INTO CharactersOccupations VALUES(134,47); -- Byakuren—Mizukage
+INSERT INTO CharactersOccupations VALUES(135,48); -- C—Fourth Raikage's Bodyguard
+INSERT INTO CharactersOccupations VALUES(136,49); -- Captain of the Ghost Ship—Captain
+INSERT INTO CharactersOccupations VALUES(146,39); -- Chiriku—Head Monk
+INSERT INTO CharactersOccupations VALUES(147,50); -- Chishima—Chief Advisor's Assistant
+INSERT INTO CharactersOccupations VALUES(148,51); -- Chiyo—Counsellor  (Retired)
+INSERT INTO CharactersOccupations VALUES(151,52); -- Chohan—Gambler
+INSERT INTO CharactersOccupations VALUES(152,47); -- Chojuro—Mizukage
+INSERT INTO CharactersOccupations VALUES(159,42); -- Code—Inner
+INSERT INTO CharactersOccupations VALUES(159,53); -- Code—Leader of Kara
+INSERT INTO CharactersOccupations VALUES(161,54); -- Condor—Leader of the Four Ninja Animal Warriors
+INSERT INTO CharactersOccupations VALUES(168,55); -- Tenzen Daikoku—Politician
+INSERT INTO CharactersOccupations VALUES(168,56); -- Tenzen Daikoku—Water Daimyo's aid
+INSERT INTO CharactersOccupations VALUES(168,57); -- Tenzen Daikoku—Crime Boss
+INSERT INTO CharactersOccupations VALUES(169,9); -- Tenzen's Bodyguard—Bodyguard
+INSERT INTO CharactersOccupations VALUES(181,58); -- Evil Minister of the Tea Daimyo—Minister  (Former)
+INSERT INTO CharactersOccupations VALUES(181,59); -- Evil Minister of the Tea Daimyo—Monk
+INSERT INTO CharactersOccupations VALUES(188,37); -- Dango—Minister
+INSERT INTO CharactersOccupations VALUES(190,60); -- Darui—First Division Commander of the Allied Shinobi Forces
+INSERT INTO CharactersOccupations VALUES(190,0); -- Darui—Raikage
+INSERT INTO CharactersOccupations VALUES(192,42); -- Deepa—Inner
+INSERT INTO CharactersOccupations VALUES(193,61); -- Deidara—Terrorist Bomber
+INSERT INTO CharactersOccupations VALUES(194,62); -- Delta—Inner  (Former)
+INSERT INTO CharactersOccupations VALUES(196,63); -- Dengaku—Shopkeeper of an oden stall
+INSERT INTO CharactersOccupations VALUES(198,64); -- Disonasu—Head of Hacho Village
+INSERT INTO CharactersOccupations VALUES(199,65); -- Dodai—Raikage Attendant
+INSERT INTO CharactersOccupations VALUES(202,66); -- Dokku—Militia Officer  (Former)
+INSERT INTO CharactersOccupations VALUES(204,67); -- Don—Leader of the Koalas
+INSERT INTO CharactersOccupations VALUES(205,68); -- Doragu—Criminal
+INSERT INTO CharactersOccupations VALUES(212,69); -- Ebisu—Personal Trainer
+INSERT INTO CharactersOccupations VALUES(213,70); -- Ebizo—Senior  (Novel only)
+INSERT INTO CharactersOccupations VALUES(213,71); -- Ebizo—Head of the Suna Council  (Novel only)
+INSERT INTO CharactersOccupations VALUES(214,72); -- Emi—Tailor shop worker
+INSERT INTO CharactersOccupations VALUES(215,73); -- Emina—Traveller
+INSERT INTO CharactersOccupations VALUES(216,73); -- Emiru—Traveller
+INSERT INTO CharactersOccupations VALUES(217,74); -- En no Gyoja—Head of the Tsuchigumo clan
+INSERT INTO CharactersOccupations VALUES(230,75); -- Fukasaku—Toad Elder
+INSERT INTO CharactersOccupations VALUES(233,76); -- Fuku—Princess
+INSERT INTO CharactersOccupations VALUES(236,77); -- Fukurokumaru—Rich Field Proprietor
+INSERT INTO CharactersOccupations VALUES(237,78); -- Fukuyokana—Bandit
+INSERT INTO CharactersOccupations VALUES(239,79); -- Kotaro Fuma—Captain of the Konoha Military Police Force
+INSERT INTO CharactersOccupations VALUES(240,80); -- Funamushi—Pirate
+INSERT INTO CharactersOccupations VALUES(241,81); -- Funari—Guard
+INSERT INTO CharactersOccupations VALUES(242,82); -- Araumi Funato—Head of the Funato Clan
+INSERT INTO CharactersOccupations VALUES(242,80); -- Araumi Funato—Pirate
+INSERT INTO CharactersOccupations VALUES(243,83); -- Ikada Funato—Shipbuilding apprentice
+INSERT INTO CharactersOccupations VALUES(243,84); -- Ikada Funato—Pirate  (Former)
+INSERT INTO CharactersOccupations VALUES(244,80); -- Isari Funato—Pirate
+INSERT INTO CharactersOccupations VALUES(245,80); -- Minamo Funato—Pirate
+INSERT INTO CharactersOccupations VALUES(246,80); -- Seiren Funato—Pirate
+INSERT INTO CharactersOccupations VALUES(247,80); -- Tenma Funato—Pirate
+INSERT INTO CharactersOccupations VALUES(249,3); -- Daikoku Funeno—Academy Teacher
+INSERT INTO CharactersOccupations VALUES(250,85); -- Furofuki—Herbologist
+INSERT INTO CharactersOccupations VALUES(252,86); -- Fuso—Nurse
+INSERT INTO CharactersOccupations VALUES(255,87); -- Futami—Thief  (Former)
+INSERT INTO CharactersOccupations VALUES(255,88); -- Futami—Ninshu Follower
+INSERT INTO CharactersOccupations VALUES(259,89); -- Gaara—Kazekage
+INSERT INTO CharactersOccupations VALUES(259,90); -- Gaara—Regimental Commander of the Allied Shinobi Forces
+INSERT INTO CharactersOccupations VALUES(259,91); -- Gaara—Commander of the Fourth Division
+INSERT INTO CharactersOccupations VALUES(268,92); -- Gamamichi—Instructor
+INSERT INTO CharactersOccupations VALUES(270,93); -- Gamatama—Name-registration clerk
+INSERT INTO CharactersOccupations VALUES(274,94); -- Kiseru Gankubi—Outer  (Former)
+INSERT INTO CharactersOccupations VALUES(275,95); -- Ganno—Painter
+INSERT INTO CharactersOccupations VALUES(281,96); -- Garakuta Gang Leader—Thief
+INSERT INTO CharactersOccupations VALUES(281,97); -- Garakuta Gang Leader—Gang leader
+INSERT INTO CharactersOccupations VALUES(282,98); -- Gari—Captain of the Explosion Corps  (Anime only)
+INSERT INTO CharactersOccupations VALUES(283,26); -- Garo—Outer
+INSERT INTO CharactersOccupations VALUES(285,99); -- Garyo—Leader of the Ryuha Armament Alliance
+INSERT INTO CharactersOccupations VALUES(287,80); -- Gataro—Pirate
+INSERT INTO CharactersOccupations VALUES(288,100); -- Gatekeeper—Moon entrance guardian
+INSERT INTO CharactersOccupations VALUES(289,101); -- Gato—Businessman
+INSERT INTO CharactersOccupations VALUES(290,102); -- Gatsu—Bounty Hunter
+INSERT INTO CharactersOccupations VALUES(293,4); -- Hayate Gekko—Chunin Exams Proctor
+INSERT INTO CharactersOccupations VALUES(295,103); -- Genbu—Training ground
+INSERT INTO CharactersOccupations VALUES(296,37); -- Genbu (minister)—Minister
+INSERT INTO CharactersOccupations VALUES(297,104); -- Gengo—Leader of the Enlightened Ones
+INSERT INTO CharactersOccupations VALUES(299,105); -- Genji—Village Elder
+INSERT INTO CharactersOccupations VALUES(304,6); -- Gen'yumaru—Prisoner
+INSERT INTO CharactersOccupations VALUES(305,106); -- Genzo—Photographer
+INSERT INTO CharactersOccupations VALUES(322,107); -- Giant Squid—Guardian of the Island Turtle
+INSERT INTO CharactersOccupations VALUES(324,28); -- Giichi—Construction worker
+INSERT INTO CharactersOccupations VALUES(325,108); -- Ginji—Banker
+INSERT INTO CharactersOccupations VALUES(331,80); -- Gokai—Pirate
+INSERT INTO CharactersOccupations VALUES(333,109); -- Goshiki—Tanzaku Castle guide
+INSERT INTO CharactersOccupations VALUES(335,96); -- Gosunkugi—Thief
+INSERT INTO CharactersOccupations VALUES(337,36); -- Goza—Senior
+INSERT INTO CharactersOccupations VALUES(338,110); -- Gozu—Zabuza's subordinate
+INSERT INTO CharactersOccupations VALUES(344,111); -- Might Guy—Academy Teacher  (Anime only)
+INSERT INTO CharactersOccupations VALUES(346,112); -- Hachidai—Miner
+INSERT INTO CharactersOccupations VALUES(348,113); -- Kotetsu Hagane—Chunin Exams Assistant
+INSERT INTO CharactersOccupations VALUES(348,114); -- Kotetsu Hagane—Village Gate Guard  (Anime only)
+INSERT INTO CharactersOccupations VALUES(348,115); -- Kotetsu Hagane—Fifth Hokage's Assistant
+INSERT INTO CharactersOccupations VALUES(350,116); -- Haguruma—Kaminarimon  Company  programmer
+INSERT INTO CharactersOccupations VALUES(351,117); -- Haido—Leader of the Utopian forces
+INSERT INTO CharactersOccupations VALUES(352,118); -- Haie—Hozuki Castle guard
+INSERT INTO CharactersOccupations VALUES(355,119); -- Hakkaku—Ramen chef
+INSERT INTO CharactersOccupations VALUES(357,120); -- Haku's Father—Farmer
+INSERT INTO CharactersOccupations VALUES(358,120); -- Haku's Mother—Farmer
+INSERT INTO CharactersOccupations VALUES(362,121); -- Hakuto—Head of the Hoki Family  (Formerly)
+INSERT INTO CharactersOccupations VALUES(365,122); -- Hanare—Spy
+INSERT INTO CharactersOccupations VALUES(367,123); -- Hanzaki—Leader of the Fuma clan
+INSERT INTO CharactersOccupations VALUES(368,124); -- Hanzo—Village Head
+INSERT INTO CharactersOccupations VALUES(374,125); -- Sakura Haruno—Director of Konoha Children Mental Health Clinic
+INSERT INTO CharactersOccupations VALUES(374,126); -- Sakura Haruno—Head of Konoha Medical Department
+INSERT INTO CharactersOccupations VALUES(376,127); -- Kakashi Hatake—Anbu Captain  (Former)
+INSERT INTO CharactersOccupations VALUES(376,128); -- Kakashi Hatake—Third Division Commander of the Allied Shinobi Forces
+INSERT INTO CharactersOccupations VALUES(376,129); -- Kakashi Hatake—Hokage
+INSERT INTO CharactersOccupations VALUES(376,5); -- Kakashi Hatake—Genin Exams Proctor  (Anime only)
+INSERT INTO CharactersOccupations VALUES(381,130); -- Hebihime—Ninja
+INSERT INTO CharactersOccupations VALUES(390,131); -- Hidero—Actor
+INSERT INTO CharactersOccupations VALUES(391,113); -- Shimon Hijiri—Chunin Exams Assistant
+INSERT INTO CharactersOccupations VALUES(392,132); -- Hikaru—Ship Captain
+INSERT INTO CharactersOccupations VALUES(396,133); -- Himeyuri—Businesswoman
+INSERT INTO CharactersOccupations VALUES(397,33); -- Himushi—Mercenary
+INSERT INTO CharactersOccupations VALUES(400,124); -- Hinoki—Village Head
+INSERT INTO CharactersOccupations VALUES(403,134); -- Hippo Boss—Leader of the Hippopotamuses
+INSERT INTO CharactersOccupations VALUES(409,124); -- Hisen—Village Head
+INSERT INTO CharactersOccupations VALUES(410,135); -- Hishaku—Sailor
+INSERT INTO CharactersOccupations VALUES(411,136); -- Hitode—Boat Guard
+INSERT INTO CharactersOccupations VALUES(413,45); -- Hoichi—Priest
+INSERT INTO CharactersOccupations VALUES(414,137); -- Hoki (Watari)—Chief Advisor to the Daimyo  (Former)
+INSERT INTO CharactersOccupations VALUES(422,138); -- Shizuma Hoshigaki—Academy Teacher  (Former)
+INSERT INTO CharactersOccupations VALUES(423,10); -- First Hoshikage—Hoshikage
+INSERT INTO CharactersOccupations VALUES(424,10); -- Third Hoshikage—Hoshikage
+INSERT INTO CharactersOccupations VALUES(428,47); -- Gengetsu Hozuki—Mizukage
+INSERT INTO CharactersOccupations VALUES(434,139); -- Hyuga Elder—Head of the Hyuga clan  (Former)
+INSERT INTO CharactersOccupations VALUES(435,140); -- Hanabi Hyuga—Heiress of the Hyuga Clan
+INSERT INTO CharactersOccupations VALUES(436,141); -- Hiashi Hyuga—Head of the Hyuga Clan
+INSERT INTO CharactersOccupations VALUES(437,142); -- Hinata Hyuga—Heiress of the Hyuga Clan  (Former)
+INSERT INTO CharactersOccupations VALUES(442,143); -- Ko Hyuga—Hinata's Bodyguard
+INSERT INTO CharactersOccupations VALUES(443,144); -- Natsu Hyuga—Maid
+INSERT INTO CharactersOccupations VALUES(447,145); -- Ibara—Housewife
+INSERT INTO CharactersOccupations VALUES(453,120); -- Iggy—Farmer
+INSERT INTO CharactersOccupations VALUES(454,36); -- Ikanago—Senior
+INSERT INTO CharactersOccupations VALUES(458,146); -- Inari—Apprentice Carpenter
+INSERT INTO CharactersOccupations VALUES(459,34); -- Shinko Inari—Waitress
+INSERT INTO CharactersOccupations VALUES(461,13); -- Inori—Cultist
+INSERT INTO CharactersOccupations VALUES(463,18); -- Akita Inuzuka—Scientist
+INSERT INTO CharactersOccupations VALUES(463,147); -- Akita Inuzuka—Katasuke Tono's Assistant
+INSERT INTO CharactersOccupations VALUES(465,148); -- Hana Inuzuka—Veterinarian
+INSERT INTO CharactersOccupations VALUES(466,149); -- Kiba Inuzuka—Dog Breeder  (Anime Only)
+INSERT INTO CharactersOccupations VALUES(466,150); -- Kiba Inuzuka—Police Officer  (Anime Only)
+INSERT INTO CharactersOccupations VALUES(469,151); -- Io—Ninja tool inventor
+INSERT INTO CharactersOccupations VALUES(476,152); -- Ise—Doctor
+INSERT INTO CharactersOccupations VALUES(479,153); -- Ishikawa—Tsuchikage
+INSERT INTO CharactersOccupations VALUES(487,152); -- Iwa Doctor—Doctor
+INSERT INTO CharactersOccupations VALUES(487,26); -- Iwa Doctor—Outer
+INSERT INTO CharactersOccupations VALUES(496,154); -- Amagi Izuno—Head of the Izuno Clan
+INSERT INTO CharactersOccupations VALUES(500,124); -- Io (Bamboo Village)—Village Head
+INSERT INTO CharactersOccupations VALUES(504,96); -- Jako—Thief
+INSERT INTO CharactersOccupations VALUES(505,155); -- Janmāru-Tataru—Astronomer
+INSERT INTO CharactersOccupations VALUES(506,52); -- Janto—Gambler
+INSERT INTO CharactersOccupations VALUES(508,80); -- Jibiki—Pirate
+INSERT INTO CharactersOccupations VALUES(510,59); -- Jigen—Monk
+INSERT INTO CharactersOccupations VALUES(510,156); -- Jigen—Vessel
+INSERT INTO CharactersOccupations VALUES(510,42); -- Jigen—Inner
+INSERT INTO CharactersOccupations VALUES(514,96); -- Jin—Thief
+INSERT INTO CharactersOccupations VALUES(515,157); -- Jiraiya—Writer
+INSERT INTO CharactersOccupations VALUES(519,124); -- Jomae Village Head—Village Head
+INSERT INTO CharactersOccupations VALUES(520,36); -- Joseki—Senior
+INSERT INTO CharactersOccupations VALUES(527,13); -- Kagari (cultist)—Cultist
+INSERT INTO CharactersOccupations VALUES(532,158); -- Futa Kagetsu—Medicinal Herb Salesman
+INSERT INTO CharactersOccupations VALUES(534,159); -- Mai Kagetsu—Medicinal Herb Saleswomen
+INSERT INTO CharactersOccupations VALUES(535,158); -- Tobei Kagetsu—Medicinal Herb Salesman
+INSERT INTO CharactersOccupations VALUES(536,159); -- Tsukiko Kagetsu—Medicinal Herb Saleswomen
+INSERT INTO CharactersOccupations VALUES(538,160); -- Kaguya Clan Patriarch—Head of the Kaguya clan
+INSERT INTO CharactersOccupations VALUES(539,161); -- Kahiko—Ore Miner
+INSERT INTO CharactersOccupations VALUES(540,162); -- Kahyo—Master of the Hozuki Castle
+INSERT INTO CharactersOccupations VALUES(542,163); -- Agari Kaisen—Head of the Kedoin clan
+INSERT INTO CharactersOccupations VALUES(543,96); -- Nezumi Kaito—Thief
+INSERT INTO CharactersOccupations VALUES(544,164); -- Kaiza—Fisherman
+INSERT INTO CharactersOccupations VALUES(547,165); -- Kajiki—Craftsman
+INSERT INTO CharactersOccupations VALUES(548,166); -- Kajura—Terrorist
+INSERT INTO CharactersOccupations VALUES(549,3); -- Hana Kaka—Academy Teacher
+INSERT INTO CharactersOccupations VALUES(549,167); -- Hana Kaka—Assassin  (Former)
+INSERT INTO CharactersOccupations VALUES(550,147); -- Sumire Kakei—Katasuke Tono's Assistant
+INSERT INTO CharactersOccupations VALUES(558,168); -- Kakuzu—Akatsuki Treasurer
+INSERT INTO CharactersOccupations VALUES(560,131); -- Gongoro Kamakura—Actor
+INSERT INTO CharactersOccupations VALUES(561,32); -- Hibari Kamakura—Actress
+INSERT INTO CharactersOccupations VALUES(569,169); -- Ereki Kaminarimon—President of Kaminarimon Company
+INSERT INTO CharactersOccupations VALUES(571,113); -- Izumo Kamizuki—Chunin Exams Assistant
+INSERT INTO CharactersOccupations VALUES(571,114); -- Izumo Kamizuki—Village Gate Guard  (Anime only)
+INSERT INTO CharactersOccupations VALUES(571,115); -- Izumo Kamizuki—Fifth Hokage's Assistant
+INSERT INTO CharactersOccupations VALUES(572,170); -- Kanabun—Boss of the Kanabun Gang
+INSERT INTO CharactersOccupations VALUES(576,171); -- Kaneki—President of Kaneki Corporation
+INSERT INTO CharactersOccupations VALUES(577,172); -- Kankuro—Fifth Kazekage's Bodyguard
+INSERT INTO CharactersOccupations VALUES(577,173); -- Kankuro—Captain of the Surprise Attack Division of the Allied Shinobi Forces
+INSERT INTO CharactersOccupations VALUES(577,174); -- Kankuro—Leader of the Counter-Terrorism Division  (Novel only)
+INSERT INTO CharactersOccupations VALUES(579,175); -- Kanna (carpenter)—Master Carpenter
+INSERT INTO CharactersOccupations VALUES(584,176); -- Kanpu—Caretaker
+INSERT INTO CharactersOccupations VALUES(586,86); -- Kaori—Nurse
+INSERT INTO CharactersOccupations VALUES(588,177); -- Karashi—Assistant Chef
+INSERT INTO CharactersOccupations VALUES(588,178); -- Karashi—Kurosuki Family soldier
+INSERT INTO CharactersOccupations VALUES(590,179); -- Kagura Karatachi—Mizukage's Assistant
+INSERT INTO CharactersOccupations VALUES(590,180); -- Kagura Karatachi—Prison Warden
+INSERT INTO CharactersOccupations VALUES(591,47); -- Yagura Karatachi—Mizukage
+INSERT INTO CharactersOccupations VALUES(594,181); -- Karin Kagura—Shop Owner
+INSERT INTO CharactersOccupations VALUES(598,182); -- Karyu—Leader of the Dark Thunder Group  (Novel only)
+INSERT INTO CharactersOccupations VALUES(600,62); -- Koji Kashin—Inner  (Former)
+INSERT INTO CharactersOccupations VALUES(614,183); -- Kazabune—Balloon Salesman
+INSERT INTO CharactersOccupations VALUES(616,32); -- Koyuki Kazahana—Actress
+INSERT INTO CharactersOccupations VALUES(618,111); -- Moegi Kazamatsuri—Academy Teacher  (Anime only)
+INSERT INTO CharactersOccupations VALUES(618,184); -- Moegi Kazamatsuri—Chunin Exams Proctor  (Anime only)
+INSERT INTO CharactersOccupations VALUES(621,89); -- Third Kazekage—Kazekage
+INSERT INTO CharactersOccupations VALUES(625,176); -- Keiri—Caretaker
+INSERT INTO CharactersOccupations VALUES(635,185); -- Kikunojo—Daimyo's Bodyguard
+INSERT INTO CharactersOccupations VALUES(636,186); -- Killer B—Guardian of Kumogakure
+INSERT INTO CharactersOccupations VALUES(638,131); -- Kin (actor)—Actor
+INSERT INTO CharactersOccupations VALUES(647,124); -- Kiri (villager)—Village Head
+INSERT INTO CharactersOccupations VALUES(653,187); -- Kitsuchi—Second Division Commander of the Allied Shinobi Forces
+INSERT INTO CharactersOccupations VALUES(655,80); -- Kobanza—Pirate
+INSERT INTO CharactersOccupations VALUES(656,80); -- Kobuna—Pirate
+INSERT INTO CharactersOccupations VALUES(658,188); -- Kodama—Food vendor
+INSERT INTO CharactersOccupations VALUES(663,189); -- Kohada—Sushi-shop assistant
+INSERT INTO CharactersOccupations VALUES(670,190); -- Kokuri—Accountant
+INSERT INTO CharactersOccupations VALUES(675,191); -- Komame—Central Post Office Bureau Chief
+INSERT INTO CharactersOccupations VALUES(677,192); -- Komei—Daimyo's Strategist
+INSERT INTO CharactersOccupations VALUES(684,124); -- Konan—Village Head
+INSERT INTO CharactersOccupations VALUES(687,166); -- Etoro Konjiki—Terrorist
+INSERT INTO CharactersOccupations VALUES(688,166); -- Metoro Konjiki—Terrorist
+INSERT INTO CharactersOccupations VALUES(689,155); -- Konoha Astronomer—Astronomer
+INSERT INTO CharactersOccupations VALUES(689,193); -- Konoha Astronomer—Hokage's Assistant
+INSERT INTO CharactersOccupations VALUES(691,194); -- Korega—Captain of the Land of the Moon Military
+INSERT INTO CharactersOccupations VALUES(696,18); -- Kosuke (Scientist)—Scientist
+INSERT INTO CharactersOccupations VALUES(697,195); -- Kosuke—Messenger Toad
+INSERT INTO CharactersOccupations VALUES(702,196); -- Koza Kubisaki—Daimyo
+INSERT INTO CharactersOccupations VALUES(703,197); -- Kuen—Shrine maiden  (Former)
+INSERT INTO CharactersOccupations VALUES(707,119); -- Jingo Kumano—Ramen chef
+INSERT INTO CharactersOccupations VALUES(710,198); -- Kunijiro—Jeweller
+INSERT INTO CharactersOccupations VALUES(712,199); -- Murakumo Kurama—Head of the Kurama clan
+INSERT INTO CharactersOccupations VALUES(715,200); -- Yakumo Kurama—Heiress of the Kurama Clan
+INSERT INTO CharactersOccupations VALUES(722,201); -- Batora Kuromori—Butler
+INSERT INTO CharactersOccupations VALUES(724,202); -- Raiga Kurosuki—Head of Kurosuki Family  (Anime only)
+INSERT INTO CharactersOccupations VALUES(725,153); -- Kurotsuchi—Tsuchikage
+INSERT INTO CharactersOccupations VALUES(726,203); -- Tayori Kuroyagi—Postman
+INSERT INTO CharactersOccupations VALUES(728,33); -- Kusabi—Mercenary
+INSERT INTO CharactersOccupations VALUES(730,204); -- Kusuma—Mask salesman
+INSERT INTO CharactersOccupations VALUES(735,190); -- Kyoya—Accountant
+INSERT INTO CharactersOccupations VALUES(739,4); -- Rock Lee—Chunin Exams Proctor
+INSERT INTO CharactersOccupations VALUES(742,205); -- Lily Himeno—Singer
+INSERT INTO CharactersOccupations VALUES(749,206); -- Mabui—Fourth Raikage's Assistant
+INSERT INTO CharactersOccupations VALUES(755,101); -- Makibi—Businessman
+INSERT INTO CharactersOccupations VALUES(756,207); -- Makino—Film Director
+INSERT INTO CharactersOccupations VALUES(757,124); -- Malice—Village Head
+INSERT INTO CharactersOccupations VALUES(759,78); -- Michizo Manaka—Bandit
+INSERT INTO CharactersOccupations VALUES(764,122); -- Maroi—Spy
+INSERT INTO CharactersOccupations VALUES(767,208); -- Maruta—Hawk trainer
+INSERT INTO CharactersOccupations VALUES(772,209); -- Matsu—Waiter
+INSERT INTO CharactersOccupations VALUES(772,210); -- Matsu—Circus performer
+INSERT INTO CharactersOccupations VALUES(776,96); -- Daizen Matsushige—Thief
+INSERT INTO CharactersOccupations VALUES(776,211); -- Daizen Matsushige—Shopkeeper
+INSERT INTO CharactersOccupations VALUES(779,110); -- Meizu—Zabuza's subordinate
+INSERT INTO CharactersOccupations VALUES(780,78); -- Menma (anime)—Bandit
+INSERT INTO CharactersOccupations VALUES(789,131); -- Michy—Actor
+INSERT INTO CharactersOccupations VALUES(792,212); -- Midori—Personal Guard
+INSERT INTO CharactersOccupations VALUES(794,213); -- Mifune—General
+INSERT INTO CharactersOccupations VALUES(794,214); -- Mifune—Fifth Division Commander of the Allied Shinobi Forces
+INSERT INTO CharactersOccupations VALUES(794,215); -- Mifune—Chairman of the Continental Summit
+INSERT INTO CharactersOccupations VALUES(806,216); -- Miroku—Priestess
+INSERT INTO CharactersOccupations VALUES(808,217); -- Misuno—Mizukage's bodyguard
+INSERT INTO CharactersOccupations VALUES(809,4); -- Anko Mitarashi—Chunin Exams Proctor
+INSERT INTO CharactersOccupations VALUES(809,3); -- Anko Mitarashi—Academy Teacher
+INSERT INTO CharactersOccupations VALUES(809,5); -- Anko Mitarashi—Genin Exams Proctor  (Anime only)
+INSERT INTO CharactersOccupations VALUES(811,218); -- Homura Mitokado—Councillor
+INSERT INTO CharactersOccupations VALUES(812,219); -- Mitoku—Head of the Konoha Cryptanalysis Team
+INSERT INTO CharactersOccupations VALUES(815,87); -- Mitsuo—Thief  (Former)
+INSERT INTO CharactersOccupations VALUES(815,88); -- Mitsuo—Ninshu Follower
+INSERT INTO CharactersOccupations VALUES(816,220); -- Mizugoke—Mercenary Ninja
+INSERT INTO CharactersOccupations VALUES(817,47); -- Third Mizukage—Mizukage
+INSERT INTO CharactersOccupations VALUES(818,221); -- Mizuki—Academy Instructor  (Former)
+INSERT INTO CharactersOccupations VALUES(827,222); -- Momiji (Tanzaku)—Hostess
+INSERT INTO CharactersOccupations VALUES(835,4); -- Ibiki Morino—Chunin Exams Proctor
+INSERT INTO CharactersOccupations VALUES(835,223); -- Ibiki Morino—Head of the Konoha Torture and Interrogation Force
+INSERT INTO CharactersOccupations VALUES(836,224); -- Idate Morino—Sprinter
+INSERT INTO CharactersOccupations VALUES(838,225); -- Moroi—Kumo Barrier Team Captain
+INSERT INTO CharactersOccupations VALUES(840,226); -- Motoi—Guide
+INSERT INTO CharactersOccupations VALUES(841,113); -- Mozuku—Chunin Exams Assistant
+INSERT INTO CharactersOccupations VALUES(843,96); -- Mozuku (criminal)—Thief
+INSERT INTO CharactersOccupations VALUES(844,153); -- Mu—Tsuchikage
+INSERT INTO CharactersOccupations VALUES(847,162); -- Mui—Master of the Hozuki Castle
+INSERT INTO CharactersOccupations VALUES(847,227); -- Mui—Door Guard for the Box of Ultimate Bliss
+INSERT INTO CharactersOccupations VALUES(849,228); -- Mujo—Master of Hozuki Castle
+INSERT INTO CharactersOccupations VALUES(850,229); -- Mukade—Akatsuki spy
+INSERT INTO CharactersOccupations VALUES(850,230); -- Mukade—Sasori's subordinate
+INSERT INTO CharactersOccupations VALUES(851,231); -- Mukade (movie)—Minister of Roran
+INSERT INTO CharactersOccupations VALUES(858,232); -- Former Leader of Nadeshiko Village—Leader of Nadeshiko Village
+INSERT INTO CharactersOccupations VALUES(859,73); -- Nae—Traveller
+INSERT INTO CharactersOccupations VALUES(861,233); -- Nagato—Akatsuki Leader
+INSERT INTO CharactersOccupations VALUES(861,124); -- Nagato—Village Head
+INSERT INTO CharactersOccupations VALUES(863,234); -- Raido Namiashi—Assassin
+INSERT INTO CharactersOccupations VALUES(863,235); -- Raido Namiashi—Elite Bodyguard
+INSERT INTO CharactersOccupations VALUES(865,129); -- Minato Namikaze—Hokage
+INSERT INTO CharactersOccupations VALUES(867,236); -- Nan—Village Leader
+INSERT INTO CharactersOccupations VALUES(868,122); -- Nanafushi—Spy
+INSERT INTO CharactersOccupations VALUES(872,237); -- Enchu Nara—Elder advisor of the Nara clan
+INSERT INTO CharactersOccupations VALUES(877,238); -- Shikaku Nara—Head of the Nara Clan
+INSERT INTO CharactersOccupations VALUES(877,239); -- Shikaku Nara—Deer Herder
+INSERT INTO CharactersOccupations VALUES(877,240); -- Shikaku Nara—Jonin Commander
+INSERT INTO CharactersOccupations VALUES(877,241); -- Shikaku Nara—Chief Strategist of the Allied Shinobi Forces
+INSERT INTO CharactersOccupations VALUES(878,242); -- Shikamaru Nara—Hokage's Chief Aide
+INSERT INTO CharactersOccupations VALUES(878,243); -- Shikamaru Nara—Planner for the Shinobi Union
+INSERT INTO CharactersOccupations VALUES(878,244); -- Shikamaru Nara—Proxy Commander of Fourth Division of the Allied Shinobi Forces
+INSERT INTO CharactersOccupations VALUES(878,245); -- Shikamaru Nara—Chunin Exam Proctor  (Anime only)
+INSERT INTO CharactersOccupations VALUES(878,238); -- Shikamaru Nara—Head of the Nara Clan
+INSERT INTO CharactersOccupations VALUES(880,145); -- Yoshino Nara—Housewife
+INSERT INTO CharactersOccupations VALUES(889,211); -- Nekobaa—Shopkeeper
+INSERT INTO CharactersOccupations VALUES(891,246); -- Nekomata—Boss of the ninneko
+INSERT INTO CharactersOccupations VALUES(900,209); -- Nishi—Waiter
+INSERT INTO CharactersOccupations VALUES(900,210); -- Nishi—Circus performer
+INSERT INTO CharactersOccupations VALUES(912,62); -- oga—Inner  (Former)
+INSERT INTO CharactersOccupations VALUES(913,247); -- Ohagi—Dango chef
+INSERT INTO CharactersOccupations VALUES(914,222); -- Okami—Hostess
+INSERT INTO CharactersOccupations VALUES(920,248); -- Omoi—Fifth Raikage's Bodyguard
+INSERT INTO CharactersOccupations VALUES(921,249); -- onami—Chief Miner
+INSERT INTO CharactersOccupations VALUES(925,153); -- onoki—Tsuchikage
+INSERT INTO CharactersOccupations VALUES(928,250); -- Orochimaru—Founder and Leader of Otogakure
+INSERT INTO CharactersOccupations VALUES(928,18); -- Orochimaru—Scientist
+INSERT INTO CharactersOccupations VALUES(930,86); -- Otoha—Nurse
+INSERT INTO CharactersOccupations VALUES(935,45); -- Hagoromo otsutsuki—Priest
+INSERT INTO CharactersOccupations VALUES(936,251); -- Hamura otsutsuki—Head of the otsutsuki Clan
+INSERT INTO CharactersOccupations VALUES(939,53); -- Isshiki otsutsuki—Leader of Kara
+INSERT INTO CharactersOccupations VALUES(939,42); -- Isshiki otsutsuki—Inner
+INSERT INTO CharactersOccupations VALUES(940,76); -- Kaguya otsutsuki—Princess
+INSERT INTO CharactersOccupations VALUES(940,252); -- Kaguya otsutsuki—Head of the otsutsuki Clan  (Former)
+INSERT INTO CharactersOccupations VALUES(941,253); -- Kinshiki otsutsuki—Guardian of Momoshiki
+INSERT INTO CharactersOccupations VALUES(947,254); -- En Oyashiro—Kekkei Genkai collector
+INSERT INTO CharactersOccupations VALUES(947,255); -- En Oyashiro—Arms Merchant
+INSERT INTO CharactersOccupations VALUES(956,120); -- Preta Path (character)—Farmer
+INSERT INTO CharactersOccupations VALUES(957,256); -- Prime Minister—Prime minister
+INSERT INTO CharactersOccupations VALUES(966,257); -- Ranmaru—Chef Apprentice
+INSERT INTO CharactersOccupations VALUES(967,89); -- Rasa—Kazekage
+INSERT INTO CharactersOccupations VALUES(971,89); -- Reto—Kazekage
+INSERT INTO CharactersOccupations VALUES(972,258); -- Riichi—Inn employee
+INSERT INTO CharactersOccupations VALUES(982,112); -- Rokusuke—Miner
+INSERT INTO CharactersOccupations VALUES(995,36); -- Ryusa—Senior
+INSERT INTO CharactersOccupations VALUES(999,122); -- Sabiru—Spy
+INSERT INTO CharactersOccupations VALUES(1000,259); -- Sabu—Enka Singer
+INSERT INTO CharactersOccupations VALUES(1001,260); -- Sabure—Pastry chef
+INSERT INTO CharactersOccupations VALUES(1003,33); -- Sadai—Mercenary
+INSERT INTO CharactersOccupations VALUES(1004,3); -- Sadoru—Academy Teacher
+INSERT INTO CharactersOccupations VALUES(1007,261); -- Sagiri—Tradesman
+INSERT INTO CharactersOccupations VALUES(1008,4); -- Sai—Chunin Exams Proctor
+INSERT INTO CharactersOccupations VALUES(1008,262); -- Sai—Anbu Chief
+INSERT INTO CharactersOccupations VALUES(1013,36); -- Sajo—Senior
+INSERT INTO CharactersOccupations VALUES(1014,263); -- Sakanami—CriminalMiner (former)
+INSERT INTO CharactersOccupations VALUES(1015,264); -- Sakon and Ukon—De facto leader of Sound Four
+INSERT INTO CharactersOccupations VALUES(1023,112); -- Sangoro—Miner
+INSERT INTO CharactersOccupations VALUES(1024,265); -- Sansho—Chef
+INSERT INTO CharactersOccupations VALUES(1027,18); -- Amado Sanzu—Scientist
+INSERT INTO CharactersOccupations VALUES(1027,62); -- Amado Sanzu—Inner  (Former)
+INSERT INTO CharactersOccupations VALUES(1029,266); -- Sāra—Queen of Roran
+INSERT INTO CharactersOccupations VALUES(1030,76); -- Sāra's Daughter—Princess
+INSERT INTO CharactersOccupations VALUES(1036,129); -- Hiruzen Sarutobi—Hokage
+INSERT INTO CharactersOccupations VALUES(1037,111); -- Konohamaru Sarutobi—Academy Teacher  (Anime only)
+INSERT INTO CharactersOccupations VALUES(1037,5); -- Konohamaru Sarutobi—Genin Exams Proctor  (Anime only)
+INSERT INTO CharactersOccupations VALUES(1037,184); -- Konohamaru Sarutobi—Chunin Exams Proctor  (Anime only)
+INSERT INTO CharactersOccupations VALUES(1038,245); -- Mirai Sarutobi—Chunin Exam Proctor  (Anime only)
+INSERT INTO CharactersOccupations VALUES(1038,267); -- Mirai Sarutobi—Hokage's Bodyguard
+INSERT INTO CharactersOccupations VALUES(1049,268); -- Sazanami—Bladesmith
+INSERT INTO CharactersOccupations VALUES(1049,102); -- Sazanami—Bounty Hunter
+INSERT INTO CharactersOccupations VALUES(1050,33); -- Sazanka—Mercenary
+INSERT INTO CharactersOccupations VALUES(1061,269); -- Senji—Village Head  (Former)
+INSERT INTO CharactersOccupations VALUES(1063,270); -- Hashirama Senju—Head of the Senju clan
+INSERT INTO CharactersOccupations VALUES(1063,129); -- Hashirama Senju—Hokage
+INSERT INTO CharactersOccupations VALUES(1066,129); -- Tobirama Senju—Hokage
+INSERT INTO CharactersOccupations VALUES(1071,46); -- Senta—Loan Collector
+INSERT INTO CharactersOccupations VALUES(1073,266); -- Sēramu—Queen of Roran
+INSERT INTO CharactersOccupations VALUES(1075,271); -- Shabadaba—King of Land of MoonMinister of Land of Moon
+INSERT INTO CharactersOccupations VALUES(1077,89); -- Shamon—Kazekage
+INSERT INTO CharactersOccupations VALUES(1080,212); -- Shiba (Kusagakure)—Personal Guard
+INSERT INTO CharactersOccupations VALUES(1082,124); -- Shibuki—Village Head
+INSERT INTO CharactersOccupations VALUES(1083,18); -- Tanuki Shigaraki—Scientist
+INSERT INTO CharactersOccupations VALUES(1086,272); -- Shiho—Cryptographer
+INSERT INTO CharactersOccupations VALUES(1087,78); -- Shiin—Bandit
+INSERT INTO CharactersOccupations VALUES(1091,75); -- Shima—Toad Elder
+INSERT INTO CharactersOccupations VALUES(1092,273); -- Shimeji—Gardener
+INSERT INTO CharactersOccupations VALUES(1093,274); -- Danzo Shimura—Leader of Root
+INSERT INTO CharactersOccupations VALUES(1093,275); -- Danzo Shimura—Candidate Sixth Hokage
+INSERT INTO CharactersOccupations VALUES(1096,78); -- Shinayakana—Bandit
+INSERT INTO CharactersOccupations VALUES(1097,276); -- Shin'emon—Potter
+INSERT INTO CharactersOccupations VALUES(1104,216); -- Shion—Priestess
+INSERT INTO CharactersOccupations VALUES(1107,13); -- Shirabe—Cultist
+INSERT INTO CharactersOccupations VALUES(1109,277); -- Shiranami—Leader of the Magaki Group
+INSERT INTO CharactersOccupations VALUES(1110,4); -- Genma Shiranui—Chunin Exams Proctor
+INSERT INTO CharactersOccupations VALUES(1110,235); -- Genma Shiranui—Elite Bodyguard
+INSERT INTO CharactersOccupations VALUES(1114,278); -- Shiseru—Militia Officer
+INSERT INTO CharactersOccupations VALUES(1117,279); -- Mozu Shitakiri—Owner of Rakuen
+INSERT INTO CharactersOccupations VALUES(1118,280); -- Tsuzura Shitakiri—Apprentice Hawk Trainer
+INSERT INTO CharactersOccupations VALUES(1119,232); -- Shizuka—Leader of Nadeshiko Village
+INSERT INTO CharactersOccupations VALUES(1122,193); -- Shizune—Hokage's Assistant
+INSERT INTO CharactersOccupations VALUES(1122,281); -- Shizune—Captain of the Logistical Support and Medical Division of the Allied Shinobi Forces
+INSERT INTO CharactersOccupations VALUES(1123,282); -- Shojoji—Leader of Mujina Bandits
+INSERT INTO CharactersOccupations VALUES(1124,283); -- Shoseki—Io's apprentice
+INSERT INTO CharactersOccupations VALUES(1138,52); -- Sozu—Gambler
+INSERT INTO CharactersOccupations VALUES(1140,284); -- Stone Carver—Stone Carver
+INSERT INTO CharactersOccupations VALUES(1141,285); -- Stone Carver's Assistant—Stone Carver's assistant
+INSERT INTO CharactersOccupations VALUES(1142,96); -- Suguro—Thief
+INSERT INTO CharactersOccupations VALUES(1143,286); -- Suien—Shibuki's trainer  (Former)
+INSERT INTO CharactersOccupations VALUES(1144,78); -- Suika—Bandit
+INSERT INTO CharactersOccupations VALUES(1150,112); -- Sukeza—Miner
+INSERT INTO CharactersOccupations VALUES(1156,73); -- Sumire (citizen)—Traveller
+INSERT INTO CharactersOccupations VALUES(1158,287); -- Suna Assassin Captain—Captain of Suna Assassination Squad
+INSERT INTO CharactersOccupations VALUES(1160,222); -- Susuki—Hostess
+INSERT INTO CharactersOccupations VALUES(1161,288); -- Susuki (Land of Demons)—Shion's bodyguard
+INSERT INTO CharactersOccupations VALUES(1162,37); -- Suzaku (minister)—Minister
+INSERT INTO CharactersOccupations VALUES(1164,3); -- Suzume—Academy Teacher
+INSERT INTO CharactersOccupations VALUES(1177,289); -- Takamaru—Messenger Hawk
+INSERT INTO CharactersOccupations VALUES(1180,6); -- Takishi—Prisoner
+INSERT INTO CharactersOccupations VALUES(1183,211); -- Tamaki—Shopkeeper
+INSERT INTO CharactersOccupations VALUES(1187,290); -- Tanishi—Border Patrol Guard
+INSERT INTO CharactersOccupations VALUES(1192,288); -- Taruho—Shion's bodyguard
+INSERT INTO CharactersOccupations VALUES(1194,260); -- Taruto—Pastry chef
+INSERT INTO CharactersOccupations VALUES(1196,113); -- Iwashi Tatami—Chunin Exams Assistant
+INSERT INTO CharactersOccupations VALUES(1196,235); -- Iwashi Tatami—Elite Bodyguard
+INSERT INTO CharactersOccupations VALUES(1197,9); -- Tatewaki—Bodyguard
+INSERT INTO CharactersOccupations VALUES(1200,263); -- Tatsunami—CriminalMiner (former)
+INSERT INTO CharactersOccupations VALUES(1204,12); -- Tazuna—Carpenter
+INSERT INTO CharactersOccupations VALUES(1208,291); -- Temari—Ambassador
+INSERT INTO CharactersOccupations VALUES(1208,172); -- Temari—Fifth Kazekage's Bodyguard
+INSERT INTO CharactersOccupations VALUES(1208,184); -- Temari—Chunin Exams Proctor  (Anime only)
+INSERT INTO CharactersOccupations VALUES(1212,292); -- Tenga—Daimyo's intelligence bureau agent
+INSERT INTO CharactersOccupations VALUES(1213,293); -- Tenji—Emperor of the Land of Ancestors
+INSERT INTO CharactersOccupations VALUES(1214,294); -- Enzo Tenro—Chief of Yumegakure
+INSERT INTO CharactersOccupations VALUES(1216,295); -- Tenten—Weapon Seller
+INSERT INTO CharactersOccupations VALUES(1216,4); -- Tenten—Chunin Exams Proctor
+INSERT INTO CharactersOccupations VALUES(1218,96); -- Teo—Thief
+INSERT INTO CharactersOccupations VALUES(1223,47); -- Mei Terumī—Mizukage
+INSERT INTO CharactersOccupations VALUES(1226,6); -- Tetsuru—Prisoner
+INSERT INTO CharactersOccupations VALUES(1227,119); -- Teuchi—Ramen chef
+INSERT INTO CharactersOccupations VALUES(1228,222); -- Tezuna—Hostess
+INSERT INTO CharactersOccupations VALUES(1230,289); -- Tobimaru—Messenger Hawk
+INSERT INTO CharactersOccupations VALUES(1232,113); -- Tonbo Tobitake—Chunin Exams Assistant
+INSERT INTO CharactersOccupations VALUES(1233,81); -- Todoroki—Guard
+INSERT INTO CharactersOccupations VALUES(1234,122); -- Tofu—Spy
+INSERT INTO CharactersOccupations VALUES(1235,124); -- Tofu—Village Head
+INSERT INTO CharactersOccupations VALUES(1237,36); -- Tojuro—Senior
+INSERT INTO CharactersOccupations VALUES(1242,296); -- Tokiwa—Shizuka's attendant
+INSERT INTO CharactersOccupations VALUES(1244,131); -- Tomaru—Actor
+INSERT INTO CharactersOccupations VALUES(1245,297); -- Tonbee—Guardian of Mount Katsuragi
+INSERT INTO CharactersOccupations VALUES(1246,124); -- Tonika Village Head—Village Head
+INSERT INTO CharactersOccupations VALUES(1247,26); -- Garashi Tono—Outer
+INSERT INTO CharactersOccupations VALUES(1248,18); -- Katasuke Tono—Scientist
+INSERT INTO CharactersOccupations VALUES(1248,298); -- Katasuke Tono—Leader of Scientific Ninja Weapons Team
+INSERT INTO CharactersOccupations VALUES(1248,299); -- Katasuke Tono—Prosthetist
+INSERT INTO CharactersOccupations VALUES(1248,300); -- Katasuke Tono—Occupational Therapist
+INSERT INTO CharactersOccupations VALUES(1248,301); -- Katasuke Tono—Scholar
+INSERT INTO CharactersOccupations VALUES(1248,302); -- Katasuke Tono—Rehabilitation Engineer
+INSERT INTO CharactersOccupations VALUES(1261,145); -- Tsubaki (parent)—Housewife
+INSERT INTO CharactersOccupations VALUES(1266,303); -- Tsuchigumo Chief—Chief of the Tsuchigumo Village
+INSERT INTO CharactersOccupations VALUES(1271,304); -- Hikaru Tsuki—Land of the Moon Prince
+INSERT INTO CharactersOccupations VALUES(1272,305); -- Kakeru Tsuki—King of Land of Moon
+INSERT INTO CharactersOccupations VALUES(1273,306); -- Michiru Tsuki—King of the Land of the Moon
+INSERT INTO CharactersOccupations VALUES(1274,124); -- Tsukino—Village Head
+INSERT INTO CharactersOccupations VALUES(1275,124); -- Tsukino's Father—Village Head
+INSERT INTO CharactersOccupations VALUES(1278,6); -- Tsukushi—Prisoner
+INSERT INTO CharactersOccupations VALUES(1280,129); -- Tsunade—Hokage
+INSERT INTO CharactersOccupations VALUES(1282,307); -- Tsurugi—Head of the Hunter-nin
+INSERT INTO CharactersOccupations VALUES(1283,8); -- Misumi Tsurugi—Otogakure spy
+INSERT INTO CharactersOccupations VALUES(1283,9); -- Misumi Tsurugi—Bodyguard
+INSERT INTO CharactersOccupations VALUES(1285,308); -- Tsuzumi—Police Captain
+INSERT INTO CharactersOccupations VALUES(1286,13); -- Tsuzumi (cultist)—Cultist
+INSERT INTO CharactersOccupations VALUES(1287,80); -- Ubau—Pirate
+INSERT INTO CharactersOccupations VALUES(1289,309); -- Fugaku Uchiha—Head of the Uchiha Clan
+INSERT INTO CharactersOccupations VALUES(1289,79); -- Fugaku Uchiha—Captain of the Konoha Military Police Force
+INSERT INTO CharactersOccupations VALUES(1293,127); -- Itachi Uchiha—Anbu Captain  (Former)
+INSERT INTO CharactersOccupations VALUES(1299,310); -- Madara Uchiha—Co-founder of Konohagakure
+INSERT INTO CharactersOccupations VALUES(1299,311); -- Madara Uchiha—Head of the Uchiha clan  (Former)
+INSERT INTO CharactersOccupations VALUES(1300,145); -- Mikoto Uchiha—Housewife
+INSERT INTO CharactersOccupations VALUES(1303,312); -- Obito Uchiha—Leader of Akatsuki
+INSERT INTO CharactersOccupations VALUES(1303,313); -- Obito Uchiha—Secret Leader of Kirigakure
+INSERT INTO CharactersOccupations VALUES(1307,309); -- Sasuke Uchiha—Head of the Uchiha Clan
+INSERT INTO CharactersOccupations VALUES(1314,23); -- Teyaki Uchiha—Shop owner
+INSERT INTO CharactersOccupations VALUES(1325,3); -- Iruka Umino—Academy Teacher
+INSERT INTO CharactersOccupations VALUES(1325,314); -- Iruka Umino—Headmaster
+INSERT INTO CharactersOccupations VALUES(1332,315); -- Urushi—Caretaker of the Konoha Orphanage
+INSERT INTO CharactersOccupations VALUES(1336,218); -- Koharu Utatane—Councillor
+INSERT INTO CharactersOccupations VALUES(1338,316); -- Ashina Uzumaki—Leader of the Uzumaki Clan
+INSERT INTO CharactersOccupations VALUES(1344,129); -- Naruto Uzumaki—Hokage
+INSERT INTO CharactersOccupations VALUES(1344,184); -- Naruto Uzumaki—Chunin Exams Proctor  (Anime only)
+INSERT INTO CharactersOccupations VALUES(1346,42); -- Victor—Inner
+INSERT INTO CharactersOccupations VALUES(1346,317); -- Victor—Company President  (Anime only)
+INSERT INTO CharactersOccupations VALUES(1347,318); -- Victor's Secretary—Secretary
+INSERT INTO CharactersOccupations VALUES(1347,26); -- Victor's Secretary—Outer
+INSERT INTO CharactersOccupations VALUES(1348,124); -- Village Headman—Village Head
+INSERT INTO CharactersOccupations VALUES(1350,319); -- Waraji—Gato's bodyguard  (Mercenary)
+INSERT INTO CharactersOccupations VALUES(1351,320); -- Jirocho Wasabi—Head of Wasabi family
+INSERT INTO CharactersOccupations VALUES(1356,321); -- Yahiko—Founder and leader of Akatsuki
+INSERT INTO CharactersOccupations VALUES(1359,322); -- Kabuto Yakushi—Orochimaru's spy and right-hand man
+INSERT INTO CharactersOccupations VALUES(1359,323); -- Kabuto Yakushi—Sasori's spy
+INSERT INTO CharactersOccupations VALUES(1359,324); -- Kabuto Yakushi—Caretaker at the Konoha Orphanage
+INSERT INTO CharactersOccupations VALUES(1361,315); -- Nono Yakushi—Caretaker of the Konoha Orphanage
+INSERT INTO CharactersOccupations VALUES(1361,325); -- Nono Yakushi—Captain of the Medic Corps
+INSERT INTO CharactersOccupations VALUES(1365,326); -- Ino Yamanaka—Florist
+INSERT INTO CharactersOccupations VALUES(1365,327); -- Ino Yamanaka—Leader of the Konoha Barrier Team
+INSERT INTO CharactersOccupations VALUES(1367,328); -- Inoichi Yamanaka—Head of the Yamanaka Clan
+INSERT INTO CharactersOccupations VALUES(1367,329); -- Inoichi Yamanaka—Head of the Analysis Team
+INSERT INTO CharactersOccupations VALUES(1367,330); -- Inoichi Yamanaka—Proprietor of Yamanaka Flowers
+INSERT INTO CharactersOccupations VALUES(1367,331); -- Inoichi Yamanaka—Captain of the Intelligence Division of the Allied Shinobi Forces
+INSERT INTO CharactersOccupations VALUES(1371,332); -- Yamaoka—Vassal
+INSERT INTO CharactersOccupations VALUES(1381,333); -- Yokozuna—Sumo
+INSERT INTO CharactersOccupations VALUES(1385,96); -- Hyoi Yorishiro—Thief
+INSERT INTO CharactersOccupations VALUES(1393,34); -- Yubeshi—Waitress
+INSERT INTO CharactersOccupations VALUES(1394,152); -- Yubina—Doctor
+INSERT INTO CharactersOccupations VALUES(1398,92); -- Shinku Yuhi—Instructor
+INSERT INTO CharactersOccupations VALUES(1399,73); -- Yui—Traveller
+INSERT INTO CharactersOccupations VALUES(1404,334); -- Yuki (hawk)—Messenger hawk
+INSERT INTO CharactersOccupations VALUES(1408,76); -- Kae Yukiwari—Princess
+INSERT INTO CharactersOccupations VALUES(1409,36); -- Yura—Senior
+INSERT INTO CharactersOccupations VALUES(1409,230); -- Yura—Sasori's subordinate
+INSERT INTO CharactersOccupations VALUES(1410,335); -- Yurika—Message Decoder
+INSERT INTO CharactersOccupations VALUES(1411,185); -- Yurinojo—Daimyo's Bodyguard
+INSERT INTO CharactersOccupations VALUES(1415,164); -- Yusuke—Fisherman
+INSERT INTO CharactersOccupations VALUES(1416,164); -- Yusuke's Father—Fisherman
+INSERT INTO CharactersOccupations VALUES(1419,52); -- Zaji (gambler)—Gambler
+INSERT INTO CharactersOccupations VALUES(1420,336); -- Zangei—Bounty exchange master
+INSERT INTO CharactersOccupations VALUES(1421,337); -- Zansuru—Director
+INSERT INTO CharactersOccupations VALUES(1422,220); -- Zenigoke—Mercenary Ninja
+INSERT INTO CharactersOccupations VALUES(1425,229); -- Black Zetsu—Akatsuki spy
+INSERT INTO CharactersOccupations VALUES(1426,338); -- White Zetsu—Akatsuki Spy
+INSERT INTO CharactersOccupations VALUES(1427,22); -- Zo—Anbu Captain
+INSERT INTO CharactersOccupations VALUES(1428,319); -- Zori—Gato's bodyguard  (Mercenary)
 
 -- UniqueTraits(traitId, uniqueTrait)
 
