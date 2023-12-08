@@ -1,4 +1,3 @@
-package NarutoDatabase;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Arrays;
@@ -11,7 +10,7 @@ public class Program {
 	public static void main(String[] args) throws Exception {
 		Class.forName("org.sqlite.JDBC");
 		NarutoDatabase database = new NarutoDatabase();
-		database.connect("jdbc:sqlite:NarutoDatabase/Naruto.db");
+		database.connect("jdbc:sqlite:Naruto.db");
 
 		//database.test();
 		System.out.println("Welcome to the NarutoDatabase (actual database!)");

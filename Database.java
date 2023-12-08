@@ -1,4 +1,3 @@
-package NarutoDatabase;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -25,6 +24,7 @@ public class Database {
 		try {
 			// create a connection to the database
 			connection = DriverManager.getConnection(url);
+			System.out.println("The connection was made");
 		}
 		catch (SQLException e) {
 			e.printStackTrace(System.out);

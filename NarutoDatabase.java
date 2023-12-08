@@ -1,4 +1,3 @@
-package NarutoDatabase;
 import java.sql.SQLException;
 import java.sql.PreparedStatement;
 
@@ -13,6 +12,9 @@ public class NarutoDatabase extends Database implements CommandProcessor{
 			case "help":
 				helpCommand();
 				return true;
+			case "aa":
+				averageAgeClan();
+				return true;
 			default:
 				return true;
         }
@@ -25,7 +27,7 @@ public class NarutoDatabase extends Database implements CommandProcessor{
 		sb.append("Commands:\n");
 		sb.append("1. `Help` - Shows help menu\n");
 		sb.append("2. `Quit` - Quits the program\n");
-		sb.append("3.\n");
+		sb.append("3. `aa` - The average age of characters in each clan and in ascending order\n");
 		sb.append("4.\n");
 		sb.append("5.\n");
 		sb.append("6.\n");
@@ -37,6 +39,33 @@ public class NarutoDatabase extends Database implements CommandProcessor{
 		sb.append("12.\n");
 
 		System.out.println(sb.toString());
+	}
+
+	public void averageAgeClan() throws SQLException{
+		String sql = """
+				SELECT Clans.clanName, ROUND(AVG(Characters.age),2) AS averageAge
+				FROM Characters
+				JOIN Clans ON Characters.clanId = Clans.clanId
+				GROUP BY Clans.clanName
+				ORDER BY averageAge ASC;
+				""";
+		PreparedStatement statement = connection.prepareStatement(sql);
+
+		// Execute query
+		// FOR EACH resultSet, we will print out the character id
+		// resultSet is variable name, this variable is ALWAYS of type ResultSet, determined by paramter type "Consumer<ResultSet>"
+		this.executeQuery(statement, (resultSet) -> {
+			try {
+				String clanName = resultSet.getString("clanName");
+				if (clanName == null)
+					clanName = "Not enough data to calculate average age";
+				float age = resultSet.getFloat("averageAge");
+				System.out.printf("Clan name: %s, Average age: %f\n", clanName, age);
+			}
+			catch (SQLException e) {
+				e.printStackTrace();
+			}
+		});
 	}
 
 	public void test() throws SQLException{
