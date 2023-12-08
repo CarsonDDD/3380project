@@ -3,12 +3,3 @@
 
 # Compiled Files
 *.class
-bin/
-
-
-# Debug output
-*.txt
-
-.DS_Store
-
-.idea

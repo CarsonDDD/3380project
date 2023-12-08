@@ -1,4 +1,4 @@
-package NarutoDatabase.Processor;
+package NarutoDatabase;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
