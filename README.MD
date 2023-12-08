@@ -4,7 +4,9 @@ This program cycles through all the endpoints of the [naruto database](https://n
 
 ## What am I looking at?
 
-The scraper was built using Intelij. 
+The scraper/populator is located inside `3380project/`. The code and packages are located inside `3380project/src/`.
+
+The scraper was built using Intelij.
 The main packages are:
 
 - The `Logger`: Controlls our output to specific files. It is helpful when testing to write the sql in multiple files to allow us to visually check all the inserts.
@@ -22,6 +24,8 @@ note: The creation of the tables we have done manually, as we were constantly ed
 ## How to run?
 
 Since the scraper was created using Intelij, we have built a jar for you to run and test.
+
+The jar is located at: `3380project/NarutoScraper.java`
 
 **Windows:** `java -jar NarutoScraper.jar`
 
