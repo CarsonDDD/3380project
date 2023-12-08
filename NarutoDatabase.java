@@ -21,6 +21,15 @@ public class NarutoDatabase extends Database implements CommandProcessor{
 				else
 					System.err.println("The format is `jubr rankName`, please try again");
 				return true;
+			case "cg":
+				clanGenkai();
+				return true;
+			case "rn":
+				rationNature();
+				return true;
+			case "mpc":
+				mostPopularChar();
+				return true;
 			default:
 				System.out.println("Command not find, please use `Help` to view list of command");
 				return true;
@@ -40,9 +49,9 @@ public class NarutoDatabase extends Database implements CommandProcessor{
 		sb.append("6.\n");
 		sb.append("7.\n");
 		sb.append("8.\n");
-		sb.append("9.\n");
-		sb.append("10.\n");
-		sb.append("11.\n");
+		sb.append("9. `cg` - A list of Clans that have Kekkei Genkai\n");
+		sb.append("10. `rn` - For each nature types, find the team with the highest ratio of members of that nature type\n");
+		sb.append("11. `mpc` - Top 3 most popular characters base on the number of media types they debut in\n");
 		sb.append("12.\n");
 
 		System.out.println(sb.toString());
@@ -105,7 +114,129 @@ public class NarutoDatabase extends Database implements CommandProcessor{
 			}
 		});
 	}
+
+	public void clanGenkai() throws SQLException{
+		String sql = """
+			WITH
+				countGenkaiUserPerClan AS (
+					SELECT count(characterName) as userNum, genkaiName, clanName
+					FROM Characters
+					NATURAL JOIN Clans
+					NATURAL JOIN CharactersHaveKekkeiGenkai
+					NATURAL JOIN KekkeiGenkai
+					GROUP BY genkaiName, clanName
+				)
+			SELECT clanName, genkaiName
+			FROM countGenkaiUserPerClan
+			WHERE userNum >= 2 OR genkaiName LIKE '%Clan%'
+			ORDER BY clanName;
+		""";
+		PreparedStatement statement = connection.prepareStatement(sql);
+
+		this.executeQuery(statement, (resultSet)->{
+			try {
+				String clanName = resultSet.getString("clanName");
+				String genkaiName = resultSet.getString("genkaiName");
+				System.out.printf("Clan name: %s, has: %s\n", clanName, genkaiName);
+			}
+			catch (SQLException e) {
+				e.printStackTrace();
+			}
+		});
+	}
 	
+	public void rationNature() throws SQLException{
+		String sql = """
+			WITH
+				naturePerTeam AS (
+					SELECT teamName, natureType, count(characterId) as userNum
+					FROM Teams
+					NATURAL JOIN TeamMembers
+					NATURAL JOIN Characters
+					NATURAL JOIN CharactersNatureTypes
+					NATURAL JOIN NatureTypes
+					GROUP BY teamName, natureType
+				),
+				teamMemberCount AS (
+					SELECT teamName, count(characterId) as memberNum
+					FROM Teams
+					NATURAL JOIN TeamMembers
+					GROUP BY teamName
+				),
+				natureRankingPerTeam AS (
+					SELECT teamName, natureType, userNum, RANK() OVER (PARTITION BY teamName ORDER BY userNum DESC) AS natureRank
+					FROM naturePerTeam
+				)
+
+			SELECT teamName, natureType, ROUND((userNum * 1.0) / memberNum, 2) as rate
+			FROM natureRankingPerTeam
+			NATURAL JOIN teamMemberCount
+			WHERE natureRank = 1
+		""";
+		PreparedStatement statement = connection.prepareStatement(sql);
+
+		this.executeQuery(statement, (resultSet)->{
+			try {
+				String teamName = resultSet.getString("teamName");
+				String natureType = resultSet.getString("natureType");
+				float rate = resultSet.getFloat("rate");
+				System.out.printf("Team: %s, Nature Type: %s, Rate: %f.2\n", teamName, natureType, rate);
+			}
+			catch (SQLException e) {
+				e.printStackTrace();
+			}
+		});
+	}
+
+	public void mostPopularChar() throws SQLException{
+		String sql = """
+			-- At first we calculate the number of media types of each character debuts -- and only considering the top 10
+			WITH 
+				PopularCharacters AS (
+					SELECT C.characterId, C.characterName, COUNT(DISTINCT CD.mediaId) AS debutCount
+					FROM CharacterDebuts CD
+					INNER JOIN Characters C ON CD.characterId = C.characterId
+					GROUP BY C.characterId, C.characterName
+					ORDER BY debutCount DESC
+				),
+				RankedTable AS (
+					SELECT characterId, DENSE_RANK() OVER (ORDER BY debutCount DESC) AS rnk
+					FROM PopularCharacters
+				)
+			-- The query below joins with PopularCharacters displaying relevant info
+			SELECT PC.characterName, PC.debutCount, T.teamName, V.villageName, CL.clanName
+			FROM PopularCharacters PC
+			NATURAL JOIN RankedTable
+			INNER JOIN TeamMembers TM ON PC.characterId = TM.characterId
+			INNER JOIN Teams T ON TM.teamId = T.teamId
+			INNER JOIN Characters C ON PC.characterId = C.characterId
+			INNER JOIN Villages V ON C.villageId = V.villageId
+			LEFT JOIN Clans CL ON C.clanId = CL.clanId -- if applicable
+			WHERE rnk <= 3;
+		""";
+		PreparedStatement statement = connection.prepareStatement(sql);
+
+		this.executeQuery(statement, (resultSet)->{
+			try {
+				String charName = resultSet.getString("characterName");
+				int debutCount = resultSet.getInt("debutCount");
+				String teamName = resultSet.getString("teamName");
+				String villageName = resultSet.getString("villageName");
+				String clanName = resultSet.getString("clanName");
+				if (teamName == null)
+					teamName = "Not in team";
+				if (villageName == null)
+				villageName = "Not in village";
+				if (clanName == null)
+				clanName = "Not in clan";
+				System.out.printf("Character: %s, Debut in: %d medias, team: %s, village: %s, clan %s\n", charName, debutCount, teamName, villageName, clanName);
+			}
+			catch (SQLException e) {
+				e.printStackTrace();
+			}
+		});
+	}
+
 	public void test() throws SQLException{
 		String sql = "SELECT * FROM Jutsu";
 		PreparedStatement statement = connection.prepareStatement(sql);
