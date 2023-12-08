@@ -7,3 +7,5 @@
 *.idea
 
 test.sql
+
+makefile

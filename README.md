@@ -1,17 +1,11 @@
-# OUT OF DATE
 Repository for our 3380 assignmnet
 
 
 ## Folder Structure
 
-The workspace contains two folders by default, where:
-
-- `src`: the folder to maintain sources
-
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
+- `NarutoDatabase`: the folder to maintain sources
 
 
-## How to build
+## How to Run
 
-- `make run-processor` runs the main project, where we can make interesting queries on the database
-- `make run-scraper` runs the program used to assemble the database for the main program.
+- `make run` runs the program.
