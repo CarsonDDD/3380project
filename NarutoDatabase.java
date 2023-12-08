@@ -15,7 +15,14 @@ public class NarutoDatabase extends Database implements CommandProcessor{
 			case "aa":
 				averageAgeClan();
 				return true;
+			case "jubr":
+				if (args.length == 1)
+					jutsuByRank(args[0]);
+				else
+					System.err.println("The format is `jubr rankName`, please try again");
+				return true;
 			default:
+				System.out.println("Command not find, please use `Help` to view list of command");
 				return true;
         }
     }
@@ -28,7 +35,7 @@ public class NarutoDatabase extends Database implements CommandProcessor{
 		sb.append("1. `Help` - Shows help menu\n");
 		sb.append("2. `Quit` - Quits the program\n");
 		sb.append("3. `aa` - The average age of characters in each clan and in ascending order\n");
-		sb.append("4.\n");
+		sb.append("4. `jubr` - A list of ninja characters from a specific rank that can use and jutsu they can use from each village\n\t(Academy Student, Genin, Chunin, Jonin, Kage,...)\n");
 		sb.append("5.\n");
 		sb.append("6.\n");
 		sb.append("7.\n");
@@ -68,6 +75,37 @@ public class NarutoDatabase extends Database implements CommandProcessor{
 		});
 	}
 
+	public void jutsuByRank(String rank) throws SQLException{
+		String sql = """
+			SELECT Characters.characterName, Villages.villageName, Ranks.rankName, Jutsu.jutsuName 
+			FROM Characters 
+			INNER JOIN CharactersHaveRanks ON Characters.characterId = CharactersHaveRanks.characterId 
+			INNER JOIN Ranks ON CharactersHaveRanks.rankId = Ranks.rankId
+			INNER JOIN Villages ON Characters.villageId = Villages.villageId INNER JOIN CharactersHaveJutsu ON Characters.characterId = CharactersHaveJutsu.characterId 
+			INNER JOIN Jutsu ON CharactersHaveJutsu.jutsuId = Jutsu.jutsuId 
+			
+			-- The user will be given the choice to input whichever rank they
+			-- prefer to see the list of
+			WHERE Ranks.rankName = ? 
+			ORDER BY Villages.villageName, Characters.characterName;
+				""";
+		PreparedStatement statement = connection.prepareStatement(sql);
+		statement.setString(1, rank);
+
+		this.executeQuery(statement, (resultSet)->{
+			try {
+				String charName = resultSet.getString("characterName");
+				String villageName = resultSet.getString("villageName");
+				String rankName = resultSet.getString("rankName");
+				String jutsuName = resultSet.getString("jutsuName");
+				System.out.printf("Character name: %s, from: %s, rank: %s, can use: %s\n", charName, villageName, rankName, jutsuName);
+			}
+			catch (SQLException e) {
+				e.printStackTrace();
+			}
+		});
+	}
+	
 	public void test() throws SQLException{
 		String sql = "SELECT * FROM Jutsu";
 		PreparedStatement statement = connection.prepareStatement(sql);
