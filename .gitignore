@@ -1,5 +1,9 @@
 # Package Files #
 # *.jar
-
+.DS_Store
 # Compiled Files
 *.class
+
+*.idea
+
+test.sql
