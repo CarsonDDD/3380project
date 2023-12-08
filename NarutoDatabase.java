@@ -63,11 +63,10 @@ public class NarutoDatabase extends Database implements CommandProcessor{
 		sb.append("5. `ut` - Find characters with a specific unique trait and their affiliated teams\n");
 		sb.append("6. `ik` - All characters (dead/alive) that have unique Kekkeigenkai. (Kekkei Genkai than only that character can use)\n");
 		sb.append("7. `tc` - Listing all characters and the number of teams they have changed throughout the Naruto series.\n");
-		sb.append("8.\n");
-		sb.append("9. `cg` - A list of Clans that have Kekkei Genkai\n");
-		sb.append("10. `rn` - For each nature types, find the team with the highest ratio of members of that nature type\n");
-		sb.append("11. `mpc` - Top 3 most popular characters base on the number of media types they debut in\n");
-		sb.append("12. `ma` - Ranking villages by the number of voice actors associated with characters inside that village\n");
+		sb.append("8. `cg` - A list of Clans that have Kekkei Genkai\n");
+		sb.append("9. `rn` - For each nature types, find the team with the highest ratio of members of that nature type\n");
+		sb.append("10. `mpc` - Top 3 most popular characters base on the number of media types they debut in\n");
+		sb.append("11. `ma` - Ranking villages by the number of voice actors associated with characters inside that village\n");
 
 		System.out.println(sb.toString());
 	}
