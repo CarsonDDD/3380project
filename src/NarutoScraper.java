@@ -94,6 +94,8 @@ public class NarutoScraper {
         converter.createCharacterJutsu("all.txt");
         converter.createCharacterRank("all.txt");
         converter.createTailedBeastjinchuriki("all.txt");
+        converter.createClassificationCharacters("all.txt");
+        converter.createOccupationCharacters("all.txt");
 
         // UNIQUE TRAIT INFO
         System.out.println("Creating UniqueTrait SQL");

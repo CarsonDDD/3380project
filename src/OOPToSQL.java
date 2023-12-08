@@ -320,6 +320,32 @@ public class OOPToSQL {
         }
     }
 
+    // many to many
+    public void createClassificationCharacters(String outputFile){
+        Output.log("\n--  CharactersClassifications(characterId, classificationId)",outputFile);
+        for (Map.Entry<Integer, Character> entry : Character.entrySet()) {
+            Integer characterId = entry.getKey();
+            Character character = entry.getValue();
+
+            for(Classification clasi : character.classifications){
+                if(clasi == null) continue;
+                Output.log(generateInsert("CharactersClassifications", new String[]{characterId+"",clasi.id+""})+" -- "+character.name+"—"+clasi.classification, outputFile);
+            }
+        }
+    }
+
+    public void createOccupationCharacters(String outputFile){
+        Output.log("\n--  CharactersOccupations(characterId, occupationId)",outputFile);
+        for (Map.Entry<Integer, Character> entry : Character.entrySet()) {
+            Integer characterId = entry.getKey();
+            Character character = entry.getValue();
+
+            for(Occupation occupation : character.occupations){
+                Output.log(generateInsert("CharactersOccupations", new String[]{characterId+"",occupation.id+""})+" -- "+character.name+"—"+occupation.occupation, outputFile);
+            }
+        }
+    }
+
     // Debut-Character is many to many
     public void createCharacterDebuts(String outputFile){
         Output.log("\n--  CharacterDebuts(mediaId, characterId)",outputFile);
