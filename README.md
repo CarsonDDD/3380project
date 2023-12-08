@@ -1,6 +1,6 @@
 # NarutoDatabase
 
-This program's `makefile` is designed and tested for mac. 
+This program's `makefile` is designed and tested for mac E2-420. 
 
 the command `help` shows the help menu and all the commands
 
