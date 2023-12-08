@@ -1,6 +1,8 @@
 package Entities;
 
 import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 public class NatureType {
     private static HashMap<String, NatureType> natureTypeAll = new HashMap<>();
@@ -22,5 +24,9 @@ public class NatureType {
 
     public static void put(String key, NatureType natureType) {
         natureTypeAll.put(key, natureType);
+    }
+
+    public static Set<Map.Entry<String, NatureType>> entrySet(){
+        return natureTypeAll.entrySet();
     }
 }

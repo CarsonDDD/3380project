@@ -96,6 +96,12 @@ public class NarutoScraper {
         converter.createTailedBeastjinchuriki("all.txt");
 
         // UNIQUE TRAIT INFO
+        System.out.println("Creating UniqueTrait SQL");
+        converter.convertUniqueTraits("all.txt");
+
+        //NATURE TYPES
+        System.out.println("Creating NatureType SQL");
+        converter.convertNatureTypes("all.txt");
 
         //TOOLS
         System.out.println("Creating Tools SQL");
