@@ -84,71 +84,71 @@ public class NarutoScraper {
 
         // Character
         System.out.println("\nCreating Character SQL");
-        converter.convertCharacter("Character.txt");
-        converter.createCharacterNatureTypes("Character.txt");
-        converter.createCharacterTools("Character.txt");
-        converter.createCharacterDebuts("Character.txt");
-        converter.createCharacterVoiceActors("Character.txt");
-        converter.createCharacterUniqueTraits("Character.txt");
-        converter.createKekkeiGenkaiCharacter("Character.txt");
-        converter.createCharacterJutsu("Character.txt");
-        converter.createCharacterRank("Rank.txt");
-        converter.createTailedBeastjinchuriki("Rank.txt");
+        converter.convertCharacter("all.txt");
+        converter.createCharacterNatureTypes("all.txt");
+        converter.createCharacterTools("all.txt");
+        converter.createCharacterDebuts("all.txt");
+        converter.createCharacterVoiceActors("all.txt");
+        converter.createCharacterUniqueTraits("all.txt");
+        converter.createKekkeiGenkaiCharacter("all.txt");
+        converter.createCharacterJutsu("all.txt");
+        converter.createCharacterRank("all.txt");
+        converter.createTailedBeastjinchuriki("all.txt");
 
         // UNIQUE TRAIT INFO
 
         //TOOLS
         System.out.println("Creating Tools SQL");
-        converter.convertTools("Non-specific.txt");
+        converter.convertTools("all.txt");
 
         // MEDIA
         System.out.println("Creating Media SQL");
-        converter.convertMedia("Non-specific.txt");
+        converter.convertMedia("all.txt");
 
         // VILLAGE
         System.out.println("Creating Village SQL");
-        converter.convertVillages("Non-specific.txt");
+        converter.convertVillages("all.txt");
 
         // JUTSU
         System.out.println("Creating Jutsu SQL");
-        converter.convertJutsu("Non-specific.txt");
+        converter.convertJutsu("all.txt");
 
         // VOICE ACTOR
         System.out.println("Creating Voice Actor SQL");
-        converter.convertVoiceActors("Non-specific.txt");
+        converter.convertVoiceActors("all.txt");
 
         // KEKKEIGENKAI
         System.out.println("Creating KekkeiGenkai SQL");
-        converter.convertKekkeiGenkai("Non-specific.txt");
+        converter.convertKekkeiGenkai("all.txt");
 
         // CLAN
         System.out.println("Creating Clan SQL");
-        converter.convertClan("Non-specific.txt");
+        converter.convertClan("all.txt");
 
         // TEAMS
         System.out.println("Creating Team SQL");
-        converter.convertTeam("Non-specific.txt");
-        converter.createTeamMembers("Non-specific.txt");
+        converter.convertTeam("all.txt");
+        converter.createTeamMembers("all.txt");
 
         // ATAKTSUKI
         System.out.println("Creating Akatsuki (team) SQL");
-        converter.convertAkatsuki("Akatsuki.txt");
+        converter.convertAkatsuki("all.txt");
 
         // KARA
         System.out.println("Creating Kara (team) SQL");
-        converter.convertKara("Kara.txt");
+        converter.convertKara("all.txt");
 
         // RANKS
         System.out.println("Creating Ranks SQL");
-        converter.convertRank("Rank.txt");
+        converter.convertRank("all.txt");
 
         // Occupations
         System.out.println("Creating Occupation SQL");
-        converter.convertOccupation("Occupation.txt");
+        converter.convertOccupation("all.txt");
 
         // Classifications
         System.out.println("Creating Classification SQL");
-        converter.convertClassification("Classification.txt");
+        converter.convertClassification("all.txt");
 
         System.out.println("\nFinished converting!");
         System.out.println("Total time: " + getElapsedTime(startTime));

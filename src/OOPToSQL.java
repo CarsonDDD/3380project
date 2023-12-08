@@ -26,6 +26,10 @@ public class OOPToSQL {
         return sb.toString();
     }
 
+    private String formatString(String value){
+        return "'" + value.replace("'","") + "'";
+    }
+
 
     // Main single entities.
     public void convertVillages(String outputFile){
@@ -36,7 +40,7 @@ public class OOPToSQL {
 
             // technically we can use key here
             //generateInsert("Villages", new String[]{village.id +"",village.name});
-            Output.log(generateInsert("Villages", new String[]{village.id +"", "\""+village.name + "\""}), outputFile);
+            Output.log(generateInsert("Villages", new String[]{village.id +"", formatString(village.name)}), outputFile);
         }
     }
 
@@ -45,7 +49,7 @@ public class OOPToSQL {
         for (Map.Entry<String, Jutsu> entry : Jutsu.entrySet()){
             Jutsu jutsu = entry.getValue();
 
-            Output.log(generateInsert("Jutsu", new String[]{jutsu.id +"", "\""+jutsu.name + "\""}), outputFile);
+            Output.log(generateInsert("Jutsu", new String[]{jutsu.id +"", formatString(jutsu.name)}), outputFile);
         }
     }
 
@@ -56,7 +60,7 @@ public class OOPToSQL {
             VoiceActor actor = entry.getValue();
 
             Output.log(generateInsert(
-                            "VoiceActors", new String[]{actor.id +"", "\""+actor.name + "\"", "\""+actor.language + "\""}),
+                            "VoiceActors", new String[]{actor.id +"", formatString(actor.name), formatString(actor.language)}),
                     outputFile);
         }
     }
@@ -67,7 +71,7 @@ public class OOPToSQL {
             Tool tool = entry.getValue();
 
             Output.log(generateInsert(
-                            "VoiceActors", new String[]{tool.id +"", "\""+tool.name + "\""}),
+                            "VoiceActors", new String[]{tool.id +"", formatString(tool.name)}),
                     outputFile);
         }
     }
@@ -79,7 +83,7 @@ public class OOPToSQL {
             Media media = entry.getValue();
 
             Output.log(generateInsert(
-                            "Jutsu", new String[]{media.id +"", "\""+media.name + "\"", "\""+media.type + "\""}),
+                            "Jutsu", new String[]{media.id +"", formatString(media.name), formatString(media.type)}),
                     outputFile);
         }
     }
@@ -91,7 +95,7 @@ public class OOPToSQL {
             KekkeiGenkai kekkei = entry.getValue();
 
             Output.log(generateInsert(
-                            "Jutsu", new String[]{kekkei.id +"", "\""+kekkei.name + "\""}),
+                            "Jutsu", new String[]{kekkei.id +"", formatString(kekkei.name)}),
                     outputFile);
         }
     }
@@ -161,30 +165,30 @@ public class OOPToSQL {
             if(birth.isBlank()){
                 birth = "null";
             }
-            else{
+            /*else{
                 birth = "'" + birth + "'";
-            }
+            }*/
 
             if(blood.isBlank()){
                 blood = "null";
             }
-            else{
+            /*else{
                 blood = "'" + blood + "'";
-            }
+            }*/
 
             if(status.isBlank()){
                 status = "null";
             }
-            else{
+            /*else{
                 status = "'" + status + "'";
-            }
+            }*/
 
             if(sex.isBlank()){
                 sex = "null";
             }
-            else{
+            /*else{
                 sex = "'" + sex + "'";
-            }
+            }*/
 
             if(weight.isBlank()){
                 weight = "null";
@@ -199,7 +203,7 @@ public class OOPToSQL {
             }
 
             // Characters(characterId, characterName, villageId, clanId, beastId, birthdate, bloodType, status, sex, weight, age, height)
-            Output.log(generateInsert("Characters", new String[]{id +"", "\""+name + "\"", villageId+"", clanId+"", beastId, birth, blood,status,sex,weight,age,height}), outputFile);
+            Output.log(generateInsert("Characters", new String[]{id +"", formatString(name), villageId+"", clanId+"", beastId, formatString(birth), formatString(blood), formatString(status), formatString(sex), weight, age, height}), outputFile);
         }
     }
 
@@ -211,8 +215,8 @@ public class OOPToSQL {
             Rank rank = ranks.getValue();
 
             String rankId = rank.id +"";
-            String rankPeriod = "'" + rank.period + "'";;
-            String rankName = "'" + rank.name + "'";
+            String rankPeriod = formatString(rank.period);
+            String rankName = formatString(rank.name);
             Output.log(generateInsert("Ranks", new String[]{rankId,rankPeriod,rankName})+" #"+rank.name, outputFile);
         }
     }
@@ -250,7 +254,7 @@ public class OOPToSQL {
             Occupation occupation = occupations.getValue();
 
             String ocId = occupation.id +"";
-            String ocName = "'" + occupation.occupation + "'";
+            String ocName = formatString(occupation.occupation);
             Output.log(generateInsert("Occupations", new String[]{ocId,ocName}), outputFile);
         }
     }
@@ -262,7 +266,7 @@ public class OOPToSQL {
             Classification classification = classifications.getValue();
 
             String cId = classification.id +"";
-            String cName = "'" + classification.classification + "'";
+            String cName = formatString(classification.classification);
             Output.log(generateInsert("Classifications", new String[]{cId,cName}), outputFile);
         }
     }
@@ -337,7 +341,7 @@ public class OOPToSQL {
             Character character = entry.getValue();
 
             for(UniqueTrait trait : character.traits){
-                Output.log(generateInsert("CharactersUniqueTraits", new String[]{"\""+trait.trait+"\"", characterId+""})+" #"+character.name, outputFile);
+                Output.log(generateInsert("CharactersUniqueTraits", new String[]{formatString(trait.trait), characterId+""})+" #"+character.name, outputFile);
             }
         }
     }
@@ -347,7 +351,7 @@ public class OOPToSQL {
         for (Map.Entry<Integer, Clan> entry : Clan.entrySet()){
             Clan clan = entry.getValue();
 
-            Output.log(generateInsert("Clans", new String[]{clan.id +"", "\""+clan.name + "\""}),outputFile);
+            Output.log(generateInsert("Clans", new String[]{clan.id +"", formatString(clan.name)}),outputFile);
         }
     }
 
@@ -356,29 +360,29 @@ public class OOPToSQL {
         for (Map.Entry<Integer, Team> entry : Team.entrySet()){
             Team team = entry.getValue();
 
-            Output.log(generateInsert("Teams", new String[]{team.id +"", "\""+team.name + "\""}),outputFile);
+            Output.log(generateInsert("Teams", new String[]{team.id +"", formatString(team.name)}),outputFile);
         }
     }
 
     public void convertAkatsuki(String outputFile){
-        Output.log("\n# Akatsuki as Teams, Teams(teamId, teamName)",outputFile);
+        Output.log("\n# Akatsuki as TeamMembers, TeamMembers(characterId, teamId)",outputFile);
         Akatsuki akatsuki = Akatsuki.instance;
-        Output.log(generateInsert("Teams", new String[]{akatsuki.ID +"", "\""+akatsuki.NAME + "\""}),outputFile);
+        Output.log(generateInsert("Teams", new String[]{akatsuki.ID +"", formatString(akatsuki.NAME)}),outputFile);// team entry
 
         // Many to many table
         for(Character character : akatsuki.characters){
-            Output.log(generateInsert("TeamMembers", new String[]{character.id +"", "\""+akatsuki.ID + "\""})+"#"+character.name + "---" + akatsuki.NAME,outputFile);
+            Output.log(generateInsert("TeamMembers", new String[]{character.id+"", akatsuki.ID+""})+"#"+character.name + "---" + akatsuki.NAME,outputFile);
         }
     }
 
     public void convertKara(String outputFile){
-        Output.log("\n# Kara as Teams, Teams(teamId, teamName)",outputFile);
+        Output.log("\n# Kara as TeamMembers, TeamMemebers(characterId, teamId)",outputFile);
         Kara kara = Kara.instance;
-        Output.log(generateInsert("Teams", new String[]{kara.ID +"", "\""+kara.NAME + "\""}),outputFile);
+        Output.log(generateInsert("Teams", new String[]{kara.ID +"", formatString(kara.NAME)}),outputFile);// team entry
 
         // Many to many table
         for(Character character : kara.characters){
-            Output.log(generateInsert("TeamMembers", new String[]{character.id +"", "\""+kara.ID + "\""})+"#"+character.name + "---" + kara.NAME,outputFile);
+            Output.log(generateInsert("TeamMembers", new String[]{character.id +"", kara.ID+""})+"#"+character.name + "---" + kara.NAME,outputFile);
         }
     }
 
@@ -388,7 +392,7 @@ public class OOPToSQL {
             Team team = entry.getValue();
             Output.log("\n#"+team.name,outputFile);
             for(Character memeber : team.characters){
-                Output.log(generateInsert("TeamMembers", new String[]{memeber.id +"", "\""+team.id + "\""})+"#"+memeber.name + "---" + team.name,outputFile);
+                Output.log(generateInsert("TeamMembers", new String[]{memeber.id +"", team.id+""})+"#"+memeber.name + "---" + team.name,outputFile);
             }
         }
     }
